@@ -3,6 +3,7 @@
 ## Ontología del Campo Tensorial Hexagonal
 
 [![Status](https://img.shields.io/badge/Status-Active_Development-brightgreen)]()
+[![Test1](https://img.shields.io/badge/Test%201-Pipeline_Ready-blue)]()
 [![Test2](https://img.shields.io/badge/Test%202-EXACT_EQUIVALENCE-success)]()
 
 ## Resumen
@@ -34,6 +35,32 @@ $$\Psi^2 \frac{\partial^2 u}{\partial t^2} = c^2 \Delta_{\Lambda_H} u$$
 donde $\Delta_{\Lambda_H}$ es el Laplaciano discreto sobre el grafo hexagonal.
 
 ## Tests Implementados
+
+### Test #1: Topología de Möbius en el CMB ⏳
+
+**Objetivo:** Detectar correlación antipodal con inversión de paridad en el CMB.
+
+**Predicción OCTH:**
+```
+Si el universo es una Banda de Möbius 3D:
+    T(θ, φ) ~ T(π-θ, φ+π) con flip de paridad
+```
+
+**Estado: PIPELINE VALIDADO**
+
+| Condición | Correlación | Z-score | P-value | Resultado |
+|-----------|-------------|---------|---------|-----------|
+| Baseline (sin señal) | 0.003 | 0.74 | 0.46 | NO SIGNIFICATIVO |
+| Möbius inyectado | 0.20 | **29.09** | **< 0.0001** | **DETECTADO** |
+
+- ✓ Pipeline de detección validado
+- ✓ Test de sensibilidad funciona correctamente
+- ⏳ **Pendiente**: Ejecutar con datos reales de Planck
+
+**Figuras:**
+- `fig7_cmb_mobius_analysis.png` - Análisis completo del CMB
+
+---
 
 ### Test #2: Geodésicas Exactas en Métrica OCTH ✓✓
 
@@ -83,7 +110,8 @@ es **IDÉNTICA** a la ecuación de Schwarzschild. Esto NO es una aproximación.
 Universo-Mobius/
 ├── README.md
 ├── code/
-│   ├── test2_geodesic_exact.py             # GEODÉSICAS EXACTAS (principal)
+│   ├── test1_cmb_mobius_topology.py        # CMB MÖBIUS (Test #1)
+│   ├── test2_geodesic_exact.py             # GEODÉSICAS EXACTAS (Test #2)
 │   ├── test2_hexagonal_propagation.py      # Simulación retículo (preliminar)
 │   └── test2_hexagonal_propagation_v2.py   # Versión corregida
 ├── figures/
@@ -92,11 +120,14 @@ Universo-Mobius/
 │   ├── fig3_ray_tracing.png/pdf            # Trayectorias discretas
 │   ├── fig4_comparison.png/pdf             # OCTH vs GR (discreto)
 │   ├── fig5_exact_deflection.png/pdf       # Deflexión exacta vs campo débil
-│   └── fig6_trajectories.png/pdf           # Trayectorias exactas
+│   ├── fig6_trajectories.png/pdf           # Trayectorias exactas
+│   └── fig7_cmb_mobius_analysis.png/pdf    # Análisis CMB Möbius
 ├── results/
+│   ├── test1_cmb_topology.json             # Resultados CMB (Test #1)
 │   ├── test2_results.json                  # Resultados discretización
 │   └── test2_exact_geodesics.json          # EQUIVALENCIA MATEMÁTICA
 ├── data/
+│   └── planck/                             # Datos CMB de Planck
 └── paper/
 ```
 
@@ -116,10 +147,10 @@ Nodos triádicos    n_eff = 1/Ψ             Índice de refracción
 (e₁+e₂+e₃=0)                               del espaciotiempo
 ```
 
-## Próximos Tests
+## Estado de Tests
 
-- [ ] **Test #1:** Topología Möbius en CMB (Planck data)
-- [x] **Test #2:** Propagación hexagonal (COMPLETADO - cualitativo)
+- [x] **Test #1:** Topología Möbius en CMB → Pipeline validado, pendiente datos reales
+- [x] **Test #2:** Geodésicas OCTH → **EQUIVALENCIA MATEMÁTICA DEMOSTRADA**
 - [ ] **Test #3:** Geometría hexagonal en distribución de galaxias (SDSS)
 - [ ] **Test #4:** Verificación Ψ en ondas gravitacionales (LIGO)
 - [ ] **Test #5:** VSL en GRBs (Fermi-LAT)
@@ -127,14 +158,25 @@ Nodos triádicos    n_eff = 1/Ψ             Índice de refracción
 ## Dependencias
 
 ```bash
-pip install numpy scipy matplotlib
+pip install numpy scipy matplotlib healpy astropy
 ```
 
 ## Ejecución
 
 ```bash
 cd code
-python3 test2_hexagonal_propagation_v2.py
+
+# Test #1: CMB Möbius (simulación)
+python3 test1_cmb_mobius_topology.py
+
+# Test #1: CMB Möbius (con datos reales de Planck, si disponibles)
+python3 test1_cmb_mobius_topology.py --real
+
+# Test #1: Validación con señal inyectada
+python3 test1_cmb_mobius_topology.py --inject
+
+# Test #2: Geodésicas exactas
+python3 test2_geodesic_exact.py
 ```
 
 ## Autor

@@ -1,0 +1,16 @@
+{
+  "test": "Test #1 - Topolog\u00eda de M\u00f6bius en CMB",
+  "date": "2026-01-08",
+  "source": "Simulaci\u00f3n con Cl Planck 2018",
+  "nside": 64,
+  "correlation": {
+    "global": 0.0026865565646989544,
+    "z_score": 0.7441728009247749,
+    "p_value": 0.45677194066678384
+  },
+  "parity": {
+    "ratio": 1.0131139231034438,
+    "asymmetry": 0.006514247878841963
+  },
+  "conclusion": "NO SIGNIFICATIVO"
+}
