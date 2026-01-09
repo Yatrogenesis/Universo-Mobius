@@ -1,0 +1,11 @@
+{
+  "dm_z": {
+    "chi2": 272.1526092483001,
+    "mean_residual": 5.1484906111416056,
+    "n_frbs": 10
+  },
+  "combined": {
+    "sigma": 5.1484906111416056
+  },
+  "verdict": "CONSISTENT"
+}

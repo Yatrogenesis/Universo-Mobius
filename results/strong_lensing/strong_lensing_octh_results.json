@@ -1,0 +1,11 @@
+{
+  "h0_tension_planck": 2.568324553641692,
+  "h0_tension_sh0es": 0.41424344670265295,
+  "h0_tdcosmo": 74.2,
+  "h0_scatter": 4.033937662039967,
+  "z_correlation": -0.8788748414089294,
+  "combined": {
+    "sigma": 2.568324553641692
+  },
+  "verdict": "MODERATE_EVIDENCE"
+}

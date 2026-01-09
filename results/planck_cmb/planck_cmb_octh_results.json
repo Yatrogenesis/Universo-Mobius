@@ -1,0 +1,57 @@
+{
+  "anomalies": {
+    "individual": {
+      "quadrupole_deficit": {
+        "observed": 242,
+        "expected": 1200,
+        "sigma": 2.5
+      },
+      "octupole_alignment": {
+        "probability": 0.015,
+        "sigma": 2.4
+      },
+      "hemispherical_asymmetry": {
+        "A_dipole": 0.07,
+        "sigma": 3.5
+      },
+      "cold_spot": {
+        "temperature": -150,
+        "sigma": 4.0
+      },
+      "lack_of_correlation": {
+        "angle_deg": 60,
+        "sigma": 2.5
+      }
+    },
+    "combined_sigma": 3.0499180316854417
+  },
+  "power_spectrum": {
+    "hex_ells": [
+      220.0,
+      381.051177665153,
+      440.0,
+      582.06528843421
+    ],
+    "matches": 2,
+    "significance": 0
+  },
+  "topology": {
+    "low_l_deficit_sigma": 0.7407407407407407,
+    "theta_mobius": 6.0,
+    "l_mobius": 30.0
+  },
+  "combined": {
+    "sigma": 2.6414928650557377,
+    "individual": [
+      [
+        "CMB anomalies",
+        3.0499180316854417
+      ],
+      [
+        "Low-l deficit (Mobius)",
+        0.7407407407407407
+      ]
+    ]
+  },
+  "verdict": "CONSISTENT"
+}
