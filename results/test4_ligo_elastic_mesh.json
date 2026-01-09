@@ -1,0 +1,35 @@
+{
+  "event": "GW150914",
+  "parameters": {
+    "m1": 36,
+    "m2": 29,
+    "distance": 410,
+    "fs": 4096
+  },
+  "gr_analysis": {
+    "correlation": 0.32798897173026487,
+    "rms_residual": 0.9448181315202681,
+    "rms_ratio": 0.9447277380266583
+  },
+  "octh_analysis": {
+    "correlation": 0.3253162526587612,
+    "rms_residual": 0.9456953135979546,
+    "rms_ratio": 0.9456048361817889,
+    "phase_difference_deg": 16.836193163670366,
+    "psi_minimum": 0.1
+  },
+  "mesh_modes": {
+    "f_isco": 67.62877129778828,
+    "predicted_modes_hz": [
+      33.81438564889414,
+      47.34013990845179,
+      57.48445560312003
+    ],
+    "candidates": []
+  },
+  "interpretation": {
+    "status": "DETECTABLE",
+    "regime": "ELASTIC",
+    "conclusion": "OCTH predicts measurable phase shift in strong-field regime"
+  }
+}

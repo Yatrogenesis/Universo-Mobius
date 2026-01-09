@@ -112,6 +112,9 @@ Universo-Mobius/
 ├── code/
 │   ├── test1_cmb_mobius_topology.py        # CMB MÖBIUS (Test #1)
 │   ├── test2_geodesic_exact.py             # GEODÉSICAS EXACTAS (Test #2)
+│   ├── test3_sdss_hexagonal.py             # GALAXIAS HEXAGONALES (Test #3)
+│   ├── test4_ligo_elastic_mesh.py          # LIGO MALLA ELÁSTICA (Test #4)
+│   ├── test5_vsl_grb.py                    # VSL EN GRBs (Test #5)
 │   ├── test2_hexagonal_propagation.py      # Simulación retículo (preliminar)
 │   └── test2_hexagonal_propagation_v2.py   # Versión corregida
 ├── figures/
@@ -121,13 +124,21 @@ Universo-Mobius/
 │   ├── fig4_comparison.png/pdf             # OCTH vs GR (discreto)
 │   ├── fig5_exact_deflection.png/pdf       # Deflexión exacta vs campo débil
 │   ├── fig6_trajectories.png/pdf           # Trayectorias exactas
-│   └── fig7_cmb_mobius_analysis.png/pdf    # Análisis CMB Möbius
+│   ├── fig7_cmb_mobius_analysis.png/pdf    # Análisis CMB Möbius
+│   ├── fig8_vsl_grb.png/pdf                # VSL en GRBs
+│   ├── fig9_sdss_hexagonal.png/pdf         # Geometría hexagonal SDSS
+│   └── fig10_ligo_elastic_mesh.png/pdf     # Malla elástica LIGO
 ├── results/
 │   ├── test1_cmb_topology.json             # Resultados CMB (Test #1)
 │   ├── test2_results.json                  # Resultados discretización
-│   └── test2_exact_geodesics.json          # EQUIVALENCIA MATEMÁTICA
+│   ├── test2_exact_geodesics.json          # EQUIVALENCIA MATEMÁTICA
+│   ├── test3_sdss_hexagonal.json           # Geometría hexagonal SDSS
+│   ├── test4_ligo_elastic_mesh.json        # Malla elástica LIGO
+│   └── test5_vsl_grb.json                  # VSL en GRBs
 ├── data/
-│   └── planck/                             # Datos CMB de Planck
+│   ├── planck/                             # Datos CMB de Planck
+│   ├── sdss/                               # Datos SDSS DR17 (30K galaxias)
+│   └── ligo/                               # Datos LIGO
 └── paper/
 ```
 
@@ -151,8 +162,8 @@ Nodos triádicos    n_eff = 1/Ψ             Índice de refracción
 
 - [x] **Test #1:** Topología Möbius en CMB → Pipeline validado, pendiente datos reales
 - [x] **Test #2:** Geodésicas OCTH → **EQUIVALENCIA MATEMÁTICA DEMOSTRADA**
-- [x] **Test #3:** Geometría hexagonal en galaxias → Ratio hex/sq = 1.43 (pendiente SDSS real)
-- [ ] **Test #4:** Verificación Ψ en ondas gravitacionales (LIGO)
+- [x] **Test #3:** Geometría hexagonal en galaxias → **Ratio 60°/90° = 1.128 (SDSS REAL)**
+- [x] **Test #4:** Malla Elástica en LIGO → **Desfase 16.8° predicho (régimen elástico)**
 - [x] **Test #5:** VSL en GRBs → Lag INTRÍNSECO detectado (Lorentz invariance OK)
 
 ### Test #3: Geometría Hexagonal en Galaxias ✓
@@ -169,6 +180,34 @@ Nodos triádicos    n_eff = 1/Ψ             Índice de refracción
 - ✓ **Ratio 60°/90° = 1.13** en datos reales
 - ✓ Pico de correlación cerca de 68° (próximo a hexagonal)
 - ✓ Exceso hexagonal sobre cuadrado CONFIRMADO en SDSS
+
+---
+
+### Test #4: Malla Elástica en Ondas Gravitacionales (LIGO) ✓
+
+**Hipótesis OCTH:**
+- En GR: Agujero negro = agujero en el espacio (singularidad geométrica)
+- En OCTH: Agujero negro = **NUDO DE TENSIÓN MÁXIMA** en la malla hexagonal
+
+Cuando dos nudos colisionan, la malla no solo se "curva" sino que **vibra como un parche de tambor**.
+
+**Predicción:** Desfases en la fase del "chirp" cerca del merger, donde Ψ → 0.
+
+**Resultado (simulación GW150914):**
+
+| Métrica | GR | OCTH | Diferencia |
+|---------|-----|------|------------|
+| Correlación | 0.328 | 0.325 | -0.003 |
+| Desfase | 0° | **16.8°** | — |
+| Ψ mínimo | 1.0 | **0.10** | — |
+
+- ✓ **Régimen ELÁSTICO alcanzado** (Ψ < 0.5 durante inspiral)
+- ✓ **Desfase de 16.8°** potencialmente detectable
+- ✓ Modos de vibración de malla predichos: 34, 47, 57 Hz
+- ⏳ **Pendiente**: Análisis con datos calibrados de LIGO
+
+**Figuras:**
+- `fig10_ligo_elastic_mesh.png` - Análisis completo GR vs OCTH
 
 ---
 
@@ -209,6 +248,15 @@ python3 test1_cmb_mobius_topology.py --inject
 
 # Test #2: Geodésicas exactas
 python3 test2_geodesic_exact.py
+
+# Test #3: Geometría hexagonal en SDSS
+python3 test3_sdss_hexagonal.py
+
+# Test #4: Malla elástica en LIGO
+python3 test4_ligo_elastic_mesh.py
+
+# Test #5: VSL en GRBs
+python3 test5_vsl_grb.py
 ```
 
 ## Autor
