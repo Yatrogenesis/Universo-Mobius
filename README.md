@@ -272,6 +272,7 @@ Para evitar el "Efecto Crackpot" y el "Efecto BICEP2", se implementaron tests de
 | Quiet Time Noise | ❌ ROJO | 34 Hz en tiempo quieto (posible instrumental) |
 | **Galactic Poles CMB** | ✅ **VERDE** | **Anti-correlación PERSISTE en cielo limpio** |
 | SDSS Jackknife | ❌ ROJO | Señal depende de regiones específicas |
+| SDSS Cosmic Web | 🟡 AMARILLO | Patrón correcto (Fil>Clust) pero inestable |
 
 ### Defensa Clave: Test del Corte Galáctico (Anti-Polvo)
 

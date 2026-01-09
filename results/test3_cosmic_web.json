@@ -1,0 +1,60 @@
+{
+  "test": "Cosmic Web Test (Environment)",
+  "n_neighbors_density": 20,
+  "density_percentiles": {
+    "cluster": 0.3111674202213367,
+    "void": 0.5201367642503969
+  },
+  "results_by_environment": {
+    "full": {
+      "n_galaxies": 30000,
+      "omega_60": 0.1348214984713666,
+      "omega_90": 0.08400669444436858,
+      "ratio": 1.6048899360115747,
+      "peak_angle": 60.0
+    },
+    "cluster": {
+      "n_galaxies": 6000,
+      "omega_60": 0.2014615369589806,
+      "omega_90": 0.18780672604472,
+      "ratio": 1.0727067193057247,
+      "peak_angle": 60.0
+    },
+    "filament": {
+      "n_galaxies": 15000,
+      "omega_60": 0.2617692977536837,
+      "omega_90": 0.29995631638658615,
+      "ratio": 0.8726914002248023,
+      "peak_angle": 60.0
+    },
+    "void": {
+      "n_galaxies": 9000,
+      "omega_60": 0.2611762698353577,
+      "omega_90": 0.29459301752068456,
+      "ratio": 0.8865663960179214,
+      "peak_angle": 60.0
+    },
+    "filament_jackknife": {
+      "n_regions": 6,
+      "mean": 0.9945524977018426,
+      "std": 0.4352182896521289,
+      "min": 0.3139053607085723,
+      "ratios": [
+        0.8311446074569872,
+        0.3139053607085723,
+        1.6111545617532799,
+        0.7142119952327051,
+        1.0769979406594001,
+        1.4199005204001112
+      ]
+    }
+  },
+  "prediction_check": {
+    "filaments_stronger_than_full": false,
+    "filaments_stronger_than_clusters": false,
+    "pattern_correct": false,
+    "jackknife_survives": false
+  },
+  "verdict": "\u274c ROJO: No hay se\u00f1al diferencial por ambiente",
+  "is_rescued": false
+}

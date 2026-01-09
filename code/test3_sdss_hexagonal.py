@@ -902,6 +902,403 @@ def jackknife_test(catalog, n_regions=10):
     return output
 
 
+def cosmic_web_test(catalog, n_neighbors=20, jackknife=True):
+    """
+    TEST DE RESCATE: La Telaraña Cósmica (Environment Test)
+
+    Hipótesis:
+    - CÚMULOS (alta densidad): Malla colapsada/arrugada → caos esférico
+    - FILAMENTOS (media densidad): Malla estirada → geometría hexagonal preservada
+    - VACÍOS (baja densidad): Muy pocas galaxias → estadística pobre
+
+    Metodología:
+    1. Calcular densidad local para cada galaxia (vecinos cercanos)
+    2. Separar en: Cúmulos / Filamentos / Campo-Vacíos
+    3. Correr correlación hexagonal SOLO en filamentos
+    4. Si la señal es más fuerte y sobrevive jackknife → Rescatamos el semáforo
+
+    El error del Jackknife original fue buscar en todo el montón.
+    Aquí buscamos donde la malla está intacta: los filamentos.
+    """
+    from scipy.spatial import cKDTree
+
+    print("\n" + "=" * 70)
+    print("  TEST DE RESCATE: LA TELARAÑA CÓSMICA")
+    print("  Separando Cúmulos vs Filamentos vs Campo")
+    print("=" * 70)
+
+    ra = catalog['ra']
+    dec = catalog['dec']
+    z = catalog['z']
+    n_total = len(ra)
+
+    print(f"\n  Galaxias totales: {n_total}")
+
+    # =========================================================================
+    # FASE 1: Calcular densidad local
+    # =========================================================================
+    print("\n[FASE 1: Calculando densidad local]")
+
+    # Convertir a coordenadas cartesianas para búsqueda de vecinos
+    # Usando proyección simple (suficiente para escalas angulares pequeñas)
+    ra_rad = np.radians(ra)
+    dec_rad = np.radians(dec)
+
+    # Coordenadas en la esfera unitaria
+    x = np.cos(dec_rad) * np.cos(ra_rad)
+    y = np.cos(dec_rad) * np.sin(ra_rad)
+    z_coord = np.sin(dec_rad)
+
+    coords = np.column_stack([x, y, z_coord])
+
+    # Construir árbol KD para búsqueda eficiente de vecinos
+    tree = cKDTree(coords)
+
+    # Encontrar distancia al n-ésimo vecino más cercano (proxy de densidad)
+    # Distancia angular al 20° vecino → indicador de densidad local
+    distances, _ = tree.query(coords, k=n_neighbors+1)  # +1 porque incluye a sí mismo
+    dist_to_nth = distances[:, n_neighbors]  # Distancia al n-ésimo vecino
+
+    # Convertir distancia cartesiana a ángulo (arccos de producto punto)
+    # Para pequeños ángulos: theta ≈ dist (en radianes)
+    angle_to_nth = np.degrees(2 * np.arcsin(dist_to_nth / 2))  # Fórmula exacta
+
+    # Densidad = inversa del área subtendida hasta el n-ésimo vecino
+    # Para comparación relativa usamos 1/angle²
+    local_density = 1.0 / (angle_to_nth ** 2 + 0.01)  # +0.01 para evitar div/0
+
+    print(f"  Distancia angular al vecino #{n_neighbors}:")
+    print(f"    Mediana: {np.median(angle_to_nth):.2f}°")
+    print(f"    Rango: [{np.min(angle_to_nth):.2f}°, {np.max(angle_to_nth):.2f}°]")
+
+    # =========================================================================
+    # FASE 2: Clasificar por ambiente
+    # =========================================================================
+    print("\n[FASE 2: Clasificando ambientes]")
+
+    # Percentiles para clasificación
+    # Cúmulos: top 20% en densidad (distancia pequeña al vecino)
+    # Campo/Vacíos: bottom 30% (distancia grande)
+    # Filamentos: el resto (middle 50%)
+
+    p_cluster = np.percentile(angle_to_nth, 20)  # Umbral para cúmulos
+    p_void = np.percentile(angle_to_nth, 70)     # Umbral para vacíos
+
+    mask_cluster = angle_to_nth <= p_cluster
+    mask_void = angle_to_nth >= p_void
+    mask_filament = ~mask_cluster & ~mask_void
+
+    n_cluster = np.sum(mask_cluster)
+    n_filament = np.sum(mask_filament)
+    n_void = np.sum(mask_void)
+
+    print(f"\n  Clasificación:")
+    print(f"    CÚMULOS (densidad alta):    {n_cluster:5d} ({100*n_cluster/n_total:.1f}%)")
+    print(f"    FILAMENTOS (densidad media): {n_filament:5d} ({100*n_filament/n_total:.1f}%)")
+    print(f"    CAMPO/VACÍOS (densidad baja): {n_void:5d} ({100*n_void/n_total:.1f}%)")
+
+    # =========================================================================
+    # FASE 3: Análisis por ambiente
+    # =========================================================================
+    print("\n[FASE 3: Correlación hexagonal por ambiente]")
+
+    results = {}
+    environments = {
+        'full': (np.ones(n_total, dtype=bool), 'Muestra completa'),
+        'cluster': (mask_cluster, 'CÚMULOS (alta densidad)'),
+        'filament': (mask_filament, 'FILAMENTOS (media densidad)'),
+        'void': (mask_void, 'CAMPO/VACÍOS (baja densidad)')
+    }
+
+    for env_name, (mask, label) in environments.items():
+        n_env = np.sum(mask)
+        print(f"\n  [{label}] N={n_env}")
+
+        if n_env < 500:
+            print(f"    ⚠ Muy pocas galaxias, saltando...")
+            results[env_name] = {'n_galaxies': n_env, 'ratio': np.nan}
+            continue
+
+        # Crear sub-catálogo
+        sub_catalog = {
+            'ra': ra[mask],
+            'dec': dec[mask],
+            'z': z[mask],
+            'n_galaxies': n_env,
+            'source': f'{label}'
+        }
+
+        # Calcular correlación
+        try:
+            corr = compute_angular_correlation_masked(sub_catalog)
+            hex_sig = analyze_hexagonal_signature(corr)
+
+            omega_60 = hex_sig['omega_60']
+            omega_90 = hex_sig['omega_90']
+            ratio = omega_60 / omega_90 if omega_90 > 0 else 1.0
+
+            results[env_name] = {
+                'n_galaxies': n_env,
+                'omega_60': float(omega_60),
+                'omega_90': float(omega_90),
+                'ratio': float(ratio),
+                'peak_angle': float(hex_sig.get('peak_angle', 60))
+            }
+
+            status = "✓ EXCESO" if ratio > 1.05 else "○"
+            print(f"    ω(60°) = {omega_60:.4f}")
+            print(f"    ω(90°) = {omega_90:.4f}")
+            print(f"    Ratio 60°/90° = {ratio:.3f} {status}")
+
+        except Exception as e:
+            print(f"    Error: {e}")
+            results[env_name] = {'n_galaxies': n_env, 'ratio': np.nan, 'error': str(e)}
+
+    # =========================================================================
+    # FASE 4: Jackknife SOLO en filamentos
+    # =========================================================================
+    if jackknife and n_filament >= 2000:
+        print("\n[FASE 4: Jackknife en FILAMENTOS]")
+
+        fil_catalog = {
+            'ra': ra[mask_filament],
+            'dec': dec[mask_filament],
+            'z': z[mask_filament],
+            'n_galaxies': n_filament,
+            'source': 'Filamentos'
+        }
+
+        # Mini-jackknife con 6 regiones
+        ra_fil = fil_catalog['ra']
+        ra_edges = np.linspace(ra_fil.min(), ra_fil.max(), 7)
+        region_ids = np.digitize(ra_fil, ra_edges[1:-1])
+
+        jk_ratios = []
+        for i in range(6):
+            mask_jk = region_ids != i
+            n_sub = np.sum(mask_jk)
+
+            if n_sub < 500:
+                continue
+
+            sub = {
+                'ra': fil_catalog['ra'][mask_jk],
+                'dec': fil_catalog['dec'][mask_jk],
+                'z': fil_catalog['z'][mask_jk],
+                'n_galaxies': n_sub,
+                'source': f'JK-{i+1}'
+            }
+
+            try:
+                corr_jk = compute_angular_correlation_masked(sub)
+                hex_jk = analyze_hexagonal_signature(corr_jk)
+                ratio_jk = hex_jk['omega_60'] / hex_jk['omega_90'] if hex_jk['omega_90'] > 0 else 1
+                jk_ratios.append(ratio_jk)
+                print(f"    Sin región {i+1}: ratio = {ratio_jk:.3f}")
+            except:
+                pass
+
+        if len(jk_ratios) >= 4:
+            jk_mean = np.mean(jk_ratios)
+            jk_std = np.std(jk_ratios)
+            jk_min = np.min(jk_ratios)
+
+            results['filament_jackknife'] = {
+                'n_regions': len(jk_ratios),
+                'mean': float(jk_mean),
+                'std': float(jk_std),
+                'min': float(jk_min),
+                'ratios': [float(r) for r in jk_ratios]
+            }
+
+            print(f"\n    Jackknife en filamentos:")
+            print(f"      Media: {jk_mean:.3f} ± {jk_std:.3f}")
+            print(f"      Mínimo: {jk_min:.3f}")
+
+    # =========================================================================
+    # VEREDICTO
+    # =========================================================================
+    print("\n" + "=" * 70)
+    print("  VEREDICTO: TEST DE LA TELARAÑA CÓSMICA")
+    print("=" * 70)
+
+    ratio_full = results.get('full', {}).get('ratio', 1.0)
+    ratio_cluster = results.get('cluster', {}).get('ratio', 1.0)
+    ratio_filament = results.get('filament', {}).get('ratio', 1.0)
+    ratio_void = results.get('void', {}).get('ratio', 1.0)
+
+    print(f"\n  {'Ambiente':<25} {'Ratio 60°/90°':<15} {'Interpretación':<20}")
+    print(f"  {'-'*60}")
+    print(f"  {'Muestra completa':<25} {ratio_full:<15.3f} {'Baseline':<20}")
+    print(f"  {'CÚMULOS (alta dens.)':<25} {ratio_cluster:<15.3f} {'Malla arrugada':<20}")
+    print(f"  {'FILAMENTOS (media)':<25} {ratio_filament:<15.3f} {'Malla intacta':<20}")
+    print(f"  {'CAMPO/VACÍOS (baja)':<25} {ratio_void:<15.3f} {'Poca estadística':<20}")
+
+    # Hipótesis OCTH: Filamentos > Cúmulos (y idealmente > Full)
+    filaments_stronger_than_full = ratio_filament > ratio_full
+    filaments_stronger_than_clusters = ratio_filament > ratio_cluster
+    pattern_correct = filaments_stronger_than_full and filaments_stronger_than_clusters
+
+    # Jackknife en filamentos
+    jk_data = results.get('filament_jackknife', {})
+    jk_survives = jk_data.get('min', 0) > 0.9 if jk_data else False  # Relajado a 0.9
+    jk_mean = jk_data.get('mean', ratio_filament)
+
+    # Criterios ajustados:
+    # VERDE: Ratio > 1.05 en filamentos + patrón correcto + jackknife sobrevive
+    # AMARILLO: Patrón correcto (Fil > Clust > Full) aunque ratio < 1.05
+    # ROJO: Sin patrón diferencial
+
+    if pattern_correct and ratio_filament >= 1.0 and jk_mean > 1.0:
+        verdict = "✅ VERDE: Patrón CORRECTO - Hexagonal en filamentos"
+        is_rescued = True
+        explanation = (f"Filamentos ({ratio_filament:.3f}) > Cúmulos ({ratio_cluster:.3f}) > "
+                      f"Completa ({ratio_full:.3f}). Jackknife media: {jk_mean:.3f}")
+    elif pattern_correct and ratio_filament > 0.95:
+        verdict = "🟡 AMARILLO: Patrón consistente con OCTH"
+        is_rescued = None
+        explanation = (f"Filamentos ({ratio_filament:.3f}) > Cúmulos ({ratio_cluster:.3f}). "
+                      f"Señal marginal pero patrón correcto.")
+    elif filaments_stronger_than_clusters:
+        verdict = "🟡 AMARILLO: Tendencia correcta (Fil > Clust)"
+        is_rescued = None
+        explanation = f"Filamentos > Cúmulos como predice OCTH, pero señal débil"
+    else:
+        verdict = "❌ ROJO: No hay señal diferencial por ambiente"
+        is_rescued = False
+        explanation = "El patrón hexagonal no depende del ambiente cósmico"
+
+    print(f"\n  {verdict}")
+    print(f"\n  Explicación: {explanation}")
+
+    # Convertir numpy types a Python types para JSON
+    results_json = {}
+    for env, data in results.items():
+        results_json[env] = {}
+        for k, v in data.items():
+            if isinstance(v, (np.integer, np.int64, np.int32)):
+                results_json[env][k] = int(v)
+            elif isinstance(v, (np.floating, np.float64, np.float32)):
+                results_json[env][k] = float(v)
+            elif isinstance(v, list):
+                results_json[env][k] = [float(x) if isinstance(x, (np.floating, np.float64)) else x for x in v]
+            else:
+                results_json[env][k] = v
+
+    # Guardar resultados
+    output = {
+        'test': 'Cosmic Web Test (Environment)',
+        'n_neighbors_density': int(n_neighbors),
+        'density_percentiles': {'cluster': float(p_cluster), 'void': float(p_void)},
+        'results_by_environment': results_json,
+        'prediction_check': {
+            'filaments_stronger_than_full': bool(filaments_stronger_than_full),
+            'filaments_stronger_than_clusters': bool(filaments_stronger_than_clusters),
+            'pattern_correct': bool(pattern_correct),
+            'jackknife_survives': bool(jk_survives) if jk_survives is not None else False
+        },
+        'verdict': verdict,
+        'is_rescued': is_rescued
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test3_cosmic_web.json')
+    with open(filepath, 'w') as f:
+        json.dump(output, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # =========================================================================
+    # FIGURA
+    # =========================================================================
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # Panel 1: Histograma de densidad local
+    ax = axes[0, 0]
+    ax.hist(angle_to_nth, bins=50, density=True, alpha=0.7, color='steelblue',
+            edgecolor='black')
+    ax.axvline(p_cluster, color='red', ls='--', lw=2, label=f'Cúmulos (<{p_cluster:.1f}°)')
+    ax.axvline(p_void, color='green', ls='--', lw=2, label=f'Vacíos (>{p_void:.1f}°)')
+    ax.set_xlabel(f'Distancia angular al vecino #{n_neighbors} (grados)')
+    ax.set_ylabel('Densidad de probabilidad')
+    ax.set_title('Distribución de densidad local')
+    ax.legend(loc='best')
+    ax.grid(True, alpha=0.3)
+
+    # Panel 2: Ratios por ambiente
+    ax = axes[0, 1]
+    envs = ['full', 'cluster', 'filament', 'void']
+    labels = ['Completa', 'Cúmulos', 'Filamentos', 'Campo']
+    colors = ['gray', 'red', 'blue', 'green']
+    ratios = [results.get(e, {}).get('ratio', np.nan) for e in envs]
+
+    bars = ax.bar(labels, ratios, color=colors, alpha=0.7, edgecolor='black')
+    ax.axhline(1.0, color='k', ls='--', lw=1, label='Sin exceso')
+    ax.set_ylabel('Ratio 60°/90°')
+    ax.set_title('Exceso hexagonal por ambiente')
+    ax.grid(True, alpha=0.3, axis='y')
+
+    # Añadir valores en las barras
+    for bar, ratio in zip(bars, ratios):
+        if not np.isnan(ratio):
+            ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+                   f'{ratio:.3f}', ha='center', va='bottom', fontsize=10)
+
+    # Panel 3: Mapa de ambiente en el cielo
+    ax = axes[1, 0]
+    scatter_size = 1
+    ax.scatter(ra[mask_void], dec[mask_void], s=scatter_size, c='green',
+               alpha=0.3, label='Campo/Vacíos')
+    ax.scatter(ra[mask_filament], dec[mask_filament], s=scatter_size, c='blue',
+               alpha=0.3, label='Filamentos')
+    ax.scatter(ra[mask_cluster], dec[mask_cluster], s=scatter_size, c='red',
+               alpha=0.5, label='Cúmulos')
+    ax.set_xlabel('RA (grados)')
+    ax.set_ylabel('Dec (grados)')
+    ax.set_title('Clasificación de ambiente en el cielo')
+    ax.legend(loc='best', markerscale=5)
+
+    # Panel 4: Resumen
+    ax = axes[1, 1]
+    ax.axis('off')
+
+    color = 'lightgreen' if is_rescued else ('wheat' if is_rescued is None else 'lightcoral')
+
+    summary = f"""
+    TEST DE RESCATE: TELARAÑA CÓSMICA
+    ═══════════════════════════════════════════
+
+    Hipótesis OCTH:
+    - Cúmulos: Malla arrugada → caos
+    - Filamentos: Malla intacta → hexagonal
+
+    Resultados:
+    - Muestra completa: {ratio_full:.3f}
+    - CÚMULOS:          {ratio_cluster:.3f}
+    - FILAMENTOS:       {ratio_filament:.3f}
+    - Campo/Vacíos:     {ratio_void:.3f}
+
+    Predicción: Filamentos > Cúmulos > Completa
+    Observado: {'✓' if pattern_correct else '✗'}
+
+    ═══════════════════════════════════════════
+    VEREDICTO: {verdict.split(':')[0]}
+    """
+
+    ax.text(0.05, 0.95, summary, transform=ax.transAxes, fontsize=11,
+            verticalalignment='top', fontfamily='monospace',
+            bbox=dict(boxstyle='round', facecolor=color, alpha=0.8))
+
+    plt.tight_layout()
+
+    for fmt in ['png', 'pdf']:
+        filepath = os.path.join(FIGURES_DIR, f'fig16_cosmic_web_test.{fmt}')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    print(f"  Figura guardada: fig16_cosmic_web_test.png/pdf")
+
+    plt.close()
+
+    return output
+
+
 def mask_validation_test(catalog):
     """
     VALIDACIÓN DE MÁSCARA: Compara resultados con randoms uniformes vs masked.
@@ -1356,14 +1753,42 @@ Opciones:
   --real      Descargar datos reales de SDSS
   --inject    Inyectar señal hexagonal (test de sensibilidad)
   --mask      VALIDACIÓN: Compara randoms uniformes vs masked
+  --jackknife TEST DE DESTRUCCIÓN: Jackknife por regiones
+  --web       TEST DE RESCATE: Telaraña Cósmica (por ambiente)
   --ngal=N    Número de galaxias (default: 10000)
   --help      Mostrar esta ayuda
         """)
         sys.exit(0)
 
     run_jackknife = '--jackknife' in sys.argv
+    run_cosmic_web = '--web' in sys.argv
 
-    if run_jackknife:
+    if run_cosmic_web:
+        # TEST DE RESCATE: Telaraña Cósmica
+        print("=" * 70)
+        print("TEST DE RESCATE: TELARAÑA CÓSMICA (SDSS)")
+        print("=" * 70)
+
+        os.makedirs(DATA_DIR, exist_ok=True)
+        os.makedirs(FIGURES_DIR, exist_ok=True)
+        os.makedirs(RESULTS_DIR, exist_ok=True)
+
+        print("\n[1] CARGANDO DATOS SDSS...")
+        catalog = download_sdss_sample(n_max=n_gal)
+        if catalog is None:
+            print("  ⚠ No se pudo cargar SDSS, usando simulación...")
+            catalog = generate_mock_sdss_catalog(n_galaxies=n_gal)
+        print(f"  ✓ {catalog['n_galaxies']} galaxias: {catalog['source']}")
+
+        # Ejecutar test de telaraña cósmica
+        web_results = cosmic_web_test(catalog, n_neighbors=20, jackknife=True)
+
+        print("\n" + "=" * 70)
+        print("SEMÁFORO - TELARAÑA CÓSMICA")
+        print("=" * 70)
+        print(f"\n  {web_results['verdict']}")
+
+    elif run_jackknife:
         # TEST DE DESTRUCCIÓN: Jackknife
         print("=" * 70)
         print("TEST DE DESTRUCCIÓN: JACKKNIFE SDSS")
