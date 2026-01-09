@@ -1,19 +1,19 @@
 {
   "test": "Test #3 - Geometr\u00eda Hexagonal en SDSS",
   "date": "2026-01-08",
-  "source": "Simulaci\u00f3n con clustering",
-  "n_galaxies": 9998,
+  "source": "SDSS DR17 (datos reales)",
+  "n_galaxies": 30000,
   "hexagonal_analysis": {
-    "omega_60": 0.23635870693209027,
-    "omega_90": 0.22462627273481192,
-    "omega_120": 0.40541208580127486,
-    "hex_excess": 0.021524999498300904,
-    "z_score": 1.8546955965087388,
-    "p_value": 0.06363970794739227
+    "omega_60": 0.23663894252062734,
+    "omega_90": 0.2317011502342809,
+    "omega_120": -0.13158546609607838,
+    "hex_excess": -0.09189464174100442,
+    "z_score": -6.205925199620516,
+    "p_value": 5.437603700642057e-10
   },
   "isotropy_test": {
-    "chi2_reduced": 2.034206832729671,
-    "p_value": 3.0234405423712474e-08
+    "chi2_reduced": 96297775251350.78,
+    "p_value": 0.0
   },
-  "conclusion": "EXCESO HEXAGONAL vs CUADRADO (ratio=1.43)"
+  "conclusion": "D\u00c9FICIT EN \u00c1NGULOS HEXAGONALES"
 }

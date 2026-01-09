@@ -172,25 +172,61 @@ def inject_hexagonal_signal(catalog, strength=0.05, scale=60):
     return new_catalog
 
 
+def load_real_sdss_data():
+    """
+    Carga datos reales de SDSS desde archivo local.
+    """
+    filepath = os.path.join(DATA_DIR, 'sdss_galaxies_real.csv')
+
+    if os.path.exists(filepath):
+        print(f"  → Cargando datos reales de {filepath}...")
+        ra, dec, z = [], [], []
+
+        with open(filepath, 'r') as f:
+            lines = f.readlines()
+            for line in lines[2:]:  # Skip headers
+                parts = line.strip().split(',')
+                if len(parts) >= 3:
+                    try:
+                        ra.append(float(parts[0]))
+                        dec.append(float(parts[1]))
+                        z.append(float(parts[2]))
+                    except:
+                        continue
+
+        if len(ra) > 0:
+            return {
+                'ra': np.array(ra),
+                'dec': np.array(dec),
+                'z': np.array(z),
+                'n_galaxies': len(ra),
+                'source': 'SDSS DR17 (datos reales)'
+            }
+
+    return None
+
+
 def download_sdss_sample(n_max=50000):
     """
     Descarga muestra de galaxias de SDSS usando SQL query.
-
-    Nota: Para datasets grandes, usar CasJobs de SDSS.
     """
+    # Primero intentar cargar datos locales
+    local_data = load_real_sdss_data()
+    if local_data is not None:
+        return local_data
+
     # Query SQL para SDSS
     query = f"""
     SELECT TOP {n_max}
-        p.ra, p.dec, s.z, s.zErr
+        p.ra, p.dec, s.z
     FROM PhotoObj AS p
     JOIN SpecObj AS s ON s.bestobjid = p.objid
     WHERE
-        p.type = 3  -- Galaxias
+        p.type = 3
         AND s.class = 'GALAXY'
-        AND s.zWarning = 0  -- Redshift confiable
-        AND s.z BETWEEN 0.01 AND 0.3
-        AND p.r BETWEEN 14 AND 17.77  -- Magnitud límite
-    ORDER BY p.ra
+        AND s.zWarning = 0
+        AND s.z BETWEEN 0.02 AND 0.25
+        AND p.r BETWEEN 14 AND 17.7
     """
 
     try:
@@ -201,14 +237,14 @@ def download_sdss_sample(n_max=50000):
             'format': 'csv'
         }
 
-        response = requests.get(SDSS_QUERY_URL, params=params, timeout=60)
+        response = requests.get(SDSS_QUERY_URL, params=params, timeout=120)
 
         if response.status_code == 200:
             # Parsear CSV
             lines = response.text.strip().split('\n')
-            if len(lines) > 1:
+            if len(lines) > 2:
                 ra, dec, z = [], [], []
-                for line in lines[1:]:  # Skip header
+                for line in lines[2:]:  # Skip headers
                     parts = line.split(',')
                     if len(parts) >= 3:
                         try:
@@ -217,6 +253,11 @@ def download_sdss_sample(n_max=50000):
                             z.append(float(parts[2]))
                         except:
                             continue
+
+                # Guardar para uso futuro
+                os.makedirs(DATA_DIR, exist_ok=True)
+                with open(os.path.join(DATA_DIR, 'sdss_galaxies_real.csv'), 'w') as f:
+                    f.write(response.text)
 
                 return {
                     'ra': np.array(ra),
