@@ -200,9 +200,9 @@ r_n = [1, √3, 2, √7] = [1.000, 1.732, 2.000, 2.646]
 
 ## Appendix B: Document Verification
 
-**Git Commit Hash:** [To be filled after commit]
-**SHA-256 of this document:** [To be computed]
-**IPFS Hash:** [Optional: for immutable storage]
+**Git Commit Hash:** `692b1affb7e22015401e497c75b9151af345cf01`
+**Repository:** github.com/Yatrogenesis/Universo-Mobius
+**Commit Date:** January 9, 2025
 
 This document is timestamped and published before O4 data analysis to ensure predictions are genuinely predictive, not post-hoc.
 
