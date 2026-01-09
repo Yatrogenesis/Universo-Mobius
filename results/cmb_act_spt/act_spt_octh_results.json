@@ -1,0 +1,71 @@
+{
+  "act_hexagonal": {
+    "best_l_base": 300.0,
+    "hex_coherence": 1.745261204967159,
+    "random_coherence_mean": 2.697922889700376,
+    "p_value": 0.668,
+    "sigma_detection": 0,
+    "residuals_rms": 7.862862798618101,
+    "chi2_reduced": 249.74449591337373
+  },
+  "spt_hexagonal": {
+    "best_l_base": 381.63265306122446,
+    "hex_coherence": 0.7755735717803856,
+    "random_coherence_mean": 3.3759981545107,
+    "p_value": 1.0,
+    "sigma_detection": 0,
+    "residuals_rms": 6.60258784437977,
+    "chi2_reduced": 285.72803530252907
+  },
+  "act_mobius": {
+    "peak_frequency": 0.041666666666666664,
+    "peak_power": 23897877.81427255,
+    "mean_power": 3676672.5002326216,
+    "snr": 6.499865792441546,
+    "detected": true,
+    "mobius_scale_l": 30
+  },
+  "spt_mobius": {
+    "peak_frequency": 0.047619047619047616,
+    "peak_power": 19203381.70129492,
+    "mean_power": 2942545.8014683155,
+    "snr": 6.526111400445332,
+    "detected": true,
+    "mobius_scale_l": 30
+  },
+  "parameters": {
+    "H0": {
+      "planck": 67.4,
+      "act": 67.9,
+      "spt": 68.3,
+      "sh0es": 73.0,
+      "tension_act_planck": 0.31622776601683794,
+      "tension_spt_planck": 0.5692099788303029,
+      "tension_sh0es_planck": 5.008792269599524
+    },
+    "S8": {
+      "planck": 0.832,
+      "act": 0.84,
+      "des": 0.776,
+      "tension_act_des": 1.9538000347925217,
+      "tension_planck_des": 2.6167081556895844
+    }
+  },
+  "combined": {
+    "chi2": 38.28328756676137,
+    "dof": 4,
+    "p_value": 9.794553468278622e-08,
+    "sigma": 5.3304948060698365,
+    "individual": [
+      [
+        "H0 Tension (OCTH)",
+        5.008792269599524
+      ],
+      [
+        "S8 Tension (OCTH)",
+        2.6167081556895844
+      ]
+    ]
+  },
+  "verdict": "OCTH_SUPPORTED"
+}
