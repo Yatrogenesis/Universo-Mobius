@@ -1,0 +1,11 @@
+# Large data files
+data/ligo/*.hdf5
+data/planck/*.fits
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS
+.DS_Store

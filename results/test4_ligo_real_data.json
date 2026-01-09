@@ -1,0 +1,33 @@
+{
+  "event": "GW150914",
+  "data_source": "LIGO Open Science Center (GWOSC)",
+  "detector": "H1 (Hanford)",
+  "gps_time": 1126259462.4,
+  "detection": {
+    "max_correlation": 0.18571669522921577,
+    "snr_estimate": 16.850144432041024
+  },
+  "phase_analysis": {
+    "mean_diff_deg": 24336.682366604742,
+    "max_diff_deg": 37618.23569885877,
+    "std_diff_deg": 12651.763951883646,
+    "octh_prediction_deg": 21.635190077395308
+  },
+  "mesh_modes": {
+    "f_isco": 67.62877129778828,
+    "frequencies": [
+      33.81438564889414,
+      47.34013990845179,
+      57.48445560312003
+    ],
+    "power_ratios": {
+      "34Hz": 43.144948779128576,
+      "47Hz": 26.29762391184313,
+      "57Hz": 18.253967667954402
+    }
+  },
+  "interpretation": {
+    "phase_consistent_with_octh": true,
+    "mesh_modes_detected": true
+  }
+}

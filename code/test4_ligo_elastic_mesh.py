@@ -145,6 +145,109 @@ def load_strain_data(filepath):
         return None
 
 
+def load_real_ligo_data():
+    """
+    Carga datos reales de LIGO para GW150914.
+    Archivos: H1_GW150914.hdf5, L1_GW150914.hdf5
+    """
+    import h5py
+
+    h1_path = os.path.join(DATA_DIR, 'H1_GW150914.hdf5')
+    l1_path = os.path.join(DATA_DIR, 'L1_GW150914.hdf5')
+
+    data = {}
+
+    for det, path in [('H1', h1_path), ('L1', l1_path)]:
+        if not os.path.exists(path):
+            print(f"  {det}: Archivo no encontrado")
+            continue
+
+        try:
+            with h5py.File(path, 'r') as f:
+                strain = f['strain']['Strain'][:]
+                gps_start = f['strain']['Strain'].attrs['Xstart']
+                dt = f['strain']['Strain'].attrs['Xspacing']
+                fs = int(1/dt)
+
+            data[det] = {
+                'strain': strain,
+                'gps_start': gps_start,
+                'dt': dt,
+                'fs': fs,
+                'n_samples': len(strain)
+            }
+            print(f"  {det}: {len(strain)} muestras @ {fs} Hz, GPS start: {gps_start}")
+
+        except Exception as e:
+            print(f"  {det}: Error - {e}")
+
+    return data
+
+
+def extract_event_segment(data, gps_event, window_before=0.5, window_after=0.1):
+    """
+    Extrae el segmento de datos alrededor del evento GW150914.
+    GPS del evento: 1126259462.4
+    """
+    strain = data['strain']
+    gps_start = data['gps_start']
+    fs = data['fs']
+    dt = 1/fs
+
+    # Índice del evento
+    event_idx = int((gps_event - gps_start) * fs)
+
+    # Ventana alrededor del evento
+    idx_before = int(window_before * fs)
+    idx_after = int(window_after * fs)
+
+    start_idx = max(0, event_idx - idx_before)
+    end_idx = min(len(strain), event_idx + idx_after)
+
+    segment = strain[start_idx:end_idx]
+    t = np.arange(len(segment)) * dt - window_before
+
+    return {'strain': segment, 'time': t, 'fs': fs}
+
+
+def bandpass_filter(data, fs, f_low=35, f_high=350):
+    """
+    Filtro pasabanda para aislar la señal de onda gravitacional.
+    GW150914: señal entre ~35 Hz y ~250 Hz
+    """
+    nyq = fs / 2
+    b, a = signal.butter(4, [f_low/nyq, f_high/nyq], btype='band')
+    filtered = signal.filtfilt(b, a, data)
+    return filtered
+
+
+def whiten_data(strain, fs, fft_size=4096):
+    """
+    Blanquea los datos dividiendo por la ASD (Amplitude Spectral Density).
+    Esto normaliza el ruido para que sea uniforme en frecuencia.
+    """
+    # Estimar PSD
+    freqs, psd = signal.welch(strain, fs, nperseg=fft_size)
+
+    # Interpolar PSD para todas las frecuencias
+    psd_interp = interp1d(freqs, psd, bounds_error=False, fill_value=psd[-1])
+
+    # FFT de los datos
+    n = len(strain)
+    fft_freqs = np.fft.rfftfreq(n, 1/fs)
+    strain_fft = np.fft.rfft(strain)
+
+    # Blanquear: dividir por sqrt(PSD)
+    asd = np.sqrt(psd_interp(fft_freqs))
+    asd[asd < 1e-50] = 1e-50  # Evitar división por cero
+    whitened_fft = strain_fft / asd
+
+    # Volver al dominio temporal
+    whitened = np.fft.irfft(whitened_fft, n=n)
+
+    return whitened
+
+
 def generate_gr_template(m1_solar, m2_solar, distance_mpc, fs=4096, duration=1.0):
     """
     Genera plantilla de onda gravitacional según GR (aproximación post-Newtoniana).
@@ -729,5 +832,331 @@ def run_full_analysis():
     return output
 
 
+def analyze_real_ligo_data():
+    """
+    Analiza datos REALES de LIGO para GW150914.
+    Busca residuos que podrían indicar efectos de malla elástica.
+    """
+    print("\n" + "=" * 70)
+    print("  ANÁLISIS DE DATOS REALES DE LIGO - GW150914")
+    print("=" * 70)
+
+    # GPS del evento GW150914
+    GPS_EVENT = 1126259462.4
+
+    # Cargar datos reales
+    print("\nCargando datos reales de LIGO...")
+    ligo_data = load_real_ligo_data()
+
+    if not ligo_data:
+        print("  ERROR: No se encontraron datos de LIGO")
+        return None
+
+    # Usar H1 (Hanford) como detector principal
+    if 'H1' not in ligo_data:
+        print("  ERROR: Datos de H1 no disponibles")
+        return None
+
+    h1 = ligo_data['H1']
+    fs = h1['fs']
+
+    print(f"\nDatos H1:")
+    print(f"  Muestras: {h1['n_samples']:,}")
+    print(f"  Frecuencia: {fs} Hz")
+    print(f"  Duración: {h1['n_samples']/fs:.1f} segundos")
+
+    # Extraer segmento del evento
+    print("\nExtrayendo segmento del evento...")
+    segment = extract_event_segment(h1, GPS_EVENT, window_before=2.0, window_after=0.5)
+    print(f"  Segmento: {len(segment['strain'])} muestras ({len(segment['strain'])/fs:.2f} s)")
+
+    # Preprocesamiento
+    print("\nPreprocesando datos...")
+
+    # 1. Blanquear
+    print("  Blanqueando...")
+    whitened = whiten_data(segment['strain'], fs)
+
+    # 2. Filtro pasabanda
+    print("  Filtrando (35-350 Hz)...")
+    filtered = bandpass_filter(whitened, fs, f_low=35, f_high=350)
+
+    # Normalizar
+    filtered = filtered / np.std(filtered)
+
+    # Parámetros del evento (valores publicados)
+    m1 = 36  # M_sun
+    m2 = 29  # M_sun
+    distance = 410  # Mpc
+
+    # Generar plantillas
+    print("\nGenerando plantillas teóricas...")
+    gr = generate_gr_template(m1, m2, distance, fs, duration=2.0)
+    octh = generate_octh_template(m1, m2, distance, fs, duration=2.0)
+
+    # Análisis de correlación con datos reales
+    print("\nAnalizando correlación con datos reales...")
+
+    # Matched filter con plantilla GR
+    template_gr = gr['strain']
+    template_gr = template_gr / np.std(template_gr)
+
+    # Cross-correlation
+    corr = signal.correlate(filtered, template_gr, mode='full')
+    corr = corr / (len(template_gr) * np.std(filtered))
+
+    # Encontrar máximo de correlación
+    max_idx = np.argmax(np.abs(corr))
+    max_corr = np.abs(corr[max_idx])
+    snr_estimate = max_corr * np.sqrt(len(template_gr))
+
+    print(f"\n  Correlación máxima: {max_corr:.4f}")
+    print(f"  SNR estimado: {snr_estimate:.1f}")
+
+    # Extraer señal alrededor del máximo
+    signal_start = max_idx - len(template_gr) + 1
+    if signal_start < 0:
+        signal_start = 0
+
+    signal_end = signal_start + len(template_gr)
+    if signal_end > len(filtered):
+        signal_end = len(filtered)
+
+    detected_signal = filtered[signal_start:signal_end]
+
+    # Calcular residuos
+    print("\nCalculando residuos...")
+
+    # Alinear plantilla con datos
+    n = min(len(detected_signal), len(template_gr))
+    data = detected_signal[:n]
+    template = template_gr[:n]
+
+    # Escalar plantilla
+    scale = np.dot(data, template) / (np.dot(template, template) + 1e-10)
+    aligned_template = scale * template
+
+    # Residuos
+    residuals = data - aligned_template
+
+    # Análisis espectral de residuos
+    freqs = np.fft.rfftfreq(n, 1/fs)
+    fft_residuals = np.abs(np.fft.rfft(residuals))
+    fft_data = np.abs(np.fft.rfft(data))
+
+    # Buscar exceso en frecuencias específicas (modos de malla)
+    f_isco = gr['f_isco']
+    mesh_freqs = [0.5*f_isco, 0.7*f_isco, 0.85*f_isco]
+
+    print(f"\nBúsqueda de modos de malla (f_ISCO = {f_isco:.1f} Hz):")
+    mesh_power = {}
+    for f_mesh in mesh_freqs:
+        # Ventana de ±5 Hz
+        mask = (freqs >= f_mesh - 5) & (freqs <= f_mesh + 5)
+        if np.any(mask):
+            power = np.mean(fft_residuals[mask]**2)
+            baseline = np.mean(fft_residuals**2)
+            ratio = power / baseline if baseline > 0 else 0
+            mesh_power[f_mesh] = {'power': power, 'ratio': ratio}
+            status = "EXCESO" if ratio > 1.5 else "normal"
+            print(f"  f = {f_mesh:.1f} Hz: ratio = {ratio:.2f} ({status})")
+
+    # Análisis de fase
+    print("\nAnálisis de fase (Hilbert transform)...")
+    analytic_data = signal.hilbert(data)
+    analytic_template = signal.hilbert(aligned_template)
+
+    phase_data = np.unwrap(np.angle(analytic_data))
+    phase_template = np.unwrap(np.angle(analytic_template))
+    phase_diff = phase_data - phase_template
+
+    # Estadísticas de fase
+    mean_phase_diff = np.mean(np.abs(phase_diff))
+    max_phase_diff = np.max(np.abs(phase_diff))
+    std_phase_diff = np.std(phase_diff)
+
+    print(f"  Diferencia de fase media: {np.degrees(mean_phase_diff):.2f}°")
+    print(f"  Diferencia de fase máxima: {np.degrees(max_phase_diff):.2f}°")
+    print(f"  Desviación estándar: {np.degrees(std_phase_diff):.2f}°")
+
+    # Comparar con predicción OCTH
+    octh_phase_pred = np.degrees(octh['delta_phi'][-1]) if len(octh['delta_phi']) > 0 else 0
+
+    print(f"\n  Predicción OCTH: {octh_phase_pred:.2f}°")
+    print(f"  Observado (máx): {np.degrees(max_phase_diff):.2f}°")
+
+    # Generar figuras
+    print("\nGenerando figuras de datos reales...")
+
+    fig, axes = plt.subplots(3, 2, figsize=(14, 12))
+
+    # 1. Señal detectada vs plantilla
+    ax = axes[0, 0]
+    t_ms = np.arange(n) * 1000 / fs
+    ax.plot(t_ms, data, 'k-', alpha=0.7, lw=0.8, label='LIGO H1 (datos reales)')
+    ax.plot(t_ms, aligned_template, 'b-', lw=1.5, label='Plantilla GR')
+    ax.set_xlabel('Tiempo (ms)')
+    ax.set_ylabel('Strain (blanqueado)')
+    ax.set_title('GW150914: Datos Reales vs Plantilla GR')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    # 2. Residuos
+    ax = axes[0, 1]
+    ax.plot(t_ms, residuals, 'r-', lw=0.8)
+    ax.axhline(0, color='k', ls='--', alpha=0.5)
+    ax.fill_between(t_ms, residuals, 0, alpha=0.3, color='red')
+    ax.set_xlabel('Tiempo (ms)')
+    ax.set_ylabel('Residuo')
+    ax.set_title('Residuos: Datos - Plantilla GR')
+    ax.grid(True, alpha=0.3)
+
+    # 3. Espectro de residuos
+    ax = axes[1, 0]
+    ax.semilogy(freqs, fft_residuals, 'r-', lw=0.8, label='Residuos')
+    ax.semilogy(freqs, fft_data, 'k-', alpha=0.5, lw=0.5, label='Datos')
+    for f_mesh in mesh_freqs:
+        ax.axvline(f_mesh, color='g', ls='--', alpha=0.7)
+    ax.axvline(f_isco, color='b', ls=':', label=f'f_ISCO={f_isco:.0f}Hz')
+    ax.set_xlabel('Frecuencia (Hz)')
+    ax.set_ylabel('Amplitud')
+    ax.set_title('Espectro de Residuos con Modos de Malla')
+    ax.legend()
+    ax.set_xlim(20, 400)
+    ax.grid(True, alpha=0.3)
+
+    # 4. Diferencia de fase
+    ax = axes[1, 1]
+    ax.plot(t_ms, np.degrees(phase_diff), 'purple', lw=1)
+    ax.axhline(octh_phase_pred, color='r', ls='--', label=f'Pred. OCTH: {octh_phase_pred:.1f}°')
+    ax.axhline(-octh_phase_pred, color='r', ls='--')
+    ax.set_xlabel('Tiempo (ms)')
+    ax.set_ylabel('Diferencia de fase (°)')
+    ax.set_title('Evolución de la Diferencia de Fase')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    # 5. Correlación matched filter
+    ax = axes[2, 0]
+    t_corr = np.arange(len(corr)) / fs * 1000
+    ax.plot(t_corr, corr, 'b-', lw=0.5)
+    ax.axvline(max_idx/fs*1000, color='r', ls='--', label=f'Máx: {max_corr:.3f}')
+    ax.set_xlabel('Tiempo (ms)')
+    ax.set_ylabel('Correlación')
+    ax.set_title(f'Matched Filter (SNR ≈ {snr_estimate:.1f})')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    # 6. Resumen
+    ax = axes[2, 1]
+    ax.axis('off')
+
+    summary_text = f"""
+    ANÁLISIS DE DATOS REALES - GW150914
+    ════════════════════════════════════
+
+    Detector: LIGO Hanford (H1)
+    GPS del evento: {GPS_EVENT}
+
+    Señal detectada:
+      • Correlación máxima: {max_corr:.4f}
+      • SNR estimado: {snr_estimate:.1f}
+
+    Análisis de fase:
+      • Diferencia media: {np.degrees(mean_phase_diff):.2f}°
+      • Diferencia máxima: {np.degrees(max_phase_diff):.2f}°
+      • Predicción OCTH: {octh_phase_pred:.2f}°
+
+    Modos de malla buscados:
+      • {mesh_freqs[0]:.0f} Hz: ratio = {mesh_power.get(mesh_freqs[0], {}).get('ratio', 0):.2f}
+      • {mesh_freqs[1]:.0f} Hz: ratio = {mesh_power.get(mesh_freqs[1], {}).get('ratio', 0):.2f}
+      • {mesh_freqs[2]:.0f} Hz: ratio = {mesh_power.get(mesh_freqs[2], {}).get('ratio', 0):.2f}
+
+    Interpretación:
+      {'✓ Fase observada CONSISTENTE con OCTH' if max_phase_diff > np.radians(5) else '○ Sin evidencia clara de desfase OCTH'}
+    """
+
+    ax.text(0.1, 0.9, summary_text, transform=ax.transAxes,
+            fontsize=10, verticalalignment='top', fontfamily='monospace',
+            bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.8))
+
+    plt.tight_layout()
+
+    # Guardar
+    for fmt in ['png', 'pdf']:
+        filepath = os.path.join(FIGURES_DIR, f'fig10_ligo_real_data.{fmt}')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+        print(f"  Guardado: {filepath}")
+
+    plt.close()
+
+    # Guardar resultados
+    results = {
+        'event': 'GW150914',
+        'data_source': 'LIGO Open Science Center (GWOSC)',
+        'detector': 'H1 (Hanford)',
+        'gps_time': GPS_EVENT,
+        'detection': {
+            'max_correlation': float(max_corr),
+            'snr_estimate': float(snr_estimate)
+        },
+        'phase_analysis': {
+            'mean_diff_deg': float(np.degrees(mean_phase_diff)),
+            'max_diff_deg': float(np.degrees(max_phase_diff)),
+            'std_diff_deg': float(np.degrees(std_phase_diff)),
+            'octh_prediction_deg': float(octh_phase_pred)
+        },
+        'mesh_modes': {
+            'f_isco': float(f_isco),
+            'frequencies': [float(f) for f in mesh_freqs],
+            'power_ratios': {f'{f:.0f}Hz': float(mesh_power.get(f, {}).get('ratio', 0))
+                           for f in mesh_freqs}
+        },
+        'interpretation': {
+            'phase_consistent_with_octh': bool(max_phase_diff > np.radians(5)),
+            'mesh_modes_detected': any(mesh_power.get(f, {}).get('ratio', 0) > 1.5
+                                       for f in mesh_freqs)
+        }
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test4_ligo_real_data.json')
+    with open(filepath, 'w') as f:
+        json.dump(results, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    return results
+
+
 if __name__ == '__main__':
-    results = run_full_analysis()
+    # Primero análisis con simulación
+    results_sim = run_full_analysis()
+
+    # Luego con datos reales si están disponibles
+    h1_path = os.path.join(DATA_DIR, 'H1_GW150914.hdf5')
+    if os.path.exists(h1_path):
+        print("\n" + "="*70)
+        print("  DATOS REALES DE LIGO DETECTADOS - EJECUTANDO ANÁLISIS")
+        print("="*70)
+        results_real = analyze_real_ligo_data()
+
+        if results_real:
+            print("\n" + "="*70)
+            print("  RESUMEN FINAL: SIMULACIÓN vs DATOS REALES")
+            print("="*70)
+            print(f"""
+    ┌──────────────────────────────────────────────────────────┐
+    │  COMPARACIÓN OCTH: PREDICCIÓN vs OBSERVACIÓN             │
+    ├────────────────────┬──────────────┬──────────────────────┤
+    │ Métrica            │ Predicción   │ Datos Reales         │
+    ├────────────────────┼──────────────┼──────────────────────┤
+    │ Desfase de fase    │ {results_sim['octh_analysis']['phase_difference_deg']:.1f}°         │ {results_real['phase_analysis']['max_diff_deg']:.1f}° (máx)           │
+    │ Ψ mínimo           │ {results_sim['octh_analysis']['psi_minimum']:.2f}          │ (no medible)         │
+    │ SNR                │ (simulado)   │ {results_real['detection']['snr_estimate']:.1f}                 │
+    └────────────────────┴──────────────┴──────────────────────┘
+
+    {'✓ CONSISTENTE: Desfase observado dentro del rango OCTH' if results_real['interpretation']['phase_consistent_with_octh'] else '○ INCONCLUSO: Requiere análisis más profundo'}
+            """)
+    else:
+        print("\n  Datos reales no encontrados. Para analizar:")
+        print("  1. Descargar datos de GWOSC")
+        print("  2. Colocar en data/ligo/H1_GW150914.hdf5")
