@@ -1,6 +1,6 @@
-# OCTH Validation - Dataset Analysis Status
+# OCTH Validation - Dataset analysis status
 
-## Summary: 13 Independent Datasets Analyzed
+## Summary: 13 Independent datasets analyzed
 
 All priority datasets have been analyzed. Combined significance exceeds 10 sigma.
 
@@ -8,7 +8,7 @@ All priority datasets have been analyzed. Combined significance exceeds 10 sigma
 
 ## COMPLETED ANALYSES
 
-### Primary Datasets (Original 6)
+### Primary datasets (Original 6)
 
 | # | Dataset | Status | Significance | Script |
 |---|---------|--------|--------------|--------|
@@ -19,7 +19,7 @@ All priority datasets have been analyzed. Combined significance exceeds 10 sigma
 | 5 | Euclid ERO | COMPLETED | 7.1 sigma | `Euclid_analysis.py` |
 | 6 | JWST COSMOS-Web | COMPLETED | 4.8 sigma | `JWST_COSMOS_analysis.py` |
 
-### Additional Datasets (7 More)
+### Additional datasets (7 More)
 
 | # | Dataset | Status | Significance | Script |
 |---|---------|--------|--------------|--------|
@@ -45,7 +45,7 @@ Using Fisher's method to combine independent p-values:
 
 The following datasets could provide additional validation but are not yet analyzed:
 
-### Lower Priority (Would Add Incremental Evidence)
+### Lower priority (Would add incremental evidence)
 
 - Fermi-LAT Gamma-Ray Bursts (Lorentz invariance tests)
 - BICEP/Keck B-modes (tensor modes)
@@ -81,5 +81,5 @@ All analyses use publicly available data:
 
 ---
 
-*Analysis Status: All 13 priority datasets COMPLETED*
+*Analysis status: All 13 priority datasets COMPLETED*
 *Repository: https://github.com/Yatrogenesis/Universo-Mobius*

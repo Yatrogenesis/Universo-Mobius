@@ -1,4 +1,4 @@
-# Known Limitations
+# Known limitations
 
 ## Overview
 
@@ -6,9 +6,9 @@ This document describes the known limitations of the OCTH validation analyses pr
 
 ---
 
-## Data Limitations
+## Data limitations
 
-### 1. Simplified Data Products
+### 1. Simplified data products
 
 Several analyses use summary statistics rather than full likelihood analyses:
 - **CMB analyses** use published power spectra rather than full map-level analysis
@@ -17,7 +17,7 @@ Several analyses use summary statistics rather than full likelihood analyses:
 
 **Impact:** Results are consistent with published analyses but may miss subtle correlations.
 
-### 2. Systematic Uncertainties
+### 2. Systematic uncertainties
 
 Some systematic uncertainties are simplified or not fully propagated:
 - **GWTC-3:** Detector calibration uncertainties not included in frequency analysis
@@ -26,7 +26,7 @@ Some systematic uncertainties are simplified or not fully propagated:
 
 **Impact:** Quoted significances may be optimistic by up to 0.5-1 sigma in some cases.
 
-### 3. Sample Limitations
+### 3. Sample limitations
 
 - **JWST galaxies:** Small sample size at z > 10 (currently ~10 candidates)
 - **Strong lensing:** Only 7 systems with time-delay measurements
@@ -36,9 +36,9 @@ Some systematic uncertainties are simplified or not fully propagated:
 
 ---
 
-## Methodological Limitations
+## Methodological limitations
 
-### 1. Model Assumptions
+### 1. Model assumptions
 
 The OCTH framework makes specific predictions that depend on:
 - Exact hexagonal lattice geometry
@@ -47,7 +47,7 @@ The OCTH framework makes specific predictions that depend on:
 
 **Impact:** Alternative parameterizations might give different significance levels.
 
-### 2. Look-Elsewhere Effect
+### 2. Look-elsewhere effect
 
 Multiple datasets and multiple tests within each dataset create potential for spurious significance:
 - 13 datasets analyzed
@@ -55,7 +55,7 @@ Multiple datasets and multiple tests within each dataset create potential for sp
 
 **Impact:** Combined significance should be interpreted with caution regarding trial factors.
 
-### 3. Correlation Between Datasets
+### 3. Correlation between datasets
 
 Some datasets are not fully independent:
 - Planck CMB affects both direct CMB analysis and derived parameters in other datasets
@@ -65,9 +65,9 @@ Some datasets are not fully independent:
 
 ---
 
-## Computational Limitations
+## Computational limitations
 
-### 1. Resource Constraints
+### 1. Resource constraints
 
 Analyses were performed on consumer hardware (Apple M1, 8GB RAM):
 - Full MCMC exploration not feasible for all parameters
@@ -75,7 +75,7 @@ Analyses were performed on consumer hardware (Apple M1, 8GB RAM):
 
 **Impact:** Parameter constraints may not fully capture non-Gaussian posteriors.
 
-### 2. Numerical Precision
+### 2. Numerical precision
 
 - Hexagonal frequency ratios computed to finite precision
 - Chi-square minimization may find local rather than global minima
@@ -84,21 +84,21 @@ Analyses were performed on consumer hardware (Apple M1, 8GB RAM):
 
 ---
 
-## Interpretation Caveats
+## Interpretation caveats
 
-### 1. Correlation vs. Causation
+### 1. Correlation vs. causation
 
 Observational consistency does not prove OCTH predictions are correct:
 - Multiple theoretical frameworks might explain the same tensions
 - Some "tensions" may resolve with improved systematics
 
-### 2. Publication Bias
+### 2. Publication bias
 
 Published tensions (H0, S8) may be influenced by publication bias:
 - Null results less likely to be published
 - Tension claims attract attention
 
-### 3. Model Selection
+### 3. Model selection
 
 The comparison is primarily between OCTH and Lambda-CDM:
 - Other modified gravity theories not systematically tested
@@ -106,7 +106,7 @@ The comparison is primarily between OCTH and Lambda-CDM:
 
 ---
 
-## Future Improvements
+## Future improvements
 
 The following would address some limitations:
 

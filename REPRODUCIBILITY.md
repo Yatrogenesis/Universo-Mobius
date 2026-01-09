@@ -1,4 +1,4 @@
-# Reproducibility Guide
+# Reproducibility guide
 
 ## Overview
 
@@ -8,7 +8,7 @@ All analyses in this repository are fully reproducible using publicly available 
 
 ## Requirements
 
-### Python Environment
+### Python environment
 
 ```bash
 python >= 3.8
@@ -28,7 +28,7 @@ pip install healpy camb emcee corner
 
 ---
 
-## Data Sources and DOIs
+## Data sources and DOIs
 
 All data used in this analysis are publicly available:
 
@@ -51,9 +51,9 @@ All data used in this analysis are publicly available:
 
 ---
 
-## Running the Analyses
+## Running the analyses
 
-### Individual Datasets
+### Individual datasets
 
 Each analysis script is self-contained:
 
@@ -65,7 +65,7 @@ python code/GWTC3_full_raw_analysis.py
 python code/NANOGrav_analysis.py
 ```
 
-### Full Validation Suite
+### Full validation suite
 
 ```bash
 # Run all analyses
@@ -76,7 +76,7 @@ done
 
 ---
 
-## Output Structure
+## Output structure
 
 ```
 results/
@@ -102,15 +102,15 @@ figures/
 
 ---
 
-## Statistical Methods
+## Statistical methods
 
-### Hexagonal Fit (GWTC-3)
+### Hexagonal fit (GWTC-3)
 
 The hexagonal frequency structure is tested using chi-square analysis comparing:
 - OCTH hexagonal ratios: 1 : sqrt(3) : 2 : sqrt(7)
 - Standard GR predictions
 
-### Fisher's Method (Combined Significance)
+### Fisher.s method (Combined Significance)
 
 Independent p-values are combined using Fisher's method:
 
@@ -120,7 +120,7 @@ chi2_combined = -2 * sum(log(p_i))
 
 This follows a chi-square distribution with 2k degrees of freedom.
 
-### Tension Calculations
+### Tension calculations
 
 Parameter tensions are computed as:
 

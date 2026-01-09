@@ -1,5 +1,5 @@
-# OCTH Comprehensive Validation Report
-## Ontological Hexagonal Tensor Field Theory - Multi-Dataset Analysis
+# OCTH Comprehensive validation report
+## Ontological Hexagonal Tensor Field Theory - Multi-dataset analysis
 
 **Date:** January 2026
 **Author:** F. Molina-Burgos
@@ -8,11 +8,11 @@
 
 ---
 
-## Executive Summary
+## Executive summary
 
 This report presents comprehensive validation of OCTH (Ontologia del Campo Tensorial Hexagonal) against **13 independent astronomical datasets**. The results provide **overwhelming statistical evidence** supporting OCTH predictions.
 
-### Combined Results at a Glance
+### Combined results at a glance
 
 | Dataset | OCTH Significance | Key Finding |
 |---------|------------------|-------------|
@@ -30,21 +30,21 @@ This report presents comprehensive validation of OCTH (Ontologia del Campo Tenso
 | **CHIME/FRB** | **5.1sigma** | DM excess from Psi photon propagation |
 | **Strong Lensing** | **2.6sigma** | H0-z correlation r=-0.88 (OCTH signature!) |
 
-### Total: 13 Datasets, >>10sigma Combined Significance
+### Total: 13 Datasets, >>10sigma Combined significance
 
 ---
 
-## 1. GWTC-3 Gravitational Wave Analysis
+## 1. GWTC-3 Gravitational wave analysis
 
 ### Overview
 Complete analysis of all 83 events from LIGO/Virgo/KAGRA O1, O2, O3a, O3b runs.
 
-### Key Results
+### Key results
 - **Events analyzed:** 83 (81 with valid data)
 - **Events favoring HEXAGONAL:** 80 (98.8%)
 - **Events favoring GR:** 1 (1.2%) - GW170608 (data quality issue)
 
-### Results by Observing Run
+### Results by observing run
 | Run | Events | Hexagonal | Percentage |
 |-----|--------|-----------|------------|
 | O1 | 3 | 3 | 100% |
@@ -52,7 +52,7 @@ Complete analysis of all 83 events from LIGO/Virgo/KAGRA O1, O2, O3a, O3b runs.
 | O3a | 38 | 38 | 100% |
 | O3b | 33 | 33 | 100% |
 
-### OCTH Prediction
+### OCTH prediction
 Gravitational wave frequencies should follow hexagonal ratios: **1 : sqrt(3) : 2 : sqrt(7)**
 
 ### Verdict
@@ -60,18 +60,18 @@ Gravitational wave frequencies should follow hexagonal ratios: **1 : sqrt(3) : 2
 
 ---
 
-## 2. NANOGrav 15-Year Pulsar Timing Analysis
+## 2. NANOGrav 15-Year Pulsar timing analysis
 
 ### Overview
 Analysis of nanohertz gravitational wave background from 15-year pulsar timing data.
 
-### Key Results
+### Key results
 - **Spectral index measured:** gamma = 3.2 +/- 0.3
 - **SMBHB prediction:** gamma = 4.33
 - **Tension:** 1.9sigma
 - **Hellings-Downs correlation:** Detected (confirms GW origin)
 
-### OCTH Interpretation
+### OCTH interpretation
 The spectral index tension is consistent with OCTH temporal permeability modifications affecting gravitational wave propagation at cosmological scales.
 
 ### Verdict
@@ -79,24 +79,24 @@ The spectral index tension is consistent with OCTH temporal permeability modific
 
 ---
 
-## 3. ACT/SPT CMB Analysis
+## 3. ACT/SPT CMB analysis
 
 ### Overview
 High-resolution CMB analysis from Atacama Cosmology Telescope DR6 and South Pole Telescope 3G.
 
-### Key Results
+### Key results
 - **H0 tension (SH0ES-Planck):** 5.0sigma
 - **S8 tension (Planck-DES):** 2.6sigma
 - **Mobius topology signature:** DETECTED in both experiments
 - **Combined significance:** 5.3sigma
 
-### Cosmological Parameter Tensions
+### Cosmological parameter tensions
 | Parameter | Planck 2018 | SH0ES/DES | Tension |
 |-----------|-------------|-----------|---------|
 | H0 (km/s/Mpc) | 67.4 +/- 0.5 | 73.0 +/- 1.0 | 5.0sigma |
 | S8 | 0.832 +/- 0.013 | 0.776 +/- 0.017 | 2.6sigma |
 
-### OCTH Interpretation
+### OCTH interpretation
 - H0 tension arises from temporal permeability Psi affecting distance-redshift relation
 - S8 tension consistent with modified structure growth in hexagonal spacetime
 - Mobius topology creates anti-correlation at specific angular scales
@@ -106,18 +106,18 @@ High-resolution CMB analysis from Atacama Cosmology Telescope DR6 and South Pole
 
 ---
 
-## 4. DESI DR1 BAO Analysis
+## 4. DESI DR1 BAO analysis
 
 ### Overview
 Dark Energy Spectroscopic Instrument Year 1 BAO and dark energy measurements.
 
-### Key Results
+### Key results
 - **w0 = -0.45 +/- 0.34** (Lambda-CDM: -1)
 - **wa = -1.79 +/- 1.0** (Lambda-CDM: 0)
 - **Lambda-CDM disfavored:** ~2.5sigma
 - **Combined significance:** 6.1sigma
 
-### OCTH Interpretation
+### OCTH interpretation
 - **w0 > -1**: Temporal permeability Psi > 1 at low z enhances expansion
 - **wa < 0**: Psi decreases with redshift (gradient effect)
 - Dark energy evolution is PREDICTED by OCTH temporal permeability framework
@@ -127,18 +127,18 @@ Dark Energy Spectroscopic Instrument Year 1 BAO and dark energy measurements.
 
 ---
 
-## 5. Euclid ERO Weak Lensing Analysis
+## 5. Euclid ERO Weak lensing analysis
 
 ### Overview
 Euclid Early Release Observations analysis of cosmic shear and galaxy clustering.
 
-### Key Results
+### Key results
 - **S8 (Euclid):** 0.773 +/- 0.025
 - **S8 (Planck):** 0.832 +/- 0.013
 - **S8 tension:** 3.6sigma
 - **Combined significance:** 7.1sigma
 
-### S8 Measurements Comparison
+### S8 measurements comparison
 | Survey | S8 | Error | Tension vs Planck |
 |--------|-----|-------|-------------------|
 | Planck 2018 | 0.832 | 0.013 | - |
@@ -147,11 +147,11 @@ Euclid Early Release Observations analysis of cosmic shear and galaxy clustering
 | KiDS-1000 | 0.759 | 0.024 | 2.7sigma |
 | HSC Y3 | 0.769 | 0.031 | 1.9sigma |
 
-### Euclid Forecast
+### Euclid forecast
 - **Year 1 (2500 deg2):** 4.4sigma detection capability
 - **Final Survey (14000 deg2):** 4.5sigma (definitive OCTH test)
 
-### OCTH Interpretation
+### OCTH interpretation
 - WL probes late-time (z<1) where Psi modifications are strongest
 - S8 tension matches OCTH prediction of modified structure growth
 - Delta_S8 ~ 0.06 consistent with temporal permeability evolution
@@ -161,17 +161,17 @@ Euclid Early Release Observations analysis of cosmic shear and galaxy clustering
 
 ---
 
-## 6. JWST COSMOS-Web Early Universe Analysis
+## 6. JWST COSMOS-Web Early universe analysis
 
 ### Overview
 Analysis of "impossible" early massive galaxies discovered by JWST.
 
-### Key Results
+### Key results
 - **UV luminosity excess:** 4.7sigma (3x more bright galaxies than Lambda-CDM predicts)
 - **Timeline fit:** OCTH 16x better than Lambda-CDM
 - **Combined significance:** 4.8sigma
 
-### Notable "Impossible" Galaxies
+### Notable "impossible" galaxies
 | Galaxy | Redshift | log(M*/Msun) | Challenge |
 |--------|----------|--------------|-----------|
 | JADES-GS-z14-0 | 14.2 | 8.7 | Record holder! |
@@ -180,7 +180,7 @@ Analysis of "impossible" early massive galaxies discovered by JWST.
 | GS-z11 | 11.1 | 9.4 | Too massive |
 | CEERS-2782 | 10.0 | 9.3 | Too massive |
 
-### OCTH Interpretation
+### OCTH interpretation
 - Temporal permeability Psi(z) is enhanced at high z
 - This increases effective growth rate in early universe
 - Hexagonal spacetime enables denser early structures
@@ -191,9 +191,9 @@ Analysis of "impossible" early massive galaxies discovered by JWST.
 
 ---
 
-## Combined Statistical Analysis
+## Combined statistical analysis
 
-### Fisher's Method Combined Significance
+### Fisher's Method Combined significance
 
 Using Fisher's method to combine p-values from 13 independent datasets:
 
@@ -239,16 +239,16 @@ Every major astronomical dataset analyzed shows consistency with or strong suppo
 - **Structure growth:** Modified growth rate explains S8 tension
 - **Early universe:** Enhanced early growth explains JWST galaxies
 
-### 4. Future Tests
+### 4. Future tests
 - **Euclid Full Survey:** Can definitively test OCTH at >5sigma
 - **LISA:** Space-based GW detector can probe hexagonal structure
 - **CMB-S4:** Next-generation CMB can test Mobius topology
 
 ---
 
-## Files Generated
+## Files generated
 
-### Analysis Scripts (13 Total)
+### Analysis scripts (13 Total)
 - `code/GWTC3_full_raw_analysis.py`
 - `code/NANOGrav_analysis.py`
 - `code/ACT_SPT_CMB_analysis.py`
