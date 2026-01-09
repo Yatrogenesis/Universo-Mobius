@@ -462,7 +462,8 @@ python3 GWTC3_raw_pipeline.py
 ## Autor
 
 **Francisco Molina Burgos**
-Email: yatrogenesis@proton.me
+Email: pako.molina@gmail.com
+Institucional: fmolina@avermex.com
 
 ## Acknowledgments
 
