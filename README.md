@@ -151,9 +151,26 @@ Nodos triádicos    n_eff = 1/Ψ             Índice de refracción
 
 - [x] **Test #1:** Topología Möbius en CMB → Pipeline validado, pendiente datos reales
 - [x] **Test #2:** Geodésicas OCTH → **EQUIVALENCIA MATEMÁTICA DEMOSTRADA**
-- [ ] **Test #3:** Geometría hexagonal en distribución de galaxias (SDSS)
+- [x] **Test #3:** Geometría hexagonal en galaxias → Ratio hex/sq = 1.43 (pendiente SDSS real)
 - [ ] **Test #4:** Verificación Ψ en ondas gravitacionales (LIGO)
-- [x] **Test #5:** VSL en GRBs → Lag INTRÍNSECO detectado (no VSL)
+- [x] **Test #5:** VSL en GRBs → Lag INTRÍNSECO detectado (Lorentz invariance OK)
+
+### Test #3: Geometría Hexagonal en Galaxias
+
+**Predicción:** Si la malla fue estirada por inflación, ω(60°) y ω(120°) > ω(90°).
+
+**Resultado (simulación):**
+| Ángulo | ω(θ) | Tipo |
+|--------|------|------|
+| 60° | 0.236 | Hexagonal |
+| 90° | 0.225 | Cuadrado |
+| 120° | **0.405** | Hexagonal |
+
+- Ratio hexagonal/cuadrado = **1.43** (43% más correlación)
+- Z = 1.85, p = 0.064 (marginalmente significativo)
+- ⏳ **Pendiente**: Ejecutar con datos SDSS reales
+
+---
 
 ### Test #5: VSL en GRBs
 
