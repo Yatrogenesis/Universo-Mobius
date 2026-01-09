@@ -177,25 +177,48 @@ class GWTC3RawPipeline:
 
         try:
             # Get GPS time of event
-            gps = event_gps(event_name)
+            # Handle event names with version suffixes
+            event_base = event_name.split('-')[0] if '-v' in event_name else event_name
+            gps = event_gps(event_base)
 
             # Fetch data around merger (32 seconds centered on event)
-            start = gps - SEGMENT_DURATION // 2
-            end = gps + SEGMENT_DURATION // 2
+            start = int(gps - SEGMENT_DURATION // 2)
+            end = int(gps + SEGMENT_DURATION // 2)
 
-            # Try to fetch from GWOSC
-            data = TimeSeries.fetch_open_data(
-                detector,
-                start,
-                end,
-                sample_rate=SAMPLE_RATE,
-                cache=True
-            )
+            # Try multiple approaches
+            data = None
 
-            return data
+            # Approach 1: Direct fetch with sample rate
+            try:
+                data = TimeSeries.fetch_open_data(
+                    detector,
+                    start,
+                    end,
+                    sample_rate=SAMPLE_RATE,
+                    cache=True,
+                    verbose=False
+                )
+            except Exception as e1:
+                # Approach 2: Fetch without specifying sample rate
+                try:
+                    data = TimeSeries.fetch_open_data(
+                        detector,
+                        start,
+                        end,
+                        cache=True,
+                        verbose=False
+                    )
+                except Exception as e2:
+                    pass
+
+            if data is not None and len(data) > 0:
+                print(f"  ✓ {detector}: {len(data)} samples")
+                return data
+            else:
+                return None
 
         except Exception as e:
-            print(f"  Could not fetch {detector} data for {event_name}: {e}")
+            print(f"  ✗ {detector}: {str(e)[:50]}")
             return None
 
     def analyze_strain(self, strain: TimeSeries, expected_f1: float) -> Dict:
@@ -401,24 +424,55 @@ class GWTC3RawPipeline:
         print(f"Processing {len(events)} GWTC-3 events...")
 
         for event in events:
-            if event in mass_catalog:
-                result = self.analyze_event(event, mass_catalog[event])
+            # Handle versioned event names (e.g., GW191103_012549-v1 -> GW191103_012549)
+            event_base = event.split('-')[0] if '-v' in event else event
+
+            # Check if we have mass data for this event
+            if event_base in mass_catalog:
+                result = self.analyze_event(event_base, mass_catalog[event_base])
                 if result:
                     self.results.append(result)
+            else:
+                print(f"  Skipping {event_base}: no mass data available")
 
         self._save_results()
         self._generate_report()
 
     def _get_mass_catalog(self) -> Dict[str, float]:
-        """Get total masses for GWTC-3 events."""
-        # Representative masses from GWTC-3 catalog
+        """Get total masses for GWTC-3 events (from GWTC-3 catalog paper)."""
         return {
+            # O1 events
             'GW150914': 65.3, 'GW151012': 37.7, 'GW151226': 21.7,
+            # O2 events
             'GW170104': 50.7, 'GW170608': 18.6, 'GW170729': 85.1,
-            'GW170809': 56.4, 'GW170814': 55.8, 'GW170818': 59.8,
-            'GW170823': 68.7, 'GW190412': 44.3, 'GW190521': 150.0,
-            'GW190814': 25.8, 'GW190828_063405': 44.0, 'GW190924_021846': 13.9,
-            # Add more as needed...
+            'GW170809': 56.4, 'GW170814': 55.8, 'GW170818': 59.8, 'GW170823': 68.7,
+            # O3a events
+            'GW190408_181802': 46.4, 'GW190412': 44.3, 'GW190413_052954': 55.0,
+            'GW190413_134308': 95.0, 'GW190421_213856': 57.0, 'GW190424_180648': 55.0,
+            'GW190503_185404': 65.0, 'GW190512_180714': 30.4, 'GW190513_205428': 54.0,
+            'GW190514_065416': 58.0, 'GW190517_055101': 80.0, 'GW190519_153544': 110.0,
+            'GW190521': 150.0, 'GW190521_074359': 65.0, 'GW190527_092055': 63.0,
+            'GW190602_175927': 100.0, 'GW190620_030421': 87.0, 'GW190630_185205': 57.0,
+            'GW190701_203306': 77.0, 'GW190706_222641': 95.0, 'GW190707_093326': 20.0,
+            'GW190708_232457': 27.0, 'GW190719_215514': 60.0, 'GW190720_000836': 22.0,
+            'GW190725_174728': 18.0, 'GW190727_060333': 62.0, 'GW190728_064510': 21.0,
+            'GW190731_140936': 54.0, 'GW190803_022701': 60.0, 'GW190814': 25.8,
+            'GW190828_063405': 44.0, 'GW190828_065509': 50.0, 'GW190909_114149': 95.0,
+            'GW190910_112807': 64.0, 'GW190915_235702': 56.0, 'GW190924_021846': 13.9,
+            'GW190925_232845': 28.0, 'GW190926_050336': 26.0, 'GW190929_012149': 110.0,
+            'GW190930_133541': 19.0,
+            # O3b events (GWTC-3)
+            'GW191103_012549': 21.0, 'GW191105_143521': 21.0, 'GW191109_010717': 107.0,
+            'GW191113_071753': 55.0, 'GW191126_115259': 21.0, 'GW191127_050227': 82.0,
+            'GW191129_134029': 18.0, 'GW191204_110529': 20.0, 'GW191204_171526': 19.0,
+            'GW191215_223052': 45.0, 'GW191216_213338': 21.0, 'GW191219_163120': 57.0,
+            'GW191222_033537': 72.0, 'GW191230_180458': 65.0, 'GW200112_155838': 58.0,
+            'GW200128_022011': 68.0, 'GW200129_065458': 60.0, 'GW200202_154313': 18.0,
+            'GW200208_130117': 60.0, 'GW200209_085452': 60.0, 'GW200210_092254': 32.0,
+            'GW200216_220804': 80.0, 'GW200219_094415': 60.0, 'GW200220_061928': 125.0,
+            'GW200220_124850': 60.0, 'GW200224_222234': 70.0, 'GW200225_060421': 26.0,
+            'GW200302_015811': 70.0, 'GW200306_093714': 45.0, 'GW200308_173609': 60.0,
+            'GW200311_115853': 56.0, 'GW200316_215756': 22.0, 'GW200322_091133': 50.0,
         }
 
     def _save_results(self):
@@ -504,18 +558,10 @@ def main():
     # Run pipeline
     pipeline = GWTC3RawPipeline(output_dir="results/raw_analysis")
 
-    # Start with a small test set
-    test_masses = {
-        'GW150914': 65.3,
-        'GW170814': 55.8,
-        'GW190521': 150.0,
-    }
-
-    print("\nRunning test on 3 events first...")
-    pipeline.run_full_catalog(test_masses)
-
-    print("\nTo run full catalog, call:")
-    print("  pipeline.run_full_catalog()")
+    # Run full catalog analysis
+    print(f"\nRunning FULL CATALOG analysis...")
+    print("This will process all events with available public data.\n")
+    pipeline.run_full_catalog()
 
 
 if __name__ == '__main__':
