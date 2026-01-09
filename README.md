@@ -153,7 +153,22 @@ Nodos triádicos    n_eff = 1/Ψ             Índice de refracción
 - [x] **Test #2:** Geodésicas OCTH → **EQUIVALENCIA MATEMÁTICA DEMOSTRADA**
 - [ ] **Test #3:** Geometría hexagonal en distribución de galaxias (SDSS)
 - [ ] **Test #4:** Verificación Ψ en ondas gravitacionales (LIGO)
-- [ ] **Test #5:** VSL en GRBs (Fermi-LAT)
+- [x] **Test #5:** VSL en GRBs → Lag INTRÍNSECO detectado (no VSL)
+
+### Test #5: VSL en GRBs
+
+**Predicción:** Si c_eff = c·Ψ(E), fotones de mayor energía llegarían más tarde.
+
+**Resultado:**
+| Correlación | ρ | p-value | Interpretación |
+|-------------|---|---------|----------------|
+| Lag vs E | **-0.747** | 0.0002 | NEGATIVA (opuesto a VSL) |
+| Lag vs z | +0.467 | 0.038 | Posible evolución cósmica |
+
+- ✓ Lag altamente significativo (Z = 6.98σ)
+- ✓ **Correlación NEGATIVA**: fotones de alta E llegan ANTES
+- ✓ Conclusión: Lag es INTRÍNSECO a la fuente (física del GRB)
+- ✓ Límite: E_QG > 0.68 × E_Planck (consistente con Lorentz invariance)
 
 ## Dependencias
 

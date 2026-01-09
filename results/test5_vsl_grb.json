@@ -1,0 +1,30 @@
+{
+  "test": "Test #5 - VSL en GRBs",
+  "date": "2026-01-08",
+  "n_grbs": 20,
+  "z_range": [
+    0.0785,
+    4.35
+  ],
+  "correlations": {
+    "lag_vs_energy": {
+      "rho": -0.7469881635885417,
+      "p_value": 0.00015415380172603457
+    },
+    "lag_vs_redshift": {
+      "rho": 0.4674447842240031,
+      "p_value": 0.03769262045190892
+    }
+  },
+  "null_test": {
+    "mean_lag_ms": 0.3013002695613246,
+    "err_ms": 0.04318159181110994,
+    "z_score": 6.977516504702006,
+    "p_value": 3.0044855492405986e-12
+  },
+  "liv_fit": {
+    "E_QG_over_Planck": 0.6819802024032752,
+    "chi2_reduced": 15.050136205782238
+  },
+  "conclusion": "LAG INTR\u00cdNSECO (correlaci\u00f3n negativa = efecto de fuente)"
+}
