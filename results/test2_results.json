@@ -1,0 +1,36 @@
+{
+  "test": "Test #2 - Hexagonal Lattice Wave Propagation",
+  "version": "v2",
+  "date": "2026-01-08",
+  "status": "QUALITATIVE SUCCESS",
+
+  "parameters": {
+    "mass": 0.1,
+    "schwarzschild_radius": 0.2,
+    "lattice_size": [80, 80],
+    "nodes": 6400,
+    "lattice_type": "hexagonal"
+  },
+
+  "results": {
+    "b_values": [2.0, 4.0, 6.0, 8.0, 10.0, 15.0],
+    "deflections_octh_degrees": [3.3157, 1.4728, 0.9429, 0.6880, 0.5341, 0.3140],
+    "deflections_gr_degrees": [11.4592, 5.7296, 3.8197, 2.8648, 2.2918, 1.5279],
+    "errors_percent": [71.1, 74.3, 75.3, 76.0, 76.7, 79.4],
+    "mean_error_percent": 75.5
+  },
+
+  "qualitative_checks": {
+    "deflection_decreases_with_b": true,
+    "light_curves_toward_mass": true,
+    "correct_sign": true
+  },
+
+  "conclusion": "The hexagonal lattice with variable Ψ field QUALITATIVELY reproduces gravitational lensing. Light deflects toward low-Ψ regions (mass) and deflection scales inversely with impact parameter. Quantitative calibration needed.",
+
+  "next_steps": [
+    "Improve gradient interpolation for better quantitative accuracy",
+    "Test larger lattices for convergence study",
+    "Implement full wave propagation (not just ray tracing)"
+  ]
+}
