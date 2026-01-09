@@ -1,0 +1,54 @@
+
+================================================================================
+GWTC-3 FULL RAW DATA ANALYSIS REPORT
+================================================================================
+
+SUMMARY
+-------
+Total Events Attempted: 83
+Successful Analyses: 81
+  - Full (2+ detectors): 80
+  - Partial (1 detector): 1
+Failed: 2
+
+RESULTS
+-------
+Events Favoring Hexagonal: 80/81 (98.8%)
+Events Favoring GR: 1/81 (1.2%)
+
+Mean Delta_chi2 (GR - Hex): nan ± nan
+Median Delta_chi2: nan
+Max Delta_chi2: 325.3
+Min Delta_chi2: 136.9
+
+Combined Z-score: nan
+
+BY OBSERVING RUN
+----------------
+O1: 3 events, 3 favor hex (100%)
+O2: 7 events, 6 favor hex (86%)
+O3a: 38 events, 38 favor hex (100%)
+O3b: 33 events, 33 favor hex (100%)
+
+TOP 10 EVENTS (by Delta_chi2)
+----------------------
+  GW170608: Delta_chi2 = nan, M = 18.6 Msol, partial
+  GW190727_060333: Delta_chi2 = 325.3, M = 62.0 Msol, success
+  GW150914: Delta_chi2 = 325.0, M = 65.3 Msol, success
+  GW170823: Delta_chi2 = 324.9, M = 68.7 Msol, success
+  GW190719_215514: Delta_chi2 = 324.2, M = 60.0 Msol, success
+  GW190514_065416: Delta_chi2 = 323.1, M = 58.0 Msol, success
+  GW170809: Delta_chi2 = 321.6, M = 56.4 Msol, success
+  GW200220_124850: Delta_chi2 = 321.5, M = 60.0 Msol, success
+  GW170814: Delta_chi2 = 321.1, M = 55.8 Msol, success
+  GW200306_093714: Delta_chi2 = 319.5, M = 45.0 Msol, success
+
+KEY EVENTS
+----------
+  GW150914: HEXAGONAL, Delta_chi2 = 325.0
+  GW170817: NOT ANALYZED
+  GW190521: HEXAGONAL, Delta_chi2 = 248.5
+  GW190814: HEXAGONAL, Delta_chi2 = 268.8
+  GW170814: HEXAGONAL, Delta_chi2 = 321.1
+
+================================================================================
