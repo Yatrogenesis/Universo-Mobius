@@ -4,7 +4,7 @@
 ### Del bachillerato al postdoctorado
 
 **Autor:** Francisco Molina Burgos
-**Versión:** 1.0 (Enero 2025)
+**Versión:** 1.0 (Enero 2026)
 
 ---
 
@@ -515,7 +515,7 @@ El documento `OCTH_O4_Predictions.md` establece predicciones falsificables **ant
 
 ---
 
-*Documento generado: Enero 2025*
+*Documento generado: Enero 2026*
 *Última actualización: v1.0*
 
 **φ > 0**

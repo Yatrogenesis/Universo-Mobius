@@ -1,7 +1,7 @@
 # Derivación Completa de la Métrica Hexagonal OCTH
 
 **Autor:** Francisco Molina Burgos
-**Fecha:** Enero 2025
+**Fecha:** Enero 2026
 **Objetivo:** Mostrar paso a paso cómo se construye la ecuación fundamental de OCTH
 
 ---

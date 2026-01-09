@@ -3,7 +3,7 @@
 ## Resolución de la "Paradoja Epsilon"
 
 **Autor:** Francisco Molina Burgos
-**Fecha:** Enero 2025
+**Fecha:** Enero 2026
 **Versión:** 1.0
 
 ---
@@ -281,4 +281,4 @@ La perturbación microscópica produce efectos macroscópicos por **resonancia c
 
 ---
 
-*Documento generado: Enero 2025*
+*Documento generado: Enero 2026*

@@ -5,7 +5,7 @@ eROSITA Galaxy Cluster Analysis for OCTH Validation
 X-ray cluster mass function and growth rate.
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import numpy as np

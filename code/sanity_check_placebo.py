@@ -15,7 +15,7 @@ RESULTADO ESPERADO:
 - Si NO encuentra nada → EL CÓDIGO ES HONESTO → La señal es real
 
 Autor: Francisco Molina Burgos & Claude
-Fecha: 2025-01-09
+Fecha: 2026-01-09
 """
 
 import numpy as np

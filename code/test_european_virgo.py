@@ -15,7 +15,7 @@ Evento: GW170814 - El PRIMER evento triple detector (H1+L1+V1)
 Este es el evento perfecto porque tenemos datos de los 3 detectores.
 
 Autor: Francisco Molina Burgos & Claude
-Fecha: 2025-01-09
+Fecha: 2026-01-09
 """
 
 import numpy as np

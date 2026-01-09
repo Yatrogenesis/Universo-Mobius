@@ -17,7 +17,7 @@ Data Source:
     https://www.gw-openscience.org/
 
 Author: Francisco Molina Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import os

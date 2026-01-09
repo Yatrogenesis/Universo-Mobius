@@ -12,7 +12,7 @@ OCTH Predictions for CMB:
 4. Specific l-mode relationships: l_n = l_1 * sqrt(n) for hexagonal modes
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import numpy as np

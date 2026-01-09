@@ -1,6 +1,6 @@
 # SANITY CHECKS: Verificación de Robustez
 ## Universo-Möbius / OCTH
-### Francisco Molina Burgos | Enero 2025
+### Francisco Molina Burgos | Enero 2026
 
 ---
 
@@ -99,5 +99,5 @@
 
 ---
 
-*Generado: 2025-01-09*
+*Generado: 2026-01-09*
 *Con asistencia de Claude (Anthropic)*

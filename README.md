@@ -320,7 +320,7 @@ Ratio observado: 3.29× ≈ Ratio de masas inversas
 
 ---
 
-## 🆕 Veredicto Honesto (Enero 2025)
+## 🆕 Veredicto Honesto (Enero 2026)
 
 Análisis riguroso para aumentar la probabilidad de éxito de ~30% a ~90%:
 
@@ -369,7 +369,7 @@ Análisis de datos crudos de strain descargados directamente de GWOSC:
 
 **Archivo:** `paper/OCTH_O4_Predictions.md`
 **Git Hash:** `692b1affb7e22015401e497c75b9151af345cf01`
-**Fecha:** 9 Enero 2025 (ANTES de datos O4)
+**Fecha:** 9 Enero 2026 (ANTES de datos O4)
 
 Predicciones falsificables publicadas:
 
@@ -382,7 +382,7 @@ Predicciones falsificables publicadas:
 
 ---
 
-## 🆕 Nuevos Tests (Enero 2025)
+## 🆕 Nuevos Tests (Enero 2026)
 
 ### Test Europeo: VIRGO vs LIGO ✅
 

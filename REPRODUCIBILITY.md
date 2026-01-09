@@ -145,7 +145,7 @@ All results can be independently verified by:
 If using this analysis methodology, please cite:
 
 ```
-Molina-Burgos, F. (2025). OCTH Validation Against Astronomical Datasets.
+Molina-Burgos, F. (2026). OCTH Validation Against Astronomical Datasets.
 GitHub: https://github.com/Yatrogenesis/Universo-Mobius
 ```
 

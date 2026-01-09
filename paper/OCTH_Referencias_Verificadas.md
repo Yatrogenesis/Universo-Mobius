@@ -2,7 +2,7 @@
 
 **Documento de Verificación Completa**
 **Autor:** Francisco Molina Burgos
-**Fecha:** Enero 2025
+**Fecha:** Enero 2026
 **Estado:** TODAS LAS REFERENCIAS VERIFICADAS CON DOI
 
 ---
@@ -254,5 +254,5 @@
 
 ---
 
-*Documento generado: Enero 2025*
+*Documento generado: Enero 2026*
 *Última verificación de DOIs: Activa*

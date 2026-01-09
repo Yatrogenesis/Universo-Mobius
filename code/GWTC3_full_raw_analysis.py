@@ -6,7 +6,7 @@ Downloads and analyzes ALL GWTC-3 events using GWOSC data.
 Uses h5py + scipy instead of gwpy to avoid C compilation issues.
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import os

@@ -7,7 +7,7 @@ El test anterior mostro que las lineas de 60/120 Hz siempre coinciden
 con modos predichos. Este test usa ruido PURO sin estructura.
 
 Autor: Francisco Molina Burgos & Claude
-Fecha: 2025-01-09
+Fecha: 2026-01-09
 """
 
 import numpy as np

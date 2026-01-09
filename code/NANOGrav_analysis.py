@@ -14,7 +14,7 @@ Data Source: NANOGrav 15-year dataset
 https://zenodo.org/record/7967584
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import os

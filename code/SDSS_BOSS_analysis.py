@@ -12,7 +12,7 @@ OCTH Predictions:
 Reference: BOSS DR12, eBOSS DR16
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import numpy as np

@@ -1,7 +1,7 @@
 # OCTH Predictions for LIGO O4 Observing Run
 
 **Author:** Francisco Molina Burgos
-**Date:** January 9, 2025
+**Date:** January 9, 2026
 **Status:** PRE-RELEASE PREDICTIONS (Before O4 Data Publication)
 
 ---
@@ -125,7 +125,7 @@ OCTH will be considered **falsified** if:
 To ensure blind testing:
 
 1. **This document** is being published on GitHub with SHA hash verification
-2. **Timestamp:** January 9, 2025 (UTC)
+2. **Timestamp:** January 9, 2026 (UTC)
 3. **Analysis code** is published at: github.com/Yatrogenesis/Universo-Mobius
 
 Any analysis of O4 data using OCTH methods should reference this prediction document to confirm predictions were made BEFORE data analysis.
@@ -202,7 +202,7 @@ r_n = [1, √3, 2, √7] = [1.000, 1.732, 2.000, 2.646]
 
 **Git Commit Hash:** `692b1affb7e22015401e497c75b9151af345cf01`
 **Repository:** github.com/Yatrogenesis/Universo-Mobius
-**Commit Date:** January 9, 2025
+**Commit Date:** January 9, 2026
 
 This document is timestamped and published before O4 data analysis to ensure predictions are genuinely predictive, not post-hoc.
 

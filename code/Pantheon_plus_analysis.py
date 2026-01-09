@@ -12,7 +12,7 @@ OCTH Predictions:
 Reference: Scolnic et al. 2022, Brout et al. 2022 (Pantheon+)
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import numpy as np

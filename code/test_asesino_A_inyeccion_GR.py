@@ -20,7 +20,7 @@ CRITERIO DE FALLO:
   toda la evidencia de OCTH queda invalidada.
 
 Autor: Francisco Molina Burgos
-Fecha: Enero 2025
+Fecha: Enero 2026
 """
 
 import numpy as np

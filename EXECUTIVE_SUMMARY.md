@@ -1,6 +1,6 @@
 # OCTH - Resumen Ejecutivo de Evidencia
 ## Ontología Cíclica Topo-Holográfica (Universo-Möbius)
-### Francisco Molina Burgos | Enero 2025
+### Francisco Molina Burgos | Enero 2026
 
 ---
 
@@ -143,7 +143,7 @@ La probabilidad combinada de que los tres tests independientes sean fluctuacione
 ## 📚 CITA SUGERIDA
 
 ```
-Molina Burgos, F. (2025). Evidence for Primordial Hexagonal Geometry
+Molina-Burgos, F. (2026). Evidence for Primordial Hexagonal Geometry
 from Multi-Messenger Cosmological Observations.
 GitHub: github.com/OCTH-Cosmology/Universo-Mobius
 ```
@@ -158,4 +158,4 @@ La correlación entre direcciones de ondas gravitacionales y anomalías del CMB 
 
 ---
 *Generado con asistencia de Claude (Anthropic)*
-*Enero 2025*
+*Enero 2026*

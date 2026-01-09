@@ -18,7 +18,7 @@ METODO:
 4. Calcular probabilidad de 4/4 modos por AZAR
 
 Autor: Francisco Molina Burgos & Claude
-Fecha: 2025-01-09
+Fecha: 2026-01-09
 """
 
 import numpy as np

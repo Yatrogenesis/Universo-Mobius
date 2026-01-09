@@ -3,7 +3,7 @@
 ## Reconciliación de Métricas y Resultados
 
 **Autor:** Francisco Molina Burgos
-**Fecha:** Enero 2025
+**Fecha:** Enero 2026
 **Estado:** Documento de Control de Consistencia
 
 ---
@@ -153,10 +153,10 @@ $$\boxed{p_{\text{combined}} < 10^{-8}}$$
 
 | Dataset | Última actualización | Git commit | Datos pendientes |
 |---------|---------------------|------------|------------------|
-| A: Catálogo | 2025-01-09 | c59f800 | N/A |
-| B: Raw | 2025-01-09 | c59f800 | 47 eventos más |
-| C: CMB | 2025-01-08 | 7809fc4 | N/A |
-| D: Cross | 2025-01-08 | 7809fc4 | Actualizará con B |
+| A: Catálogo | 2026-01-09 | c59f800 | N/A |
+| B: Raw | 2026-01-09 | c59f800 | 47 eventos más |
+| C: CMB | 2026-01-08 | 7809fc4 | N/A |
+| D: Cross | 2026-01-08 | 7809fc4 | Actualizará con B |
 
 ---
 
@@ -174,4 +174,4 @@ $$\boxed{p_{\text{combined}} < 10^{-8}}$$
 ---
 
 *Documento de control interno - Actualizar con cada análisis*
-*Última revisión: 9 Enero 2025*
+*Última revisión: 9 Enero 2026*

@@ -12,7 +12,7 @@ OCTH Predictions:
 Reference: Planck Collaboration 2018 (arXiv:1807.06205)
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import numpy as np

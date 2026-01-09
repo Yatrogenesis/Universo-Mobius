@@ -7,7 +7,7 @@ Fast Radio Burst dispersion measure cosmology.
 OCTH Prediction: Psi(z) affects DM-z relation.
 
 Author: F. Molina-Burgos
-Date: January 2025
+Date: January 2026
 """
 
 import numpy as np

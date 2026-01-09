@@ -124,4 +124,4 @@ Despite these limitations, the analyses provide a transparent and reproducible f
 
 ---
 
-*Last updated: January 2025*
+*Last updated: January 2026*

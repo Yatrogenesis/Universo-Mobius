@@ -25,7 +25,7 @@ CRITERIO DE FALLO:
 - Si Z≥4.31 ocurre en >1% de simulaciones, P3 pierde fuerza
 
 Autor: Francisco Molina Burgos
-Fecha: Enero 2025
+Fecha: Enero 2026
 """
 
 import numpy as np

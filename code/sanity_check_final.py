@@ -16,7 +16,7 @@ MÉTODO:
 4. Calcular significancia real de los modos encontrados
 
 Autor: Francisco Molina Burgos & Claude
-Fecha: 2025-01-09
+Fecha: 2026-01-09
 """
 
 import numpy as np

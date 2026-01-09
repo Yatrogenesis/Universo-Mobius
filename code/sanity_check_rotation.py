@@ -13,7 +13,7 @@ METODO:
 5. Si Z cae → CORRELACION REAL
 
 Autor: Francisco Molina Burgos & Claude
-Fecha: 2025-01-09
+Fecha: 2026-01-09
 """
 
 import numpy as np
