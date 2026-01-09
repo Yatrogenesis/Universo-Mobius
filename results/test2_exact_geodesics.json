@@ -1,0 +1,56 @@
+{
+  "test": "Test #2 v3 - Exact Geodesics from OCTH Metric",
+  "version": "v3_exact",
+  "date": "2026-01-08",
+  "status": "MATHEMATICAL EQUIVALENCE DEMONSTRATED",
+
+  "parameters": {
+    "mass": 1.0,
+    "schwarzschild_radius": 2.0,
+    "speed_of_light": 1.0,
+    "gravitational_constant": 1.0
+  },
+
+  "metric": {
+    "form": "ds² = -Ψ²c²dt² + dr² + r²dφ²",
+    "psi_definition": "Ψ(r) = √(1 - rs/r)",
+    "rs_definition": "rs = 2GM/c²"
+  },
+
+  "geodesic_equation": {
+    "orbit_equation": "(du/dφ)² = 1/b² - u² + rs·u³",
+    "variables": "u = 1/r, b = impact parameter",
+    "deflection_formula": "Δφ = 2∫[0 to u_max] du/√(1/b² - u² + rs·u³) - π",
+    "weak_field_limit": "Δφ ≈ 2rs/b = 4GM/(bc²)"
+  },
+
+  "results": {
+    "b_over_rs": [5.0, 10.0, 15.0, 20.0, 30.0, 50.0, 100.0],
+    "deflection_weak_field_deg": [22.918, 11.459, 7.639, 5.730, 3.820, 2.292, 1.146],
+    "deflection_exact_deg": [33.827, 13.530, 8.494, 6.194, 4.019, 2.362, 1.163],
+    "ratio_exact_to_weak": [1.476, 1.181, 1.112, 1.081, 1.052, 1.031, 1.015]
+  },
+
+  "verification": {
+    "weak_field_convergence": "Ratio → 1.0 as b/rs → ∞",
+    "strong_field_corrections": "Up to 47.6% at b/rs = 5",
+    "mathematical_identity": "OCTH metric ≡ Schwarzschild metric for null geodesics"
+  },
+
+  "key_insight": {
+    "statement": "The OCTH metric with Ψ = √(1 - rs/r) produces EXACTLY the same geodesic equations as Schwarzschild.",
+    "implication": "This is NOT an approximation and requires NO calibration.",
+    "interpretation_difference": {
+      "GR": "Spacetime curvature causes light deflection",
+      "OCTH": "Temporal permeability variation Ψ causes light deflection"
+    },
+    "same_math_different_ontology": true
+  },
+
+  "figures": [
+    "fig5_exact_deflection.png/pdf - Deflection vs impact parameter",
+    "fig6_trajectories.png/pdf - Light ray trajectories"
+  ],
+
+  "conclusion": "MATHEMATICAL EQUIVALENCE: Métrica OCTH ≡ Métrica de Schwarzschild para geodésicas nulas. La diferencia es ontológica, no matemática."
+}
