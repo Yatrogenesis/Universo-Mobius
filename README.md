@@ -46,7 +46,7 @@ $$\Psi^2 \frac{\partial^2 u}{\partial t^2} = c^2 \Delta_{\Lambda_H} u$$
 
 donde $\Delta_{\Lambda_H}$ es el Laplaciano discreto sobre el grafo hexagonal.
 
-## Tests Implementados
+## Tests implementados
 
 ### Test #1: Topología de Möbius en el CMB ✓✓✓
 
@@ -270,7 +270,7 @@ Cuando dos nudos colisionan, la malla no solo se "curva" sino que **vibra como u
 - ✓ Conclusión: Lag es INTRÍNSECO a la fuente (física del GRB)
 - ✓ Límite: E_QG > 0.68 × E_Planck (consistente con Lorentz invariance)
 
-## Blindaje Científico (Validación Rigurosa)
+## Blindaje científico (Validación rigurosa)
 
 Para evitar el "Efecto Crackpot" y el "Efecto BICEP2", se implementaron tests de destrucción:
 
@@ -320,15 +320,15 @@ Ratio observado: 3.29× ≈ Ratio de masas inversas
 
 ---
 
-## 🆕 Veredicto Honesto (Enero 2026)
+## 🆕 Veredicto honesto (Enero 2026)
 
 Análisis riguroso para aumentar la probabilidad de éxito de ~30% a ~90%:
 
-### 1. Formalización Matemática Completa ✅
+### 1. Formalización matemática Completa ✅
 
 **Archivo:** `paper/OCTH_Mathematical_Formalization.tex`
 
-Métrica Hexagonal de Schwarzschild derivada desde primeros principios:
+Métrica hexagonal de Schwarzschild derivada desde primeros principios:
 
 $$ds^2 = -f(r)\mathcal{H}^2 c^2 dt^2 + \frac{dr^2}{f(r)\mathcal{H}^2} + r^2 \mathcal{H}^2 d\Omega^2$$
 
@@ -341,7 +341,7 @@ donde $\mathcal{H}(r,\theta,\phi)$ es la función de modulación hexagonal.
 | Modos QNM: 1:√3:2:√7 | ✅ |
 | Límite GR (ε→0) | ✅ |
 
-### 2. Raw Data Blindaje: 33 Eventos GWTC-3 ✅
+### 2. Raw data blindaje: 33 Eventos GWTC-3 ✅
 
 **Pipeline:** `code/GWTC3_raw_pipeline.py`
 **Resultados:** `results/raw_analysis/`
@@ -382,7 +382,7 @@ Predicciones falsificables publicadas:
 
 ---
 
-## 🆕 Nuevos Tests (Enero 2026)
+## 🆕 Nuevos tests (Enero 2026)
 
 ### Test Europeo: VIRGO vs LIGO ✅
 
@@ -455,7 +455,7 @@ python3 test4_ligo_elastic_mesh.py
 # Test #5: VSL en GRBs
 python3 test5_vsl_grb.py
 
-# 🆕 Raw Data Pipeline GWTC-3 (descarga ~2GB de datos)
+# 🆕 Raw data pipeline GWTC-3 (descarga ~2GB de datos)
 python3 GWTC3_raw_pipeline.py
 ```
 

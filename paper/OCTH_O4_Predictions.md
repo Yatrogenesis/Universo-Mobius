@@ -1,4 +1,4 @@
-# OCTH Predictions for LIGO O4 Observing Run
+# OCTH Predictions for LIGO O4 observing run
 
 **Author:** Francisco Molina Burgos
 **Date:** January 9, 2026
@@ -6,7 +6,7 @@
 
 ---
 
-## Executive Summary
+## Executive summary
 
 This document establishes **falsifiable predictions** from the Cyclic Topo-Holographic Ontology (OCTH) for the LIGO/Virgo/KAGRA O4 observing run. These predictions are published **before** the release of O4 data to enable blind testing of the theory.
 
@@ -16,13 +16,13 @@ The key prediction: gravitational wave ringdown frequencies will exhibit ratios 
 
 ## 1. Background
 
-### 1.1 O4 Observing Run
+### 1.1 O4 observing run
 - **Start:** May 24, 2023
 - **Status:** Currently ongoing
 - **Expected Events:** 200+ BBH mergers
 - **Sensitivity:** ~40% improvement over O3
 
-### 1.2 OCTH Core Prediction
+### 1.2 OCTH Core prediction
 The hexagonal structure of spacetime imprints characteristic frequency ratios in black hole ringdown:
 
 ```
@@ -35,9 +35,9 @@ This differs from General Relativity's quasi-normal mode predictions.
 
 ---
 
-## 2. Specific Predictions
+## 2. Specific predictions
 
-### 2.1 Frequency Ratio Predictions
+### 2.1 Frequency ratio predictions
 
 | Mass Range (M☉) | f₁ (Hz) | f_√3 (Hz) | f_2 (Hz) | f_√7 (Hz) |
 |-----------------|---------|-----------|----------|-----------|
@@ -48,7 +48,7 @@ This differs from General Relativity's quasi-normal mode predictions.
 | 100             | 22      | 38.1      | 44       | 58.3      |
 | 150             | 14.7    | 25.4      | 29.3     | 38.8      |
 
-### 2.2 Universal Ratio Test
+### 2.2 Universal ratio test
 
 **Prediction:** For ANY BBH event with detectable ringdown:
 ```
@@ -59,7 +59,7 @@ f_√7 / f₁ = 2.646 ± 0.05
 
 This ratio should be **independent of mass**, which is a unique OCTH prediction.
 
-### 2.3 High-Mass Events (M > 100 M☉)
+### 2.3 High-mass events (M > 100 M☉)
 
 For very massive events (like GW190521):
 - Fundamental mode will be at f₁ < 30 Hz
@@ -67,7 +67,7 @@ For very massive events (like GW190521):
 - These are near LIGO's low-frequency sensitivity limit
 - PREDICTION: High-mass events will show WEAKER hexagonal signal due to detector sensitivity, NOT because OCTH is wrong
 
-### 2.4 Sky Position Predictions
+### 2.4 Sky position predictions
 
 Based on OCTH's prediction that GW sources cluster near CMB anomaly locations:
 
@@ -78,7 +78,7 @@ Based on OCTH's prediction that GW sources cluster near CMB anomaly locations:
 3. **CMB Quadrupole axis:** (RA ≈ 11h, Dec ≈ +25°)
 4. **Hemispherical asymmetry axis:** (l ≈ 220°, b ≈ -20°)
 
-### 2.5 European Detector Consistency
+### 2.5 European detector consistency
 
 **PREDICTION:** For events detected by both LIGO (60 Hz grid) and Virgo/KAGRA (50 Hz grid):
 - The hexagonal frequency peaks will appear at the **same frequencies** (within measurement error)
@@ -87,7 +87,7 @@ Based on OCTH's prediction that GW sources cluster near CMB anomaly locations:
 
 ---
 
-## 3. Statistical Predictions
+## 3. Statistical predictions
 
 ### 3.1 Full O4 Catalog
 
@@ -100,7 +100,7 @@ Assuming ~200 BBH events in O4:
 | Combined Z-score | >10σ | [8σ, 15σ] |
 | Sky position clustering | >4σ | [3σ, 6σ] |
 
-### 3.2 Null Test
+### 3.2 Null test
 
 If OCTH is wrong:
 - Events favoring OCTH should be ~50% (random)
@@ -109,7 +109,7 @@ If OCTH is wrong:
 
 ---
 
-## 4. Falsification Criteria
+## 4. Falsification criteria
 
 OCTH will be considered **falsified** if:
 
@@ -120,7 +120,7 @@ OCTH will be considered **falsified** if:
 
 ---
 
-## 5. Data Collection Protocol
+## 5. Data collection protocol
 
 To ensure blind testing:
 
@@ -132,7 +132,7 @@ Any analysis of O4 data using OCTH methods should reference this prediction docu
 
 ---
 
-## 6. Expected Timeline
+## 6. Expected timeline
 
 | Date | Event |
 |------|-------|
@@ -144,7 +144,7 @@ Any analysis of O4 data using OCTH methods should reference this prediction docu
 
 ---
 
-## 7. Specific Event Predictions
+## 7. Specific Event predictions
 
 For events that may be detected in O4:
 
@@ -178,7 +178,7 @@ These predictions are specific, quantitative, and falsifiable. The success or fa
 
 ---
 
-## Appendix A: Calculation Details
+## Appendix A: Calculation details
 
 ### A.1 ISCO Frequency
 ```python
@@ -198,7 +198,7 @@ r_n = [1, √3, 2, √7] = [1.000, 1.732, 2.000, 2.646]
 
 ---
 
-## Appendix B: Document Verification
+## Appendix B: Document verification
 
 **Git Commit Hash:** `692b1affb7e22015401e497c75b9151af345cf01`
 **Repository:** github.com/Yatrogenesis/Universo-Mobius

@@ -1,6 +1,6 @@
-# Mecanismo de Amplificación Resonante en OCTH
+# Mecanismo de amplificación resonante en OCTH
 
-## Resolución de la "Paradoja Epsilon"
+## Resolución de la "paradoja epsilon"
 
 **Autor:** Francisco Molina Burgos
 **Fecha:** Enero 2026
@@ -8,9 +8,9 @@
 
 ---
 
-## 1. El Problema Aparente
+## 1. El problema Aparente
 
-### 1.1 La Crítica
+### 1.1 La crítica
 
 La formalización matemática de OCTH define:
 
@@ -31,7 +31,7 @@ En un tratamiento perturbativo estándar:
 
 ---
 
-## 2. La Solución: Resonancia Colectiva
+## 2. La solución: Resonancia colectiva
 
 ### 2.1 Analogía: Fonones en Cristales
 
@@ -49,7 +49,7 @@ Sin embargo:
 
 **Respuesta:** Coherencia de fase en $N \sim 10^{23}$ átomos.
 
-### 2.2 El Mecanismo en OCTH
+### 2.2 El mecanismo en OCTH
 
 #### Paso 1: Conteo de Grados de Libertad
 
@@ -67,7 +67,7 @@ $$N = \frac{\pi (9 \times 10^4)^2}{(1.6 \times 10^{-35})^2} \approx 10^{79}$$
 
 **Hay $\sim 10^{79}$ celdas de Planck en el horizonte.**
 
-#### Paso 2: Excitación Coherente
+#### Paso 2: Excitación coherente
 
 Durante el ringdown de una fusión BBH, la perturbación no es aleatoria sino **coherente en fase**:
 
@@ -81,7 +81,7 @@ $$A_{\text{coherente}} = \sqrt{N} \times A_{\text{individual}}$$
 
 (Principio de superposición constructiva)
 
-#### Paso 3: Amplificación Efectiva
+#### Paso 3: Amplificación efectiva
 
 $$A_{\text{eff}} = \epsilon \times \sqrt{N} = 10^{-20} \times \sqrt{10^{79}} = 10^{-20} \times 10^{39.5} \approx 10^{19.5}$$
 
@@ -92,7 +92,7 @@ Pero esto es una sobreestimación. El factor de coherencia real depende de:
 2. Tiempo de decoherencia: $\tau_D$
 3. Acoplamiento modo-modo: $g$
 
-### 2.3 Estimación Realista
+### 2.3 Estimación realista
 
 El número efectivo de celdas coherentes es:
 
@@ -110,9 +110,9 @@ La amplificación es genuina para modos QNM porque son **modos propios globales*
 
 ---
 
-## 3. Formalización Matemática
+## 3. Formalización matemática
 
-### 3.1 Hamiltoniano del Retículo
+### 3.1 Hamiltoniano del retículo
 
 El Hamiltoniano del retículo hexagonal es:
 
@@ -123,7 +123,7 @@ donde:
 - $k$ = constante elástica efectiva $\sim c^4/G\ell_P^2$
 - $m$ = masa de Planck $\sim \sqrt{\hbar c/G}$
 
-### 3.2 Modos Normales
+### 3.2 Modos normales
 
 Los modos normales satisfacen:
 
@@ -133,7 +133,7 @@ En puntos de alta simetría del retículo hexagonal, esto produce:
 
 $$\frac{\omega_n}{\omega_1} \in \{1, \sqrt{3}, 2, \sqrt{7}, 3, ...\}$$
 
-### 3.3 Acoplamiento con Curvatura
+### 3.3 Acoplamiento con curvatura
 
 La perturbación de curvatura del merger acopla con los modos de red:
 
@@ -145,7 +145,7 @@ El acoplamiento efectivo escala como:
 
 $$\lambda_{\text{eff}} = \lambda \times \sqrt{N_{\text{modos excitados}}}$$
 
-### 3.4 Frecuencias QNM Modificadas
+### 3.4 Frecuencias QNM modificadas
 
 Las frecuencias QNM en OCTH son:
 
@@ -162,7 +162,7 @@ $$\Delta_n = \epsilon \sqrt{N_{\text{eff}}} \times r_n \times \mathcal{F}(\ell, 
 
 ---
 
-## 4. Analogías Físicas Establecidas
+## 4. Analogías físicas establecidas
 
 ### 4.1 Superconductividad BCS
 
@@ -193,9 +193,9 @@ $$\Delta_n = \epsilon \sqrt{N_{\text{eff}}} \times r_n \times \mathcal{F}(\ell, 
 
 ---
 
-## 5. Predicciones Falsificables
+## 5. Predicciones falsificables
 
-### 5.1 Dependencia con la Masa
+### 5.1 Dependencia con la masa
 
 Si el mecanismo es resonancia colectiva:
 
@@ -205,7 +205,7 @@ $$\text{Amplitud de modo} \propto \sqrt{N} \propto r_s \propto M$$
 
 **Test:** Correlacionar $\Delta\chi^2$ con $M_{\text{total}}$ en GWTC-3.
 
-### 5.2 Universalidad de Ratios
+### 5.2 Universalidad de ratios
 
 Los ratios $f_n/f_1$ NO deben depender de:
 - Masa del sistema
@@ -215,7 +215,7 @@ Los ratios $f_n/f_1$ NO deben depender de:
 
 **Test:** Verificar que la dispersión en ratios es consistente con error de medición, no con física.
 
-### 5.3 Supresión en Sistemas Ligeros
+### 5.3 Supresión en sistemas ligeros
 
 Para sistemas con $M < 10 M_\odot$:
 $$N_{\text{eff}} < 10^{75}$$
@@ -228,7 +228,7 @@ La amplificación podría ser insuficiente para observabilidad.
 
 ---
 
-## 6. Respuesta a Objeciones Específicas
+## 6. Respuesta a objeciones específicas
 
 ### Objeción 1: "Esto viola la unitariedad"
 
@@ -254,7 +254,7 @@ No es ad hoc; es consecuencia de la mecánica cuántica/estadística.
 
 ---
 
-## 7. Trabajo Futuro
+## 7. Trabajo futuro
 
 1. **Derivación desde primeros principios** de $N_{\text{eff}}$ usando teoría de campos en espacios curvos
 

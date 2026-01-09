@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-GWTC-3 Raw Data Pipeline
+GWTC-3 Raw data pipeline
 ========================
 Process raw strain data (.gwf files) from the complete GWTC-3 catalog
 to test hexagonal frequency signatures.
 
-This addresses the "Raw Data Blindaje" requirement:
+This addresses the "Raw data blindaje" requirement:
 - Process ALL 90 events, not just selected ones
 - Use raw strain data, not pre-processed catalog parameters
 - Full transparency and reproducibility

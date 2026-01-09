@@ -1,4 +1,4 @@
-# SANITY CHECKS: Verificación de Robustez
+# SANITY CHECKS: Verificación de robustez
 ## Universo-Möbius / OCTH
 ### Francisco Molina Burgos | Enero 2026
 

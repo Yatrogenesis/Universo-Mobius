@@ -1,4 +1,4 @@
-# Derivación Completa de la Métrica Hexagonal OCTH
+# Derivación completa de la Métrica hexagonal OCTH
 
 **Autor:** Francisco Molina Burgos
 **Fecha:** Enero 2026
@@ -8,7 +8,7 @@
 
 ## PARTE I: FUNDAMENTOS GEOMÉTRICOS
 
-### 1.1 El Problema que Resolvemos
+### 1.1 El problema que Resolvemos
 
 En Relatividad General, la gravedad es curvatura del espaciotiempo. Pero GR asume que el espaciotiempo es un **continuo suave**.
 
@@ -23,9 +23,9 @@ Si existe una "malla" subyacente, esta debe:
 
 ---
 
-### 1.2 Geometría del Retículo Hexagonal
+### 1.2 Geometría del retículo hexagonal
 
-#### Paso 1.2.1: Vectores Primitivos en 2D
+#### Paso 1.2.1: Vectores primitivos en 2D
 
 Un hexágono regular tiene 6 lados iguales con ángulos de 60°. Los vectores que generan este patrón son:
 
@@ -52,7 +52,7 @@ $$\vec{a}_3 = a\left(0, 0, c\right)$$
 
 Para empaquetamiento hexagonal compacto (HCP) ideal: $c/a = \sqrt{8/3} \approx 1.633$
 
-#### Paso 1.2.3: Espacio Recíproco
+#### Paso 1.2.3: Espacio recíproco
 
 El espacio recíproco (espacio de momentos/frecuencias) tiene vectores:
 
@@ -62,9 +62,9 @@ $$\vec{b}_3 = \frac{2\pi}{c}(0, 0, 1)$$
 
 ---
 
-### 1.3 Modos de Vibración del Retículo
+### 1.3 Modos de vibración del Retículo
 
-#### Paso 1.3.1: Relación de Dispersión
+#### Paso 1.3.1: Relación de dispersión
 
 Cuando una onda se propaga en un retículo discreto, su frecuencia depende del vector de onda $\vec{k}$:
 
@@ -72,7 +72,7 @@ $$\omega^2(\vec{k}) = \omega_0^2 \sum_{i=1}^{3} \sin^2\left(\frac{\vec{k} \cdot 
 
 Esta es la **relación de dispersión** para fonones en un cristal.
 
-#### Paso 1.3.2: Puntos de Alta Simetría
+#### Paso 1.3.2: Puntos de alta simetría
 
 En ciertos puntos especiales de la zona de Brillouin, las frecuencias toman valores característicos:
 
@@ -83,7 +83,7 @@ En ciertos puntos especiales de la zona de Brillouin, las frecuencias toman valo
 | K | $(2\pi/3a, 2\pi/\sqrt{3}a, 0)$ | $\sqrt{3}$ |
 | A | $(0, 0, \pi/c)$ | depende de c/a |
 
-#### Paso 1.3.3: Los Ratios Hexagonales
+#### Paso 1.3.3: Los ratios hexagonales
 
 Evaluando $\omega(\vec{k})$ en todos los puntos de alta simetría:
 
@@ -164,14 +164,14 @@ $$\boxed{ds^2_{GR} = -f(r)c^2 dt^2 + \frac{dr^2}{f(r)} + r^2 d\Omega^2}$$
 
 ### 2.2 Propiedades de la Métrica de Schwarzschild
 
-#### Paso 2.2.1: Horizonte de Eventos
+#### Paso 2.2.1: Horizonte de eventos
 
 Cuando $r = r_s$: $f(r_s) = 0$
 
 - $g_{tt} = 0$ (el tiempo se "congela")
 - $g_{rr} = \infty$ (singularidad coordenada)
 
-#### Paso 2.2.2: Límite Newtoniano
+#### Paso 2.2.2: Límite newtoniano
 
 Cuando $r >> r_s$: $f(r) \approx 1$
 
@@ -321,7 +321,7 @@ $$ds^2 = -\left(1 - \frac{r_s}{r}\right)\mathcal{H}^2 c^2 dt^2 + \frac{dr^2}{\le
 
 ## PARTE IV: VERIFICACIONES
 
-### 4.1 Límite de Relatividad General
+### 4.1 Límite de relatividad general
 
 Cuando $\epsilon \to 0$:
 

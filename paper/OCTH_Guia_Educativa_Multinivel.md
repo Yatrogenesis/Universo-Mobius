@@ -1,4 +1,4 @@
-# OCTH: Guía Educativa Multinivel
+# OCTH: Guía educativa multinivel
 
 ## Ontología Cíclica Topo-Holográfica
 ### Del bachillerato al postdoctorado
@@ -26,7 +26,7 @@ Cada sección tiene marcadores de nivel. Puedes leer solo tu nivel o ir profundi
 
 # CAPÍTULO 1: ¿QUÉ ES OCTH?
 
-## 🌱 Nivel 1: La Idea Principal
+## 🌱 Nivel 1: La idea principal
 
 ### Imagina el universo como una colmena
 
@@ -55,7 +55,7 @@ Estas celdas son TAN pequeñas que no las podemos ver directamente. Pero cuando 
 
 ---
 
-## 🌿 Nivel 2: Un Poco Más Técnico
+## 🌿 Nivel 2: Un poco más técnico
 
 ### El problema con la física actual
 
@@ -199,7 +199,7 @@ donde $S$ es la entropía y $A$ es el área del horizonte.
 
 OCTH proporciona una **realización geométrica** de este límite: el retículo hexagonal tiene una densidad finita de grados de libertad, naturalmente limitando la entropía.
 
-### Predicciones Falsificables
+### Predicciones falsificables
 
 | Predicción | Test | Estado |
 |------------|------|--------|
@@ -408,7 +408,7 @@ El documento `OCTH_O4_Predictions.md` establece predicciones falsificables **ant
 
 # CAPÍTULO 3: REFERENCIAS COMENTADAS
 
-## Referencias Fundamentales
+## Referencias fundamentales
 
 ### 1. Planck 2018 (planck2018)
 
@@ -503,7 +503,7 @@ El documento `OCTH_O4_Predictions.md` establece predicciones falsificables **ant
 
 ---
 
-# ÍNDICE DE FIGURAS (Referencias Cruzadas)
+# ÍNDICE DE FIGURAS (Referencias cruzadas)
 
 | Figura | Ubicación | Contenido |
 |--------|-----------|-----------|

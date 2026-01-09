@@ -1,5 +1,5 @@
 # OCTH Comprehensive validation report
-## Ontological Hexagonal Tensor Field Theory - Multi-dataset analysis
+## Ontological hexagonal tensor field theory - Multi-dataset analysis
 
 **Date:** January 2026
 **Author:** F. Molina-Burgos
@@ -223,16 +223,16 @@ Note: See KNOWN_LIMITATIONS.md for caveats regarding dataset correlations and sy
 
 ## Conclusions
 
-### 1. OCTH is Validated by 13 Independent Datasets
+### 1. OCTH is validated by 13 independent datasets
 Every major astronomical dataset analyzed shows consistency with or strong support for OCTH predictions.
 
-### 2. Lambda-CDM Faces Multiple Tensions
+### 2. Lambda-CDM Faces multiple tensions
 - H0 tension (5sigma)
 - S8 tension (3.6sigma)
 - Dark energy evolution (2.5sigma against cosmological constant)
 - "Impossible" early galaxies
 
-### 3. OCTH Provides Natural Explanations
+### 3. OCTH Provides natural explanations
 - **Gravitational waves:** Hexagonal frequency structure (98.8%)
 - **CMB:** Mobius topology + modified parameters
 - **Dark energy:** Temporal permeability evolution w(z)

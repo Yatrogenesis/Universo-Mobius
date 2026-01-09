@@ -1,4 +1,4 @@
-# OCTH: Referencias Bibliográficas Verificadas
+# OCTH: Referencias bibliográficas verificadas
 
 **Documento de Verificación Completa**
 **Autor:** Francisco Molina Burgos
@@ -7,7 +7,7 @@
 
 ---
 
-## Tabla de Referencias Verificadas
+## Tabla de referencias verificadas
 
 | # | Clave | Título | Autores | Revista | Año | DOI | Estado |
 |---|-------|--------|---------|---------|-----|-----|--------|
@@ -27,7 +27,7 @@
 
 ---
 
-## Correcciones Necesarias al Artículo
+## Correcciones necesarias al artículo
 
 ### 1. Referencia kim2010
 **Original:** `Kim, J. & Naselsky, P. Anomalous parity asymmetry of CMB. ApJ 714, L265 (2010).`
@@ -46,7 +46,7 @@
 
 ---
 
-## Matriz Referencia-Contenido
+## Matriz referencia-contenido
 
 ### Sección: Introduction
 
@@ -89,7 +89,7 @@
 
 ---
 
-## Bibliografía Corregida (formato BibTeX)
+## Bibliografía corregida (formato BibTeX)
 
 ```bibtex
 @article{planck2018,
@@ -155,7 +155,7 @@
 
 @article{gwtc3,
     author = {{The LIGO Scientific Collaboration} and {Virgo Collaboration} and {KAGRA Collaboration}},
-    title = {{GWTC}-3: Compact Binary Coalescences Observed by {LIGO} and {Virgo} during the Second Part of the Third Observing Run},
+    title = {{GWTC}-3: Compact Binary Coalescences Observed by {LIGO} and {Virgo} during the Second Part of the Third observing run},
     journal = {Physical Review X},
     volume = {13},
     pages = {041039},

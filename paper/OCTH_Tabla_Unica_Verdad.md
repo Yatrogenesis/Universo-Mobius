@@ -1,4 +1,4 @@
-# OCTH: Tabla Única de la Verdad
+# OCTH: Tabla única de la verdad
 
 ## Reconciliación de Métricas y Resultados
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 1. Datasets y Sus Propósitos
+## 1. Datasets y sus propósitos
 
 | Dataset | Código | Datos | N | Propósito | Evidencia |
 |---------|--------|-------|---|-----------|-----------|
@@ -21,7 +21,7 @@
 
 ---
 
-## 2. Métricas por Dataset
+## 2. Métricas por dataset
 
 ### Dataset A: Análisis de Catálogo (Exploratorio)
 
@@ -72,7 +72,7 @@
 
 ---
 
-## 3. Reconciliación de Diferencias
+## 3. Reconciliación de diferencias
 
 ### ¿Por qué Δχ² = 3918 vs 236?
 
@@ -96,7 +96,7 @@
 
 ---
 
-## 4. Claims Oficiales para Publicación
+## 4. Claims oficiales para publicación
 
 ### Resultado Primario (usar en abstract/resumen):
 
@@ -112,7 +112,7 @@
 
 ---
 
-## 5. Tabla de Significancias Combinadas
+## 5. Tabla de significancias combinadas
 
 | Test | Z-score | p-value | Independencia |
 |------|---------|---------|---------------|
@@ -131,7 +131,7 @@ $$\boxed{p_{\text{combined}} < 10^{-8}}$$
 
 ---
 
-## 6. Checklist de Consistencia
+## 6. Checklist de consistencia
 
 | Documento | Δχ² reportado | Z reportado | N reportado | ¿Consistente? |
 |-----------|---------------|-------------|-------------|---------------|
@@ -149,7 +149,7 @@ $$\boxed{p_{\text{combined}} < 10^{-8}}$$
 
 ---
 
-## 7. Versiones y Timestamps
+## 7. Versiones y timestamps
 
 | Dataset | Última actualización | Git commit | Datos pendientes |
 |---------|---------------------|------------|------------------|
@@ -160,7 +160,7 @@ $$\boxed{p_{\text{combined}} < 10^{-8}}$$
 
 ---
 
-## 8. Glosario de Métricas
+## 8. Glosario de métricas
 
 | Símbolo | Definición | Unidades |
 |---------|------------|----------|

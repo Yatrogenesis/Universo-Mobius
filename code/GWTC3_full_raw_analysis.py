@@ -601,7 +601,7 @@ KEY EVENTS
         ax.bar(x, [t - h for t, h in zip(total_counts, hex_counts)], bottom=hex_counts,
                label='Favor GR', color='red', alpha=0.7)
         ax.set_ylabel('Number of Events')
-        ax.set_title('Results by Observing Run')
+        ax.set_title('Results by observing run')
         ax.legend()
 
         # 4. Cumulative significance
