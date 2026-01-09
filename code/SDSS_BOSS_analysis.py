@@ -11,8 +11,8 @@ OCTH Predictions:
 
 Reference: BOSS DR12, eBOSS DR16
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

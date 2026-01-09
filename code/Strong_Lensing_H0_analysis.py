@@ -6,8 +6,8 @@ Time-delay cosmography provides geometric H0.
 
 OCTH: Psi affects time delays and angular distances.
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

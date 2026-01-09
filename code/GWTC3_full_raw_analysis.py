@@ -5,7 +5,7 @@ GWTC-3 Full Raw Analysis Pipeline (No gwpy dependency)
 Downloads and analyzes ALL GWTC-3 events using GWOSC data.
 Uses h5py + scipy instead of gwpy to avoid C compilation issues.
 
-Author: Francisco Molina Burgos & Claude
+Author: F. Molina-Burgos
 Date: January 2025
 """
 

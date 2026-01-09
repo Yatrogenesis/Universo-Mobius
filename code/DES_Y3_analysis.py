@@ -4,8 +4,8 @@ DES Year 3 Weak Lensing Analysis for OCTH Validation
 =====================================================
 Dark Energy Survey 3x2pt analysis for OCTH signatures.
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

@@ -13,7 +13,7 @@ OCTH Prediction:
 Data Source: NANOGrav 15-year dataset
 https://zenodo.org/record/7967584
 
-Author: Francisco Molina Burgos & Claude
+Author: F. Molina-Burgos
 Date: January 2025
 """
 

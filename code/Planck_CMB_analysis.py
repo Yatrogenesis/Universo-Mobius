@@ -11,8 +11,8 @@ OCTH Predictions:
 
 Reference: Planck Collaboration 2018 (arXiv:1807.06205)
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

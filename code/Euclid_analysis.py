@@ -17,8 +17,8 @@ OCTH Predictions for Euclid:
 
 Reference: Euclid Collaboration 2024 papers
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

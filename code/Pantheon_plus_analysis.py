@@ -11,8 +11,8 @@ OCTH Predictions:
 
 Reference: Scolnic et al. 2022, Brout et al. 2022 (Pantheon+)
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

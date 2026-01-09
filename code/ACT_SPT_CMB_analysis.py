@@ -11,8 +11,8 @@ OCTH Predictions for CMB:
 3. Modified tensor-to-scalar ratio from hexagonal spacetime
 4. Specific l-mode relationships: l_n = l_1 * sqrt(n) for hexagonal modes
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

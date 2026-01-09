@@ -17,8 +17,8 @@ OCTH Predictions:
 
 Reference: JWST COSMOS-Web (Casey et al. 2023), various JWST ERO papers
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np

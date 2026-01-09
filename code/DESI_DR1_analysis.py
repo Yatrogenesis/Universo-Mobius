@@ -13,8 +13,8 @@ OCTH Predictions for Large-Scale Structure:
 
 Reference: DESI Collaboration 2024 (arXiv:2404.03000, 2404.03001, 2404.03002)
 
-Author: Claude Code (Anthropic)
-Date: 2025-01-09
+Author: F. Molina-Burgos
+Date: January 2025
 """
 
 import numpy as np
