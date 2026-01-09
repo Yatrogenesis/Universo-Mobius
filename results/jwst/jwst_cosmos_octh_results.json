@@ -1,0 +1,104 @@
+{
+  "uvlf": {
+    "tensions": {
+      "z10": {
+        "z": 10,
+        "ratio": 2.0,
+        "significance": 2.0
+      },
+      "z12": {
+        "z": 12,
+        "ratio": 3.0,
+        "significance": 4.0
+      },
+      "z14": {
+        "z": 14,
+        "ratio": 4.0,
+        "significance": 4.0
+      }
+    },
+    "average_excess": 3.0,
+    "combined_significance": 4.6881672920757635
+  },
+  "massive": {
+    "total_galaxies": 6,
+    "impossible_count": 0,
+    "fraction_impossible": 0.0,
+    "combined_tension": 0.0,
+    "galaxies": {
+      "CEERS-1019": {
+        "z": 8.68,
+        "log_mass": 9.5,
+        "err": 0.3
+      },
+      "CEERS-2782": {
+        "z": 10.0,
+        "log_mass": 9.3,
+        "err": 0.4
+      },
+      "Maisies-Galaxy": {
+        "z": 11.4,
+        "log_mass": 9.0,
+        "err": 0.5
+      },
+      "JADES-GS-z14-0": {
+        "z": 14.2,
+        "log_mass": 8.7,
+        "err": 0.5
+      },
+      "GS-z11": {
+        "z": 11.1,
+        "log_mass": 9.4,
+        "err": 0.3
+      },
+      "GS-z12": {
+        "z": 12.4,
+        "log_mass": 9.1,
+        "err": 0.4
+      }
+    }
+  },
+  "timeline": {
+    "epochs": {
+      "First Galaxies": {
+        "z_obs": 14.2,
+        "z_lcdm": 15,
+        "z_octh": 14
+      },
+      "Reionization": {
+        "z_obs": 7.5,
+        "z_lcdm": 7.5,
+        "z_octh": 8
+      },
+      "Massive Galaxy Peak": {
+        "z_obs": 10,
+        "z_lcdm": 12,
+        "z_octh": 10
+      }
+    },
+    "chi2_lcdm": 4.6400000000000015,
+    "chi2_octh": 0.2899999999999997,
+    "octh_improvement": 16.00000000000002
+  },
+  "combined": {
+    "chi2": 32.196124594307435,
+    "dof": 4,
+    "p_value": 1.7444047882841929e-06,
+    "sigma": 4.780982580698572,
+    "individual": [
+      [
+        "UV luminosity excess",
+        4.6881672920757635
+      ],
+      [
+        "Early massive galaxies",
+        0.0
+      ],
+      [
+        "Timeline fit",
+        2.0856653614614213
+      ]
+    ]
+  },
+  "verdict": "OCTH_SUPPORTED"
+}
