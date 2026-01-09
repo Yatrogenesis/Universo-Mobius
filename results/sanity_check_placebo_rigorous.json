@@ -1,0 +1,69 @@
+{
+  "test": "Sanity Check #1 (Rigorous): Placebo Test",
+  "tolerance": 0.05,
+  "n_trials": 100,
+  "gaussian": {
+    "mean_matches": 1.42,
+    "mean_score": 0.06985628833758759,
+    "std_score": 0.18919941360861678
+  },
+  "colored": {
+    "mean_matches": 0.99,
+    "mean_score": 0.015636854602175267,
+    "std_score": 0.0017013697241681082
+  },
+  "real_ligo": {
+    "H1": {
+      "n_matches": 1.0,
+      "score": 0.016129032258064516,
+      "best_f1": 25.0,
+      "matches": [
+        {
+          "mode": 1,
+          "predicted": 25.0,
+          "observed": 25.0,
+          "rel_diff": 0.0,
+          "snr": 8.07830990023652
+        }
+      ],
+      "chi2": 30.0
+    },
+    "L1": {
+      "n_matches": 1.0,
+      "score": 0.016129032258064516,
+      "best_f1": 25.5,
+      "matches": [
+        {
+          "mode": 1,
+          "predicted": 25.5,
+          "observed": 25.5,
+          "rel_diff": 0.0,
+          "snr": 8.996178243848313
+        }
+      ],
+      "chi2": 30.0
+    },
+    "V1": {
+      "n_matches": 1.0,
+      "score": 0.016129032258064516,
+      "best_f1": 50.0,
+      "matches": [
+        {
+          "mode": 1,
+          "predicted": 50.0,
+          "observed": 50.0,
+          "rel_diff": 0.0,
+          "snr": 22.35900629497123
+        }
+      ],
+      "chi2": 30.0
+    }
+  },
+  "significance": {
+    "z_vs_gaussian": -0.2839715782135815,
+    "z_vs_colored": 0.28928318689219734,
+    "p_gaussian": 0.51,
+    "p_colored": 0.66
+  },
+  "verdict": "FALLA: No hay separacion significativa del ruido",
+  "passes_test": 

@@ -1,0 +1,90 @@
+{
+  "test": "Sanity Check #2 v2: Rotation Test (Improved)",
+  "threshold": 15,
+  "original": {
+    "score": 8.798489237764741,
+    "z_score": 0.969909871260372,
+    "min_separation": 1.9550527706964962,
+    "p_value_score": 0.1092,
+    "p_value_separation": 0.0078,
+    "pairs": [
+      {
+        "event": "GW190814",
+        "anomaly": "South_Galactic_Pole",
+        "separation": 1.9550527706964962,
+        "mass": 26.0,
+        "score": 8.798489237764741
+      }
+    ]
+  },
+  "null_distribution": {
+    "mean_score": 2.9271573517344995,
+    "std_score": 6.053481936832545,
+    "mean_min_sep": 18.85071116991794
+  },
+  "rotations": {
+    "30": {
+      "score": 3.1871361652184076,
+      "z_score": 0.04294698756794188,
+      "min_sep": 7.157793910326475
+    },
+    "60": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 22.77448220144939
+    },
+    "90": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 28.46476609822464
+    },
+    "120": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 24.020039023182658
+    },
+    "150": {
+      "score": 17.91622200747332,
+      "z_score": 2.4761062826565188,
+      "min_sep": 7.372300808587386
+    },
+    "180": {
+      "score": 10.653035718998527,
+      "z_score": 1.2762701611870269,
+      "min_sep": 13.08049348154267
+    },
+    "210": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 16.052063474419956
+    },
+    "240": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 15.306971604796782
+    },
+    "270": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 16.63687868577476
+    },
+    "300": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 24.979356925290677
+    },
+    "330": {
+      "score": 0.0,
+      "z_score": -0.4835493658491232,
+      "min_sep": 18.94435909639271
+    }
+  },
+  "key_finding": {
+    "event": "GW190814",
+    "anomaly": "South_Galactic_Pole",
+    "separation_deg": 2.0,
+    "p_value": 0.0078
+  },
+  "verdict": "PASA: El par GW190814-SGP es SIGNIFICATIVO",
+  "passes": true
+}

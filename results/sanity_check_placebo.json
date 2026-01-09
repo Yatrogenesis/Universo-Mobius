@@ -1,0 +1,39 @@
+{
+  "test": "Sanity Check #1: Placebo (Pure Noise)",
+  "n_trials": 10,
+  "results_gaussian": [
+    3,
+    1,
+    0,
+    3,
+    1,
+    3,
+    2,
+    1,
+    1,
+    0
+  ],
+  "results_colored": [
+    3,
+    3,
+    4,
+    4,
+    4,
+    3,
+    3,
+    3,
+    4,
+    3
+  ],
+  "mean_gaussian": 1.5,
+  "mean_colored": 3.4,
+  "real_result": 4,
+  "predicted_modes": [
+    33.84615384615385,
+    58.62325810233123,
+    67.6923076923077,
+    89.54850591295538
+  ],
+  "verdict": "\u274c FALLA: El c\u00f3digo ALUCINA hex\u00e1gonos en ruido puro",
+  "is_honest": false
+}

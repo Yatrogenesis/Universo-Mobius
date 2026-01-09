@@ -175,16 +175,52 @@ def inject_hexagonal_signal(catalog, strength=0.05, scale=60):
 def load_real_sdss_data():
     """
     Carga datos reales de SDSS desde archivo local.
+    Incluye colores u, g, r para separar galaxias rojas/azules.
     """
-    filepath = os.path.join(DATA_DIR, 'sdss_galaxies_real.csv')
+    filepath = os.path.join(DATA_DIR, 'sdss_galaxies_color.csv')
 
     if os.path.exists(filepath):
         print(f"  → Cargando datos reales de {filepath}...")
-        ra, dec, z = [], [], []
+        ra, dec, z, u_mag, g_mag, r_mag = [], [], [], [], [], []
 
         with open(filepath, 'r') as f:
             lines = f.readlines()
             for line in lines[2:]:  # Skip headers
+                parts = line.strip().split(',')
+                if len(parts) >= 6:
+                    try:
+                        ra.append(float(parts[0]))
+                        dec.append(float(parts[1]))
+                        z.append(float(parts[2]))
+                        u_mag.append(float(parts[3]))
+                        g_mag.append(float(parts[4]))
+                        r_mag.append(float(parts[5]))
+                    except:
+                        continue
+
+        if len(ra) > 0:
+            u_r = np.array(u_mag) - np.array(r_mag)  # Color index
+            return {
+                'ra': np.array(ra),
+                'dec': np.array(dec),
+                'z': np.array(z),
+                'u': np.array(u_mag),
+                'g': np.array(g_mag),
+                'r': np.array(r_mag),
+                'u_r': u_r,
+                'n_galaxies': len(ra),
+                'source': 'SDSS DR17 (datos reales con color)'
+            }
+
+    # Fallback a archivo viejo sin colores
+    filepath_old = os.path.join(DATA_DIR, 'sdss_galaxies_real.csv')
+    if os.path.exists(filepath_old):
+        print(f"  → Cargando datos reales de {filepath_old} (sin colores)...")
+        ra, dec, z = [], [], []
+
+        with open(filepath_old, 'r') as f:
+            lines = f.readlines()
+            for line in lines[2:]:
                 parts = line.strip().split(',')
                 if len(parts) >= 3:
                     try:
@@ -200,53 +236,82 @@ def load_real_sdss_data():
                 'dec': np.array(dec),
                 'z': np.array(z),
                 'n_galaxies': len(ra),
-                'source': 'SDSS DR17 (datos reales)'
+                'source': 'SDSS DR17 (sin colores)'
             }
 
     return None
 
 
-def download_sdss_sample(n_max=50000):
+def download_sdss_sample(n_max=50000, with_colors=True):
     """
     Descarga muestra de galaxias de SDSS usando SQL query.
+    Incluye magnitudes u, g, r para análisis de color.
     """
     # Primero intentar cargar datos locales
     local_data = load_real_sdss_data()
     if local_data is not None:
         return local_data
 
-    # Query SQL para SDSS
-    query = f"""
-    SELECT TOP {n_max}
-        p.ra, p.dec, s.z
-    FROM PhotoObj AS p
-    JOIN SpecObj AS s ON s.bestobjid = p.objid
-    WHERE
-        p.type = 3
-        AND s.class = 'GALAXY'
-        AND s.zWarning = 0
-        AND s.z BETWEEN 0.02 AND 0.25
-        AND p.r BETWEEN 14 AND 17.7
-    """
+    # Query SQL para SDSS con colores
+    if with_colors:
+        query = f"""
+        SELECT TOP {n_max}
+            p.ra, p.dec, s.z, p.u, p.g, p.r
+        FROM PhotoObj AS p
+        JOIN SpecObj AS s ON s.bestobjid = p.objid
+        WHERE
+            p.type = 3
+            AND s.class = 'GALAXY'
+            AND s.zWarning = 0
+            AND s.z BETWEEN 0.02 AND 0.25
+            AND p.r BETWEEN 14 AND 17.7
+            AND p.u > 0 AND p.g > 0
+        """
+        filename = 'sdss_galaxies_color.csv'
+    else:
+        query = f"""
+        SELECT TOP {n_max}
+            p.ra, p.dec, s.z
+        FROM PhotoObj AS p
+        JOIN SpecObj AS s ON s.bestobjid = p.objid
+        WHERE
+            p.type = 3
+            AND s.class = 'GALAXY'
+            AND s.zWarning = 0
+            AND s.z BETWEEN 0.02 AND 0.25
+            AND p.r BETWEEN 14 AND 17.7
+        """
+        filename = 'sdss_galaxies_real.csv'
 
     try:
         import requests
 
+        print(f"  → Descargando {n_max} galaxias de SDSS...")
         params = {
             'cmd': query,
             'format': 'csv'
         }
 
-        response = requests.get(SDSS_QUERY_URL, params=params, timeout=120)
+        response = requests.get(SDSS_QUERY_URL, params=params, timeout=180)
 
         if response.status_code == 200:
             # Parsear CSV
             lines = response.text.strip().split('\n')
             if len(lines) > 2:
-                ra, dec, z = [], [], []
+                ra, dec, z, u_mag, g_mag, r_mag = [], [], [], [], [], []
                 for line in lines[2:]:  # Skip headers
                     parts = line.split(',')
-                    if len(parts) >= 3:
+                    if with_colors and len(parts) >= 6:
+                        try:
+                            ra.append(float(parts[0]))
+                            dec.append(float(parts[1]))
+                            z.append(float(parts[2]))
+                            u_mag.append(float(parts[3]))
+                            g_mag.append(float(parts[4]))
+                            r_mag.append(float(parts[5]))
+                        except:
+                            continue
+                    elif len(parts) >= 3:
                         try:
                             ra.append(float(parts[0]))
                             dec.append(float(parts[1]))
@@ -256,16 +321,28 @@ def download_sdss_sample(n_max=50000):
 
                 # Guardar para uso futuro
                 os.makedirs(DATA_DIR, exist_ok=True)
-                with open(os.path.join(DATA_DIR, 'sdss_galaxies_real.csv'), 'w') as f:
+                with open(os.path.join(DATA_DIR, filename), 'w') as f:
                     f.write(response.text)
 
-                return {
+                print(f"  ✓ Descargadas {len(ra)} galaxias")
+
+                result = {
                     'ra': np.array(ra),
                     'dec': np.array(dec),
                     'z': np.array(z),
                     'n_galaxies': len(ra),
                     'source': 'SDSS DR17'
                 }
+
+                if with_colors and len(u_mag) > 0:
+                    result['u'] = np.array(u_mag)
+                    result['g'] = np.array(g_mag)
+                    result['r'] = np.array(r_mag)
+                    result['u_r'] = np.array(u_mag) - np.array(r_mag)
+                    result['source'] = 'SDSS DR17 (con colores)'
+
+                return result
+
     except Exception as e:
         print(f"  ⚠ Error descargando SDSS: {e}")
 
@@ -1299,6 +1376,338 @@ def cosmic_web_test(catalog, n_neighbors=20, jackknife=True):
     return output
 
 
+def color_split_test(catalog, u_r_threshold=2.2, seed=42):
+    """
+    TEST DE RESCATE 2.0: Red vs Blue (Color Split)
+
+    Hipótesis:
+    - AZULES (u-r < 2.2): Espirales, jóvenes, rotan, viven en filamentos
+      → Aquí la malla hexagonal debería guiar el momento angular
+    - ROJAS (u-r > 2.2): Elípticas, viejas, estáticas, viven en cúmulos
+      → Malla arrugada/colapsada, sin estructura hexagonal
+
+    Si separamos por color, la señal hexagonal debería LIMPIARSE en las azules.
+    """
+    np.random.seed(seed)  # Para reproducibilidad
+
+    print("\n" + "=" * 70)
+    print("  TEST DE RESCATE 2.0: RED vs BLUE (Color Split)")
+    print("  Separando Espirales de Elípticas por color u-r")
+    print("=" * 70)
+
+    # Verificar que tenemos datos de color
+    if 'u_r' not in catalog:
+        print("\n  ⚠ ERROR: No hay datos de color en el catálogo")
+        print("  Ejecutar con datos nuevos: python3 test3_sdss_hexagonal.py --color")
+        return None
+
+    ra = catalog['ra']
+    dec = catalog['dec']
+    z = catalog['z']
+    u_r = catalog['u_r']
+    n_total = len(ra)
+
+    print(f"\n  Galaxias totales: {n_total}")
+    print(f"  Rango de color u-r: [{u_r.min():.2f}, {u_r.max():.2f}]")
+    print(f"  Mediana u-r: {np.median(u_r):.2f}")
+    print(f"  Umbral de separación: u-r = {u_r_threshold}")
+
+    # =========================================================================
+    # FASE 1: Separar por color
+    # =========================================================================
+    print("\n[FASE 1: Separando por color]")
+
+    mask_blue = u_r < u_r_threshold
+    mask_red = u_r >= u_r_threshold
+
+    n_blue = np.sum(mask_blue)
+    n_red = np.sum(mask_red)
+
+    print(f"\n  Clasificación:")
+    print(f"    AZULES (u-r < {u_r_threshold}): {n_blue:5d} ({100*n_blue/n_total:.1f}%)")
+    print(f"    ROJAS  (u-r ≥ {u_r_threshold}): {n_red:5d} ({100*n_red/n_total:.1f}%)")
+
+    # =========================================================================
+    # FASE 2: Análisis por color
+    # =========================================================================
+    print("\n[FASE 2: Correlación hexagonal por color]")
+
+    results = {}
+    populations = {
+        'full': (np.ones(n_total, dtype=bool), 'Muestra completa'),
+        'blue': (mask_blue, 'AZULES (Espirales)'),
+        'red': (mask_red, 'ROJAS (Elípticas)')
+    }
+
+    for pop_name, (mask, label) in populations.items():
+        n_pop = np.sum(mask)
+        print(f"\n  [{label}] N={n_pop}")
+
+        if n_pop < 500:
+            print(f"    ⚠ Muy pocas galaxias, saltando...")
+            results[pop_name] = {'n_galaxies': n_pop, 'ratio': np.nan}
+            continue
+
+        # Crear sub-catálogo
+        sub_catalog = {
+            'ra': ra[mask],
+            'dec': dec[mask],
+            'z': z[mask],
+            'n_galaxies': n_pop,
+            'source': f'{label}'
+        }
+
+        # Calcular correlación
+        try:
+            corr = compute_angular_correlation_masked(sub_catalog)
+            hex_sig = analyze_hexagonal_signature(corr)
+
+            omega_60 = hex_sig['omega_60']
+            omega_90 = hex_sig['omega_90']
+            ratio = omega_60 / omega_90 if omega_90 > 0 else 1.0
+
+            results[pop_name] = {
+                'n_galaxies': int(n_pop),
+                'omega_60': float(omega_60),
+                'omega_90': float(omega_90),
+                'ratio': float(ratio),
+                'mean_u_r': float(np.mean(u_r[mask]))
+            }
+
+            status = "✓ EXCESO" if ratio > 1.05 else "○"
+            print(f"    ω(60°) = {omega_60:.4f}")
+            print(f"    ω(90°) = {omega_90:.4f}")
+            print(f"    Ratio 60°/90° = {ratio:.3f} {status}")
+
+        except Exception as e:
+            print(f"    Error: {e}")
+            results[pop_name] = {'n_galaxies': int(n_pop), 'ratio': np.nan, 'error': str(e)}
+
+    # =========================================================================
+    # FASE 3: Jackknife en AZULES
+    # =========================================================================
+    if n_blue >= 2000:
+        print("\n[FASE 3: Jackknife en AZULES]")
+
+        blue_catalog = {
+            'ra': ra[mask_blue],
+            'dec': dec[mask_blue],
+            'z': z[mask_blue],
+            'n_galaxies': n_blue,
+            'source': 'Azules'
+        }
+
+        # Mini-jackknife con 6 regiones
+        ra_blue = blue_catalog['ra']
+        ra_edges = np.linspace(ra_blue.min(), ra_blue.max(), 7)
+        region_ids = np.digitize(ra_blue, ra_edges[1:-1])
+
+        jk_ratios = []
+        for i in range(6):
+            mask_jk = region_ids != i
+            n_sub = np.sum(mask_jk)
+
+            if n_sub < 500:
+                continue
+
+            sub = {
+                'ra': blue_catalog['ra'][mask_jk],
+                'dec': blue_catalog['dec'][mask_jk],
+                'z': blue_catalog['z'][mask_jk],
+                'n_galaxies': n_sub,
+                'source': f'JK-{i+1}'
+            }
+
+            try:
+                corr_jk = compute_angular_correlation_masked(sub)
+                hex_jk = analyze_hexagonal_signature(corr_jk)
+                ratio_jk = hex_jk['omega_60'] / hex_jk['omega_90'] if hex_jk['omega_90'] > 0 else 1
+                jk_ratios.append(ratio_jk)
+                print(f"    Sin región {i+1}: ratio = {ratio_jk:.3f}")
+            except:
+                pass
+
+        if len(jk_ratios) >= 4:
+            jk_mean = np.mean(jk_ratios)
+            jk_std = np.std(jk_ratios)
+            jk_min = np.min(jk_ratios)
+
+            results['blue_jackknife'] = {
+                'n_regions': len(jk_ratios),
+                'mean': float(jk_mean),
+                'std': float(jk_std),
+                'min': float(jk_min),
+                'ratios': [float(r) for r in jk_ratios]
+            }
+
+            print(f"\n    Jackknife en azules:")
+            print(f"      Media: {jk_mean:.3f} ± {jk_std:.3f}")
+            print(f"      Mínimo: {jk_min:.3f}")
+
+    # =========================================================================
+    # VEREDICTO
+    # =========================================================================
+    print("\n" + "=" * 70)
+    print("  VEREDICTO: TEST RED vs BLUE")
+    print("=" * 70)
+
+    ratio_full = results.get('full', {}).get('ratio', 1.0)
+    ratio_blue = results.get('blue', {}).get('ratio', 1.0)
+    ratio_red = results.get('red', {}).get('ratio', 1.0)
+
+    print(f"\n  {'Población':<25} {'Ratio 60°/90°':<15} {'Interpretación':<20}")
+    print(f"  {'-'*60}")
+    print(f"  {'Muestra completa':<25} {ratio_full:<15.3f} {'Baseline':<20}")
+    print(f"  {'AZULES (Espirales)':<25} {ratio_blue:<15.3f} {'Malla intacta':<20}")
+    print(f"  {'ROJAS (Elípticas)':<25} {ratio_red:<15.3f} {'Malla arrugada':<20}")
+
+    # Hipótesis OCTH: Azules > Completa > Rojas
+    blue_stronger_than_full = ratio_blue > ratio_full
+    blue_stronger_than_red = ratio_blue > ratio_red
+    pattern_correct = blue_stronger_than_full and blue_stronger_than_red
+
+    # Jackknife en azules
+    jk_data = results.get('blue_jackknife', {})
+    jk_survives = jk_data.get('min', 0) > 0.95 if jk_data else False
+    jk_mean = jk_data.get('mean', ratio_blue)
+
+    if pattern_correct and ratio_blue >= 1.05 and jk_mean > 1.0:
+        verdict = "✅ VERDE: Señal hexagonal FUERTE en galaxias AZULES"
+        is_rescued = True
+        explanation = (f"Azules ({ratio_blue:.3f}) > Rojas ({ratio_red:.3f}) > "
+                      f"Completa ({ratio_full:.3f}). Jackknife media: {jk_mean:.3f}")
+    elif pattern_correct and ratio_blue > 1.0:
+        verdict = "🟡 AMARILLO: Patrón correcto (Azules > Rojas)"
+        is_rescued = None
+        explanation = (f"Azules ({ratio_blue:.3f}) > Rojas ({ratio_red:.3f}). "
+                      f"Señal marginal pero patrón correcto.")
+    elif blue_stronger_than_red:
+        verdict = "🟡 AMARILLO: Tendencia correcta (Azules > Rojas)"
+        is_rescued = None
+        explanation = f"Azules > Rojas como predice OCTH, pero señal débil"
+    else:
+        verdict = "❌ ROJO: No hay señal diferencial por color"
+        is_rescued = False
+        explanation = "El patrón hexagonal no depende del tipo de galaxia"
+
+    print(f"\n  {verdict}")
+    print(f"\n  Explicación: {explanation}")
+
+    # Guardar resultados
+    output = {
+        'test': 'Color Split Test (Red vs Blue)',
+        'u_r_threshold': float(u_r_threshold),
+        'results_by_color': results,
+        'prediction_check': {
+            'blue_stronger_than_full': bool(blue_stronger_than_full),
+            'blue_stronger_than_red': bool(blue_stronger_than_red),
+            'pattern_correct': bool(pattern_correct),
+            'jackknife_survives': bool(jk_survives) if jk_survives is not None else False
+        },
+        'verdict': verdict,
+        'is_rescued': is_rescued
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test3_color_split.json')
+    with open(filepath, 'w') as f:
+        json.dump(output, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # =========================================================================
+    # FIGURA
+    # =========================================================================
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # Panel 1: Histograma de color u-r
+    ax = axes[0, 0]
+    ax.hist(u_r, bins=50, density=True, alpha=0.7, color='purple', edgecolor='black')
+    ax.axvline(u_r_threshold, color='black', ls='--', lw=2,
+               label=f'Umbral: u-r = {u_r_threshold}')
+    ax.fill_betweenx([0, ax.get_ylim()[1] if ax.get_ylim()[1] > 0 else 1],
+                     u_r.min(), u_r_threshold, alpha=0.3, color='blue', label='Azules')
+    ax.fill_betweenx([0, ax.get_ylim()[1] if ax.get_ylim()[1] > 0 else 1],
+                     u_r_threshold, u_r.max(), alpha=0.3, color='red', label='Rojas')
+    ax.set_xlabel('Color u-r')
+    ax.set_ylabel('Densidad de probabilidad')
+    ax.set_title('Distribución de color de galaxias')
+    ax.legend(loc='best')
+    ax.grid(True, alpha=0.3)
+
+    # Panel 2: Ratios por población
+    ax = axes[0, 1]
+    pops = ['full', 'blue', 'red']
+    labels = ['Completa', 'Azules', 'Rojas']
+    colors_bar = ['gray', 'blue', 'red']
+    ratios = [results.get(p, {}).get('ratio', np.nan) for p in pops]
+
+    bars = ax.bar(labels, ratios, color=colors_bar, alpha=0.7, edgecolor='black')
+    ax.axhline(1.0, color='k', ls='--', lw=1, label='Sin exceso')
+    ax.set_ylabel('Ratio 60°/90°')
+    ax.set_title('Exceso hexagonal por tipo de galaxia')
+    ax.grid(True, alpha=0.3, axis='y')
+
+    # Añadir valores en las barras
+    for bar, ratio in zip(bars, ratios):
+        if not np.isnan(ratio):
+            ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+                   f'{ratio:.3f}', ha='center', va='bottom', fontsize=12, fontweight='bold')
+
+    # Panel 3: Color-magnitude diagram
+    ax = axes[1, 0]
+    if 'r' in catalog:
+        scatter = ax.scatter(catalog['r'], u_r, c=u_r, cmap='coolwarm',
+                            s=1, alpha=0.3, vmin=1.5, vmax=3.0)
+        ax.axhline(u_r_threshold, color='black', ls='--', lw=2)
+        ax.set_xlabel('Magnitud r')
+        ax.set_ylabel('Color u-r')
+        ax.set_title('Diagrama Color-Magnitud')
+        plt.colorbar(scatter, ax=ax, label='u-r')
+    else:
+        ax.text(0.5, 0.5, 'Sin datos de magnitud r', ha='center', va='center',
+               transform=ax.transAxes)
+
+    # Panel 4: Resumen
+    ax = axes[1, 1]
+    ax.axis('off')
+
+    color_bg = 'lightgreen' if is_rescued else ('wheat' if is_rescued is None else 'lightcoral')
+
+    summary = f"""
+    TEST DE RESCATE 2.0: RED vs BLUE
+    ═══════════════════════════════════════════
+
+    Hipótesis OCTH:
+    - Azules (Espirales): Malla intacta → hexagonal
+    - Rojas (Elípticas): Malla arrugada → caos
+
+    Resultados:
+    - Muestra completa: {ratio_full:.3f}
+    - AZULES:           {ratio_blue:.3f}
+    - ROJAS:            {ratio_red:.3f}
+
+    Predicción: Azules > Completa > Rojas
+    Observado: {'✓' if pattern_correct else '✗'}
+
+    ═══════════════════════════════════════════
+    VEREDICTO: {verdict.split(':')[0]}
+    """
+
+    ax.text(0.05, 0.95, summary, transform=ax.transAxes, fontsize=11,
+            verticalalignment='top', fontfamily='monospace',
+            bbox=dict(boxstyle='round', facecolor=color_bg, alpha=0.8))
+
+    plt.tight_layout()
+
+    for fmt in ['png', 'pdf']:
+        filepath = os.path.join(FIGURES_DIR, f'fig17_color_split_test.{fmt}')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    print(f"  Figura guardada: fig17_color_split_test.png/pdf")
+
+    plt.close()
+
+    return output
+
+
 def mask_validation_test(catalog):
     """
     VALIDACIÓN DE MÁSCARA: Compara resultados con randoms uniformes vs masked.
@@ -1755,6 +2164,7 @@ Opciones:
   --mask      VALIDACIÓN: Compara randoms uniformes vs masked
   --jackknife TEST DE DESTRUCCIÓN: Jackknife por regiones
   --web       TEST DE RESCATE: Telaraña Cósmica (por ambiente)
+  --color     TEST DE RESCATE 2.0: Red vs Blue (por tipo morfológico)
   --ngal=N    Número de galaxias (default: 10000)
   --help      Mostrar esta ayuda
         """)
@@ -1762,8 +2172,39 @@ Opciones:
 
     run_jackknife = '--jackknife' in sys.argv
     run_cosmic_web = '--web' in sys.argv
+    run_color_split = '--color' in sys.argv
 
-    if run_cosmic_web:
+    if run_color_split:
+        # TEST DE RESCATE 2.0: Red vs Blue
+        print("=" * 70)
+        print("TEST DE RESCATE 2.0: RED vs BLUE (SDSS)")
+        print("=" * 70)
+
+        os.makedirs(DATA_DIR, exist_ok=True)
+        os.makedirs(FIGURES_DIR, exist_ok=True)
+        os.makedirs(RESULTS_DIR, exist_ok=True)
+
+        print("\n[1] CARGANDO DATOS SDSS CON COLORES...")
+        catalog = download_sdss_sample(n_max=n_gal, with_colors=True)
+        if catalog is None:
+            print("  ⚠ No se pudo cargar SDSS con colores")
+            sys.exit(1)
+        print(f"  ✓ {catalog['n_galaxies']} galaxias: {catalog['source']}")
+
+        # Verificar que tenemos datos de color
+        if 'u_r' not in catalog:
+            print("  ⚠ Los datos no tienen información de color")
+            sys.exit(1)
+
+        # Ejecutar test de color
+        color_results = color_split_test(catalog)
+
+        print("\n" + "=" * 70)
+        print("SEMÁFORO - RED vs BLUE")
+        print("=" * 70)
+        print(f"\n  {color_results['verdict']}")
+
+    elif run_cosmic_web:
         # TEST DE RESCATE: Telaraña Cósmica
         print("=" * 70)
         print("TEST DE RESCATE: TELARAÑA CÓSMICA (SDSS)")

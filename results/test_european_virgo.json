@@ -1,0 +1,185 @@
+{
+  "event": "GW170814",
+  "masses": {
+    "m1": 30.6,
+    "m2": 25.2,
+    "total": 55.8,
+    "final": 53.2
+  },
+  "f_isco": 78.85304659498209,
+  "detectors": {
+    "V1": {
+      "power_line_hz": 50,
+      "peak_freqs": [
+        50.0,
+        36.0,
+        150.0,
+        268.0,
+        255.0,
+        200.0,
+        157.0,
+        193.0,
+        42.0,
+        282.0
+      ],
+      "hex_matches": [
+        {
+          "mode": 1,
+          "predicted": 39.426523297491045,
+          "observed": 36.0,
+          "ratio": 1.0,
+          "rel_diff": 0.08690909090909103
+        }
+      ],
+      "predicted_modes": [
+        39.426523297491045,
+        68.28874151705251,
+        78.85304659498209,
+        104.31277570505556
+      ],
+      "n_matches": 1,
+      "power_line_contamination": [
+        {
+          "harmonic": 50,
+          "peak": 50.0
+        },
+        {
+          "harmonic": 150,
+          "peak": 150.0
+        },
+        {
+          "harmonic": 200,
+          "peak": 200.0
+        }
+      ]
+    },
+    "H1": {
+      "power_line_hz": 60,
+      "peak_freqs": [
+        37.0,
+        32.0,
+        70.0,
+        46.0,
+        52.0,
+        75.0,
+        57.0,
+        62.0,
+        80.0,
+        94.0
+      ],
+      "hex_matches": [
+        {
+          "mode": 1,
+          "predicted": 39.426523297491045,
+          "observed": 37.0,
+          "ratio": 1.0,
+          "rel_diff": 0.06154545454545467
+        },
+        {
+          "mode": 2,
+          "predicted": 68.28874151705251,
+          "observed": 70.0,
+          "ratio": 1.7320508075688772,
+          "rel_diff": 0.0250591597521264
+        },
+        {
+          "mode": 3,
+          "predicted": 78.85304659498209,
+          "observed": 70.0,
+          "ratio": 2.0,
+          "rel_diff": 0.11227272727272739
+        },
+        {
+          "mode": 4,
+          "predicted": 104.31277570505556,
+          "observed": 94.0,
+          "ratio": 2.6457513110645907,
+          "rel_diff": 0.09886397553272801
+        }
+      ],
+      "predicted_modes": [
+        39.426523297491045,
+        68.28874151705251,
+        78.85304659498209,
+        104.31277570505556
+      ],
+      "n_matches": 4,
+      "power_line_contamination": []
+    },
+    "L1": {
+      "power_line_hz": 60,
+      "peak_freqs": [
+        33.0,
+        40.0,
+        60.0,
+        51.0,
+        70.0,
+        236.0,
+        212.0,
+        248.0,
+        120.0,
+        78.0
+      ],
+      "hex_matches": [
+        {
+          "mode": 1,
+          "predicted": 39.426523297491045,
+          "observed": 40.0,
+          "ratio": 1.0,
+          "rel_diff": 0.01454545454545441
+        },
+        {
+          "mode": 2,
+          "predicted": 68.28874151705251,
+          "observed": 60.0,
+          "ratio": 1.7320508075688772,
+          "rel_diff": 0.12137786306960595
+        },
+        {
+          "mode": 3,
+          "predicted": 78.85304659498209,
+          "observed": 70.0,
+          "ratio": 2.0,
+          "rel_diff": 0.11227272727272739
+        }
+      ],
+      "predicted_modes": [
+        39.426523297491045,
+        68.28874151705251,
+        78.85304659498209,
+        104.31277570505556
+      ],
+      "n_matches": 3,
+      "power_line_contamination": [
+        {
+          "harmonic": 60,
+          "peak": 60.0
+        },
+        {
+          "harmonic": 120,
+          "peak": 120.0
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "v1_modes": [
+      1
+    ],
+    "h1_modes": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "l1_modes": [
+      1,
+      2,
+      3
+    ],
+    "common_modes": [
+      1
+    ],
+    "verdict": "\ud83d\udfe1 AMARILLO: VIRGO detecta algunos modos hexagonales\n   \u2192 Evidencia parcial"
+  }
+}

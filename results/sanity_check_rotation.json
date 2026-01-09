@@ -1,0 +1,80 @@
+{
+  "test": "Sanity Check #2: Rotation Test",
+  "original": {
+    "n_pairs": 6,
+    "z_score": -0.41782235628493464,
+    "p_value": 0.7044,
+    "pairs": [
+      {
+        "event": "GW170814",
+        "anomaly": "South_Galactic_Pole",
+        "separation": 25.130684396172164
+      },
+      {
+        "event": "GW170814",
+        "anomaly": "Cold_Spot",
+        "separation": 26.90784522255349
+      },
+      {
+        "event": "GW170817",
+        "anomaly": "Octopole_Axis",
+        "separation": 23.719025919665583
+      },
+      {
+        "event": "GW190425",
+        "anomaly": "Quadrupole_Axis",
+        "separation": 17.948495393694174
+      },
+      {
+        "event": "GW190814",
+        "anomaly": "South_Galactic_Pole",
+        "separation": 1.9550527706964962
+      },
+      {
+        "event": "GW191216",
+        "anomaly": "Quadrupole_Axis",
+        "separation": 28.129265113436762
+      }
+    ]
+  },
+  "null_distribution": {
+    "mean": 7.2161,
+    "std": 2.910567090791759
+  },
+  "rotations": {
+    "45": {
+      "n_pairs": 7,
+      "z_score": -0.07424669944344574
+    },
+    "90": {
+      "n_pairs": 8,
+      "z_score": 0.26932895739804313
+    },
+    "135": {
+      "n_pairs": 11,
+      "z_score": 1.30005592792251
+    },
+    "180": {
+      "n_pairs": 12,
+      "z_score": 1.6436315847639986
+    },
+    "225": {
+      "n_pairs": 10,
+      "z_score": 0.956480271081021
+    },
+    "270": {
+      "n_pairs": 9,
+      "z_score": 0.612904614239532
+    },
+    "315": {
+      "n_pairs": 6,
+      "z_score": -0.41782235628493464
+    }
+  },
+  "analysis": {
+    "mean_z_rotated": 0.6129046142395319,
+    "max_z_rotated": 1.6436315847639986,
+    "z_drop": -1.0307269705244666
+  },
+  "verdict": "INCONCLUSO: Correlacion original no es significativa",
+  "passes": 

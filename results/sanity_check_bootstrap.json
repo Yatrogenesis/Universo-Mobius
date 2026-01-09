@@ -1,0 +1,35 @@
+{
+  "test": "Sanity Check: Bootstrap with Surrogates",
+  "tolerance": 0.1,
+  "n_bootstrap": 100,
+  "results_by_detector": {
+    "H1": {
+      "real_score": 0,
+      "real_f1": null,
+      "surrogate_mean": 0.0,
+      "surrogate_std": 0.0,
+      "z_score": 0.0,
+      "p_value": 1.0
+    },
+    "L1": {
+      "real_score": 0,
+      "real_f1": null,
+      "surrogate_mean": 0.0,
+      "surrogate_std": 0.0,
+      "z_score": 0.0,
+      "p_value": 1.0
+    },
+    "V1": {
+      "real_score": 0,
+      "real_f1": null,
+      "surrogate_mean": 0.0,
+      "surrogate_std": 0.0,
+      "z_score": 0.0,
+      "p_value": 1.0
+    }
+  },
+  "combined_p_value": 1.0,
+  "best_detector": "H1",
+  "verdict": "MARGINAL: La senal requiere verificacion adicional",
+  "passes_test": false
+}

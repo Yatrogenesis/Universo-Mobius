@@ -1,0 +1,544 @@
+{
+  "catalog_size": 82,
+  "bbh_events": 75,
+  "n_favor_octh": 75,
+  "n_favor_gr": 0,
+  "octh_fraction": 1.0,
+  "mean_delta_chi2": 3918.399845079174,
+  "std_delta_chi2": 306.9476336087117,
+  "mean_hex_fraction": 0.33333333333333326,
+  "z_score_global": 222.08918544307036,
+  "p_value_global": 0.0,
+  "monte_carlo_n": 1000,
+  "null_distribution": {
+    "mean": 148.8658455095255,
+    "std": 16.97306418612589
+  },
+  "individual_results": [
+    {
+      "name": "GW150914",
+      "M_total": 66.2,
+      "delta_chi2": 3907.779590977174,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW151012",
+      "M_total": 36.8,
+      "delta_chi2": 3441.3950093235,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW151226",
+      "M_total": 21.4,
+      "delta_chi2": 3540.4166915928945,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW170104",
+      "M_total": 50.8,
+      "delta_chi2": 3638.2360195439305,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW170608",
+      "M_total": 18.6,
+      "delta_chi2": 3391.438474821094,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW170729",
+      "M_total": 84.2,
+      "delta_chi2": 4097.453436166856,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW170809",
+      "M_total": 58.8,
+      "delta_chi2": 4267.40135888334,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW170814",
+      "M_total": 55.8,
+      "delta_chi2": 3786.2648362846267,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW170818",
+      "M_total": 62.099999999999994,
+      "delta_chi2": 3903.789135001036,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW170823",
+      "M_total": 68.5,
+      "delta_chi2": 3734.2657747279336,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190408_181802",
+      "M_total": 43.0,
+      "delta_chi2": 4275.100773939204,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190412",
+      "M_total": 38.400000000000006,
+      "delta_chi2": 4075.657573754088,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190413_052954",
+      "M_total": 60.1,
+      "delta_chi2": 3475.3934362111722,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190413_134308",
+      "M_total": 79.5,
+      "delta_chi2": 4016.439880043741,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190421_213856",
+      "M_total": 73.69999999999999,
+      "delta_chi2": 3685.020444541329,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190424_180648",
+      "M_total": 72.3,
+      "delta_chi2": 4243.501993946022,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190503_185404",
+      "M_total": 71.6,
+      "delta_chi2": 3714.273710693742,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190512_180714",
+      "M_total": 35.8,
+      "delta_chi2": 4069.474995138753,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190513_205428",
+      "M_total": 53.7,
+      "delta_chi2": 3633.699983849994,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190514_065416",
+      "M_total": 66.9,
+      "delta_chi2": 4217.808825607834,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190517_055101",
+      "M_total": 62.7,
+      "delta_chi2": 3867.4803478558897,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190519_153544",
+      "M_total": 106.5,
+      "delta_chi2": 4627.462984350084,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190521",
+      "M_total": 151.0,
+      "delta_chi2": 4211.0020541658705,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190521_074359",
+      "M_total": 75.19999999999999,
+      "delta_chi2": 4413.9850201652625,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190527_092055",
+      "M_total": 59.1,
+      "delta_chi2": 3700.396010595019,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190602_175927",
+      "M_total": 116.5,
+      "delta_chi2": 3704.132760000939,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190620_030421",
+      "M_total": 92.2,
+      "delta_chi2": 3683.9554754498567,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190630_185205",
+      "M_total": 58.7,
+      "delta_chi2": 3925.574948845635,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190701_203306",
+      "M_total": 94.69999999999999,
+      "delta_chi2": 4264.559887852742,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190706_222641",
+      "M_total": 105.2,
+      "delta_chi2": 3898.369867179019,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190707_093326",
+      "M_total": 20.0,
+      "delta_chi2": 3877.7925087274853,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190708_232457",
+      "M_total": 30.8,
+      "delta_chi2": 3733.1875842365553,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190719_215514",
+      "M_total": 55.3,
+      "delta_chi2": 3911.8364242361968,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190720_000836",
+      "M_total": 21.2,
+      "delta_chi2": 3768.638559326526,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190727_060333",
+      "M_total": 65.8,
+      "delta_chi2": 3923.132351700071,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190728_064510",
+      "M_total": 20.4,
+      "delta_chi2": 4026.455591297661,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190731_140936",
+      "M_total": 67.0,
+      "delta_chi2": 3559.7976988214505,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190803_022701",
+      "M_total": 64.3,
+      "delta_chi2": 4349.48320364784,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190828_063405",
+      "M_total": 58.2,
+      "delta_chi2": 4026.868735678887,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190828_065509",
+      "M_total": 34.3,
+      "delta_chi2": 4485.431818433615,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190910_112807",
+      "M_total": 77.6,
+      "delta_chi2": 3846.1802226123036,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190915_235702",
+      "M_total": 59.699999999999996,
+      "delta_chi2": 4799.836825836737,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190924_021846",
+      "M_total": 13.9,
+      "delta_chi2": 4160.938925130002,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190929_012149",
+      "M_total": 104.9,
+      "delta_chi2": 3902.5092308075473,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW190930_133541",
+      "M_total": 20.1,
+      "delta_chi2": 4107.6269117897245,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191103_012549",
+      "M_total": 20.0,
+      "delta_chi2": 3405.4299765124324,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191105_143521",
+      "M_total": 18.0,
+      "delta_chi2": 3608.1139070558074,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191109_010717",
+      "M_total": 112.0,
+      "delta_chi2": 3477.374280944101,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191113_071753",
+      "M_total": 39.0,
+      "delta_chi2": 3723.4216994507206,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191126_115259",
+      "M_total": 20.2,
+      "delta_chi2": 4395.574338361075,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191127_050227",
+      "M_total": 61.0,
+      "delta_chi2": 3799.0699499175644,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191129_134029",
+      "M_total": 17.3,
+      "delta_chi2": 3772.1302946606484,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191204_171526",
+      "M_total": 19.6,
+      "delta_chi2": 3335.498900696364,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191215_223052",
+      "M_total": 42.5,
+      "delta_chi2": 3764.716768456219,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191216_213338",
+      "M_total": 19.7,
+      "delta_chi2": 3687.422158711983,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191222_033537",
+      "M_total": 68.0,
+      "delta_chi2": 4210.779217610983,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW191230_180458",
+      "M_total": 71.5,
+      "delta_chi2": 3764.3023119911886,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200112_155838",
+      "M_total": 57.5,
+      "delta_chi2": 4206.747019217855,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200128_022011",
+      "M_total": 70.0,
+      "delta_chi2": 3944.5269490215323,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200129_065458",
+      "M_total": 63.0,
+      "delta_chi2": 3928.6224661734086,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200202_154313",
+      "M_total": 17.3,
+      "delta_chi2": 3499.7926467544585,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200208_130117",
+      "M_total": 63.5,
+      "delta_chi2": 3889.055885835769,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200209_085452",
+      "M_total": 60.5,
+      "delta_chi2": 3674.6561793368983,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200216_220804",
+      "M_total": 81.0,
+      "delta_chi2": 4463.675111799879,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200219_094415",
+      "M_total": 64.5,
+      "delta_chi2": 3762.473779767475,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200220_061928",
+      "M_total": 148.0,
+      "delta_chi2": 3783.271595400078,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200220_124850",
+      "M_total": 62.0,
+      "delta_chi2": 3852.148096433866,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200224_222234",
+      "M_total": 73.0,
+      "delta_chi2": 4049.0076021616624,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200225_060421",
+      "M_total": 33.5,
+      "delta_chi2": 4279.465328133607,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200302_015811",
+      "M_total": 57.0,
+      "delta_chi2": 4454.856025921439,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200306_093714",
+      "M_total": 47.5,
+      "delta_chi2": 4042.0083714077955,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200308_173609",
+      "M_total": 58.0,
+      "delta_chi2": 3846.4800965490576,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200311_115853",
+      "M_total": 62.0,
+      "delta_chi2": 4021.095944646404,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200316_215756",
+      "M_total": 20.8,
+      "delta_chi2": 3830.888609066842,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    },
+    {
+      "name": "GW200322_091133",
+      "M_total": 62.0,
+      "delta_chi2": 3515.9349751497884,
+      "hex_fraction": 0.3333333333333333,
+      "favors": "OCTH"
+    }
+  ]
+}

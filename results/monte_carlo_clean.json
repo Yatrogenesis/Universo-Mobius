@@ -1,0 +1,20 @@
+{
+  "test": "Monte Carlo Clean (Pure Noise)",
+  "n_trials": 1000,
+  "tolerance": 0.15,
+  "distribution": {
+    "1": 374,
+    "0": 384,
+    "2": 184,
+    "3": 53,
+    "4": 5
+  },
+  "mean": 0.921,
+  "std": 0.9048530267397019,
+  "p_four": 0.005,
+  "real_result": 4,
+  "z_score": 3.40276255812949,
+  "p_value": 0.005,
+  "verdict": "EL TEST PLACEBO FUNCIONA",
+  "passes": true
+}
