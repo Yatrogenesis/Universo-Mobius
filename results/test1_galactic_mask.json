@@ -1,0 +1,47 @@
+{
+  "test": "Galactic Mask Test",
+  "results": {
+    "no_mask": {
+      "sky_fraction": 1.0,
+      "correlation": -0.0480226996097411,
+      "z_score": -5.5750304029104845
+    },
+    "cut_10": {
+      "galactic_cut_deg": 10,
+      "sky_fraction": 0.828125,
+      "n_valid_pairs": 40704,
+      "correlation": -0.03665137286055663,
+      "z_score": -7.394499630662416
+    },
+    "cut_20": {
+      "galactic_cut_deg": 20,
+      "sky_fraction": 0.6614583333333334,
+      "n_valid_pairs": 32512,
+      "correlation": -0.05023162882033976,
+      "z_score": -9.057307323459877
+    },
+    "cut_30": {
+      "galactic_cut_deg": 30,
+      "sky_fraction": 0.5052083333333334,
+      "n_valid_pairs": 24832,
+      "correlation": -0.018654208887541428,
+      "z_score": -2.9395624118143457
+    },
+    "cut_40": {
+      "galactic_cut_deg": 40,
+      "sky_fraction": 0.359375,
+      "n_valid_pairs": 17664,
+      "correlation": 0.02391930819875942,
+      "z_score": 3.179019140292911
+    },
+    "cut_50": {
+      "galactic_cut_deg": 50,
+      "sky_fraction": 0.23291015625,
+      "n_valid_pairs": 11448,
+      "correlation": 0.021003911012555363,
+      "z_score": 2.2473203270832682
+    }
+  },
+  "verdict": "\u274c ROJO: Se\u00f1al DESAPARECE o cambia de signo",
+  "is_cosmological": false
+}

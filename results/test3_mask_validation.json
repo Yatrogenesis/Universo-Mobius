@@ -1,0 +1,17 @@
+{
+  "uniform": {
+    "omega_60": 0.24700952085053707,
+    "omega_90": 0.2811646971232362,
+    "ratio": 0.8785225292429628,
+    "z_score": -4.73218259275202
+  },
+  "masked": {
+    "omega_60": 0.2177668183410611,
+    "omega_90": 0.19969369278647386,
+    "ratio": 1.0905042382781325,
+    "z_score": 0.10841292288097419
+  },
+  "ratio_change_percent": 24.129342387819896,
+  "verdict": "\u2705 VERDE: Exceso hexagonal SOBREVIVE con m\u00e1scara",
+  "is_real_signal": true
+}

@@ -1,0 +1,22 @@
+{
+  "test": "Quiet Time Noise Test",
+  "event_gps": 1126259462.4,
+  "quiet_gps": 1126259452.4,
+  "mesh_frequencies": [
+    33.81438564889414,
+    47.34013990845179,
+    57.48445560312003
+  ],
+  "event_ratios": {
+    "34Hz": 33297.56630699825,
+    "47Hz": 17555.838890892814,
+    "57Hz": 13097.232500036289
+  },
+  "quiet_ratios": {
+    "34Hz": 34150.90712509637,
+    "47Hz": 14579.67003783793,
+    "57Hz": 12413.166598616881
+  },
+  "verdict": "\u274c ROJO: Algunos picos son RUIDO INSTRUMENTAL",
+  "is_valid_signal": false
+}

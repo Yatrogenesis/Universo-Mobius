@@ -1,0 +1,20 @@
+{
+  "test": "Jackknife Test",
+  "n_regions": 8,
+  "full_ratio": 1.2848366047974513,
+  "jackknife_mean": 1.3538996352286297,
+  "jackknife_std": 0.664165225625525,
+  "jackknife_error": 1.7572160164622426,
+  "results": {
+    "full": {
+      "n_galaxies": 30000,
+      "omega_60": 0.2822164717436107,
+      "omega_90": 0.21965164339951293,
+      "ratio": 1.2848366047974513
+    },
+    "without_region_1": {
+      "ra_range": [
+        0.0306242941675237,
+        45.02408867399121
+      ],
+      "n_galaxies": 

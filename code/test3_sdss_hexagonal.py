@@ -505,6 +505,498 @@ def analyze_hexagonal_signature(correlation):
     }
 
 
+def generate_masked_randoms(ra, dec, n_random, n_bins=50):
+    """
+    Genera catálogo random que sigue la geometría real del survey.
+
+    Crea una función de selección angular 2D basada en la distribución
+    real de galaxias, y muestrea de ella.
+
+    Esto evita el sesgo de usar randoms rectangulares uniformes.
+    """
+    # Crear histograma 2D de la distribución real
+    ra_bins = np.linspace(ra.min(), ra.max(), n_bins + 1)
+    dec_bins = np.linspace(dec.min(), dec.max(), n_bins + 1)
+
+    hist, _, _ = np.histogram2d(ra, dec, bins=[ra_bins, dec_bins])
+
+    # Normalizar como PDF
+    hist = hist / hist.sum()
+
+    # Flatten para sampling
+    flat_hist = hist.flatten()
+
+    # Generar randoms siguiendo la distribución
+    ra_centers = (ra_bins[:-1] + ra_bins[1:]) / 2
+    dec_centers = (dec_bins[:-1] + dec_bins[1:]) / 2
+
+    # Crear grid de centros
+    ra_grid, dec_grid = np.meshgrid(ra_centers, dec_centers, indexing='ij')
+    ra_flat = ra_grid.flatten()
+    dec_flat = dec_grid.flatten()
+
+    # Muestrear celdas según probabilidad
+    cell_indices = np.random.choice(len(flat_hist), size=n_random, p=flat_hist)
+
+    # Añadir ruido dentro de cada celda
+    ra_cell_size = (ra.max() - ra.min()) / n_bins
+    dec_cell_size = (dec.max() - dec.min()) / n_bins
+
+    ra_rand = ra_flat[cell_indices] + np.random.uniform(-ra_cell_size/2, ra_cell_size/2, n_random)
+    dec_rand = dec_flat[cell_indices] + np.random.uniform(-dec_cell_size/2, dec_cell_size/2, n_random)
+
+    return ra_rand, dec_rand
+
+
+def compute_angular_correlation_masked(catalog, theta_bins=None, n_random=None, max_pairs=500000):
+    """
+    Calcula función de correlación angular usando randoms con MÁSCARA.
+
+    Idéntico a compute_angular_correlation pero usa generate_masked_randoms.
+    """
+    if theta_bins is None:
+        theta_bins = np.arange(0, 181, 2)
+
+    ra = catalog['ra']
+    dec = catalog['dec']
+    n_data = len(ra)
+
+    if n_random is None:
+        n_random = min(n_data * 2, 20000)
+
+    print(f"  → Calculando correlación con MÁSCARA ({n_data} galaxias)...")
+
+    # Generar catálogo random CON MÁSCARA (diferencia clave)
+    ra_rand, dec_rand = generate_masked_randoms(ra, dec, n_random)
+
+    # El resto es idéntico a compute_angular_correlation...
+    if n_data > 5000:
+        idx_sample = np.random.choice(n_data, 5000, replace=False)
+        ra_sample = ra[idx_sample]
+        dec_sample = dec[idx_sample]
+    else:
+        ra_sample = ra
+        dec_sample = dec
+
+    n_sample = len(ra_sample)
+
+    # Calcular DD
+    print("    Calculando DD...")
+    DD_counts = np.zeros(len(theta_bins) - 1)
+    n_pairs = 0
+    for i in range(n_sample):
+        if n_pairs > max_pairs:
+            break
+        for j in range(i + 1, n_sample):
+            sep = angular_separation(ra_sample[i], dec_sample[i],
+                                    ra_sample[j], dec_sample[j])
+            bin_idx = np.searchsorted(theta_bins, sep) - 1
+            if 0 <= bin_idx < len(DD_counts):
+                DD_counts[bin_idx] += 1
+            n_pairs += 1
+
+    n_DD_pairs = n_sample * (n_sample - 1) / 2
+    DD = DD_counts / n_DD_pairs if n_DD_pairs > 0 else DD_counts
+
+    # Calcular RR con randoms masked
+    print("    Calculando RR (masked)...")
+    RR_counts = np.zeros(len(theta_bins) - 1)
+    n_rand_sample = min(n_random, 3000)
+    idx_rand = np.random.choice(n_random, n_rand_sample, replace=False)
+    ra_rand_sample = ra_rand[idx_rand]
+    dec_rand_sample = dec_rand[idx_rand]
+
+    n_pairs = 0
+    for i in range(n_rand_sample):
+        if n_pairs > max_pairs:
+            break
+        for j in range(i + 1, n_rand_sample):
+            sep = angular_separation(ra_rand_sample[i], dec_rand_sample[i],
+                                    ra_rand_sample[j], dec_rand_sample[j])
+            bin_idx = np.searchsorted(theta_bins, sep) - 1
+            if 0 <= bin_idx < len(RR_counts):
+                RR_counts[bin_idx] += 1
+            n_pairs += 1
+
+    n_RR_pairs = n_rand_sample * (n_rand_sample - 1) / 2
+    RR = RR_counts / n_RR_pairs if n_RR_pairs > 0 else RR_counts
+
+    # Calcular DR
+    print("    Calculando DR (masked)...")
+    DR_counts = np.zeros(len(theta_bins) - 1)
+    n_dr_sample = min(n_sample, 2000)
+    n_pairs = 0
+    for i in range(n_dr_sample):
+        if n_pairs > max_pairs // 2:
+            break
+        for j in range(min(n_rand_sample, 2000)):
+            sep = angular_separation(ra_sample[i], dec_sample[i],
+                                    ra_rand_sample[j], dec_rand_sample[j])
+            bin_idx = np.searchsorted(theta_bins, sep) - 1
+            if 0 <= bin_idx < len(DR_counts):
+                DR_counts[bin_idx] += 1
+            n_pairs += 1
+
+    n_DR_pairs = n_dr_sample * min(n_rand_sample, 2000)
+    DR = DR_counts / n_DR_pairs if n_DR_pairs > 0 else DR_counts
+
+    # Estimador Landy-Szalay
+    omega = np.zeros(len(theta_bins) - 1)
+    for i in range(len(omega)):
+        if RR[i] > 0:
+            omega[i] = (DD[i] - 2 * DR[i] + RR[i]) / RR[i]
+        else:
+            omega[i] = 0
+
+    omega_err = np.sqrt(DD_counts + 1) / n_DD_pairs / (RR + 1e-10)
+    theta_centers = (theta_bins[:-1] + theta_bins[1:]) / 2
+
+    return {
+        'theta': theta_centers,
+        'omega': omega,
+        'omega_err': omega_err,
+        'DD': DD,
+        'DR': DR,
+        'RR': RR,
+        'theta_bins': theta_bins
+    }
+
+
+def jackknife_test(catalog, n_regions=10):
+    """
+    TEST DE DESTRUCCIÓN: Jackknife Resampling.
+
+    Crítica del Ortodoxo: "Tu exceso hexagonal es pareidolia estadística
+    o viene de una estructura local (supercúmulo casual)"
+
+    Metodología:
+    - Dividir el cielo en N regiones
+    - Quitar cada región una por vez
+    - Recalcular el ratio 60°/90° sin esa región
+    - Si la señal desaparece al quitar UNA región específica → Es local
+    - Si la señal persiste en TODAS las submuestras → Es universal
+    """
+    print("\n" + "=" * 70)
+    print("  TEST DE DESTRUCCIÓN: JACKKNIFE RESAMPLING")
+    print("  ¿El exceso hexagonal viene de una estructura local?")
+    print("=" * 70)
+
+    ra = catalog['ra']
+    dec = catalog['dec']
+    n_total = len(ra)
+
+    print(f"\nDividiendo {n_total} galaxias en {n_regions} regiones...")
+
+    # Dividir en regiones por RA (más simple y robusto)
+    ra_min, ra_max = ra.min(), ra.max()
+    ra_edges = np.linspace(ra_min, ra_max, n_regions + 1)
+
+    # Asignar cada galaxia a una región
+    region_ids = np.digitize(ra, ra_edges[1:-1])
+
+    results = {}
+
+    # Primero: Análisis completo (baseline)
+    print("\n[COMPLETO - Baseline]")
+    corr_full = compute_angular_correlation_masked(catalog)
+    hex_full = analyze_hexagonal_signature(corr_full)
+    ratio_full = hex_full['omega_60'] / hex_full['omega_90'] if hex_full['omega_90'] > 0 else 1
+
+    results['full'] = {
+        'n_galaxies': n_total,
+        'omega_60': float(hex_full['omega_60']),
+        'omega_90': float(hex_full['omega_90']),
+        'ratio': float(ratio_full)
+    }
+    print(f"  Ratio 60°/90° = {ratio_full:.3f}")
+
+    # Jackknife: quitar cada región
+    jackknife_ratios = []
+
+    for i in range(n_regions):
+        print(f"\n[Quitando región {i+1}/{n_regions} (RA: {ra_edges[i]:.0f}°-{ra_edges[i+1]:.0f}°)]")
+
+        # Crear submuestra sin esta región
+        mask = region_ids != i
+        n_sub = np.sum(mask)
+
+        if n_sub < 1000:
+            print(f"  ⚠ Muy pocas galaxias ({n_sub}), saltando...")
+            continue
+
+        sub_catalog = {
+            'ra': ra[mask],
+            'dec': dec[mask],
+            'z': catalog['z'][mask],
+            'n_galaxies': n_sub,
+            'source': f'Jackknife sin región {i+1}'
+        }
+
+        # Calcular correlación
+        try:
+            corr_sub = compute_angular_correlation_masked(sub_catalog)
+            hex_sub = analyze_hexagonal_signature(corr_sub)
+            ratio_sub = hex_sub['omega_60'] / hex_sub['omega_90'] if hex_sub['omega_90'] > 0 else 1
+
+            jackknife_ratios.append(ratio_sub)
+
+            results[f'without_region_{i+1}'] = {
+                'ra_range': [float(ra_edges[i]), float(ra_edges[i+1])],
+                'n_galaxies': n_sub,
+                'ratio': float(ratio_sub)
+            }
+
+            # Detectar si esta región es crítica
+            if abs(ratio_sub - 1.0) < abs(ratio_full - 1.0) * 0.3:
+                print(f"  Ratio = {ratio_sub:.3f} ⚠️ SEÑAL DEBILITADA")
+            else:
+                print(f"  Ratio = {ratio_sub:.3f} ✓")
+
+        except Exception as e:
+            print(f"  Error: {e}")
+            continue
+
+    # Análisis de variabilidad
+    print("\n" + "=" * 70)
+    print("  ANÁLISIS JACKKNIFE")
+    print("=" * 70)
+
+    if len(jackknife_ratios) >= 5:
+        jk_mean = np.mean(jackknife_ratios)
+        jk_std = np.std(jackknife_ratios)
+        jk_min = np.min(jackknife_ratios)
+        jk_max = np.max(jackknife_ratios)
+
+        # Error Jackknife
+        n_jk = len(jackknife_ratios)
+        jk_error = np.sqrt((n_jk - 1) / n_jk * np.sum((np.array(jackknife_ratios) - jk_mean)**2))
+
+        print(f"\n  Ratio completo:     {ratio_full:.3f}")
+        print(f"  Media Jackknife:    {jk_mean:.3f} ± {jk_error:.3f}")
+        print(f"  Rango:              [{jk_min:.3f}, {jk_max:.3f}]")
+        print(f"  Desv. estándar:     {jk_std:.3f}")
+
+        # Veredicto
+        print("\n" + "=" * 70)
+        print("  VEREDICTO")
+        print("=" * 70)
+
+        # Criterios:
+        # 1. ¿Alguna región hace desaparecer la señal?
+        critical_regions = [i for i, r in enumerate(jackknife_ratios) if r < 1.02]
+
+        # 2. ¿La varianza es alta (señal inestable)?
+        high_variance = jk_std > 0.1
+
+        # 3. ¿El rango cruza 1.0?
+        crosses_unity = jk_min < 1.0 < jk_max
+
+        if len(critical_regions) > 0 and crosses_unity:
+            verdict = "❌ ROJO: Señal depende de regiones específicas"
+            is_universal = False
+            explanation = f"Quitar región(es) {[c+1 for c in critical_regions]} elimina el exceso"
+        elif high_variance:
+            verdict = "🟡 AMARILLO: Alta variabilidad entre regiones"
+            is_universal = None
+            explanation = "La señal es inestable, posible fluctuación estadística"
+        elif jk_mean > 1.05 and jk_min > 0.95:
+            verdict = "✅ VERDE: Señal ROBUSTA en todas las regiones"
+            is_universal = True
+            explanation = "El exceso hexagonal persiste sin importar qué región se quite"
+        else:
+            verdict = "○ GRIS: Sin señal clara"
+            is_universal = None
+            explanation = "El ratio es cercano a 1 en todos los casos"
+
+        print(f"\n  {verdict}")
+        print(f"\n  Explicación: {explanation}")
+
+    else:
+        verdict = "○ GRIS: Datos insuficientes para Jackknife"
+        is_universal = None
+        jk_mean = ratio_full
+        jk_std = 0
+        jk_error = 0
+
+    # Guardar resultados
+    output = {
+        'test': 'Jackknife Test',
+        'n_regions': n_regions,
+        'full_ratio': float(ratio_full),
+        'jackknife_mean': float(jk_mean),
+        'jackknife_std': float(jk_std),
+        'jackknife_error': float(jk_error),
+        'results': results,
+        'verdict': verdict,
+        'is_universal': is_universal
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test3_jackknife.json')
+    with open(filepath, 'w') as f:
+        json.dump(output, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # Figura
+    if len(jackknife_ratios) >= 3:
+        fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+        # Panel 1: Ratios por región
+        ax = axes[0]
+        x = range(1, len(jackknife_ratios) + 1)
+        ax.bar(x, jackknife_ratios, color='steelblue', alpha=0.7, edgecolor='black')
+        ax.axhline(ratio_full, color='r', ls='-', lw=2, label=f'Completo: {ratio_full:.3f}')
+        ax.axhline(1.0, color='k', ls='--', lw=1, label='Sin exceso')
+        ax.axhline(jk_mean, color='g', ls=':', lw=2, label=f'Media JK: {jk_mean:.3f}')
+        ax.fill_between([0, len(x)+1], jk_mean - jk_std, jk_mean + jk_std,
+                        alpha=0.2, color='green', label='±1σ')
+        ax.set_xlabel('Región quitada')
+        ax.set_ylabel('Ratio 60°/90°')
+        ax.set_title('Jackknife: Estabilidad del Exceso Hexagonal')
+        ax.legend(loc='best')
+        ax.grid(True, alpha=0.3, axis='y')
+        ax.set_xlim(0.5, len(x) + 0.5)
+
+        # Panel 2: Resumen
+        ax = axes[1]
+        ax.axis('off')
+
+        summary = f"""
+    TEST DE DESTRUCCIÓN: JACKKNIFE
+    ═══════════════════════════════════════════
+
+    Crítica del Ortodoxo:
+    "Tu exceso hexagonal es pareidolia o
+     viene de una estructura local"
+
+    Metodología:
+    Quitar cada región del cielo una por vez
+    y ver si la señal persiste.
+
+    Si señal DESAPARECE al quitar una región → Local
+    Si señal PERSISTE en todas las submuestras → Universal
+
+    ═══════════════════════════════════════════
+    RESULTADO:
+
+    {verdict}
+
+    Ratio completo: {ratio_full:.3f}
+    Media Jackknife: {jk_mean:.3f} ± {jk_error:.3f}
+    ═══════════════════════════════════════════
+        """
+
+        color = 'lightgreen' if is_universal else 'lightcoral' if is_universal == False else 'lightgray'
+        ax.text(0.1, 0.9, summary, transform=ax.transAxes, fontsize=10,
+                verticalalignment='top', fontfamily='monospace',
+                bbox=dict(boxstyle='round', facecolor=color, alpha=0.8))
+
+        plt.tight_layout()
+
+        for fmt in ['png', 'pdf']:
+            filepath = os.path.join(FIGURES_DIR, f'fig14_jackknife_test.{fmt}')
+            plt.savefig(filepath, dpi=150, bbox_inches='tight')
+        print(f"  Figura guardada: fig14_jackknife_test.png/pdf")
+
+        plt.close()
+
+    return output
+
+
+def mask_validation_test(catalog):
+    """
+    VALIDACIÓN DE MÁSCARA: Compara resultados con randoms uniformes vs masked.
+
+    Si el exceso hexagonal SOBREVIVE con randoms que siguen la geometría
+    real del survey → Señal astrofísica real
+
+    Si el exceso DESAPARECE con randoms masked → Era artefacto de geometría
+    """
+    print("\n" + "=" * 70)
+    print("VALIDACIÓN DE MÁSCARA SDSS")
+    print("=" * 70)
+
+    # 1. Correlación con randoms UNIFORMES (método original)
+    print("\n[A] Correlación con randoms UNIFORMES...")
+    corr_uniform = compute_angular_correlation(catalog)
+    hex_uniform = analyze_hexagonal_signature(corr_uniform)
+
+    # 2. Correlación con randoms MASKED (nuevo método)
+    print("\n[B] Correlación con randoms MASKED (geometría real)...")
+    corr_masked = compute_angular_correlation_masked(catalog)
+    hex_masked = analyze_hexagonal_signature(corr_masked)
+
+    # 3. Comparar resultados
+    print("\n" + "-" * 70)
+    print("COMPARACIÓN: UNIFORME vs MASKED")
+    print("-" * 70)
+
+    omega_60_uniform = hex_uniform['omega_60']
+    omega_90_uniform = hex_uniform['omega_90']
+    omega_60_masked = hex_masked['omega_60']
+    omega_90_masked = hex_masked['omega_90']
+
+    ratio_uniform = omega_60_uniform / omega_90_uniform if omega_90_uniform > 0 else 1
+    ratio_masked = omega_60_masked / omega_90_masked if omega_90_masked > 0 else 1
+
+    print(f"\n  Con randoms UNIFORMES:")
+    print(f"    ω(60°) = {omega_60_uniform:.4f}")
+    print(f"    ω(90°) = {omega_90_uniform:.4f}")
+    print(f"    Ratio 60°/90° = {ratio_uniform:.3f}")
+    print(f"    Z-score = {hex_uniform['z_score']:.2f}")
+
+    print(f"\n  Con randoms MASKED:")
+    print(f"    ω(60°) = {omega_60_masked:.4f}")
+    print(f"    ω(90°) = {omega_90_masked:.4f}")
+    print(f"    Ratio 60°/90° = {ratio_masked:.3f}")
+    print(f"    Z-score = {hex_masked['z_score']:.2f}")
+
+    # 4. Determinar veredicto
+    print("\n" + "=" * 70)
+    print("VEREDICTO")
+    print("=" * 70)
+
+    # Criterio: el exceso hexagonal debe sobrevivir
+    # Si ratio_masked > 1.05, la señal sobrevive
+    ratio_change = abs(ratio_masked - ratio_uniform) / ratio_uniform
+
+    if ratio_masked > 1.05 and ratio_change < 0.3:
+        verdict = "✅ VERDE: Exceso hexagonal SOBREVIVE con máscara"
+        is_real = True
+        explanation = "La señal persiste cuando se usa geometría real del survey"
+    elif ratio_masked > 1.02:
+        verdict = "🟡 AMARILLO: Exceso hexagonal REDUCIDO pero presente"
+        is_real = True
+        explanation = "La señal se reduce pero no desaparece completamente"
+    else:
+        verdict = "❌ ROJO: Exceso hexagonal DESAPARECE con máscara"
+        is_real = False
+        explanation = "La señal era un artefacto de la geometría del survey"
+
+    print(f"\n  {verdict}")
+    print(f"\n  Explicación: {explanation}")
+    print(f"  Cambio en ratio: {ratio_change*100:.1f}%")
+
+    results = {
+        'uniform': {
+            'omega_60': float(omega_60_uniform),
+            'omega_90': float(omega_90_uniform),
+            'ratio': float(ratio_uniform),
+            'z_score': float(hex_uniform['z_score'])
+        },
+        'masked': {
+            'omega_60': float(omega_60_masked),
+            'omega_90': float(omega_90_masked),
+            'ratio': float(ratio_masked),
+            'z_score': float(hex_masked['z_score'])
+        },
+        'ratio_change_percent': float(ratio_change * 100),
+        'verdict': verdict,
+        'is_real_signal': is_real
+    }
+
+    return results, corr_uniform, corr_masked
+
+
 def test_angular_uniformity(correlation, n_simulations=100):
     """
     Test de hipótesis: ¿La correlación angular es consistente con isotropía?
@@ -847,6 +1339,7 @@ if __name__ == "__main__":
 
     use_real = '--real' in sys.argv
     inject_hex = '--inject' in sys.argv
+    run_mask_test = '--mask' in sys.argv
     n_gal = 10000
 
     for arg in sys.argv:
@@ -862,10 +1355,72 @@ Uso: python3 test3_sdss_hexagonal.py [opciones]
 Opciones:
   --real      Descargar datos reales de SDSS
   --inject    Inyectar señal hexagonal (test de sensibilidad)
+  --mask      VALIDACIÓN: Compara randoms uniformes vs masked
   --ngal=N    Número de galaxias (default: 10000)
   --help      Mostrar esta ayuda
         """)
         sys.exit(0)
 
-    results = run_test3(use_real_data=use_real, inject_hex=inject_hex,
-                        n_galaxies=n_gal)
+    run_jackknife = '--jackknife' in sys.argv
+
+    if run_jackknife:
+        # TEST DE DESTRUCCIÓN: Jackknife
+        print("=" * 70)
+        print("TEST DE DESTRUCCIÓN: JACKKNIFE SDSS")
+        print("=" * 70)
+
+        os.makedirs(DATA_DIR, exist_ok=True)
+        os.makedirs(FIGURES_DIR, exist_ok=True)
+        os.makedirs(RESULTS_DIR, exist_ok=True)
+
+        print("\n[1] CARGANDO DATOS SDSS...")
+        catalog = download_sdss_sample(n_max=n_gal)
+        if catalog is None:
+            print("  ⚠ No se pudo cargar SDSS, usando simulación...")
+            catalog = generate_mock_sdss_catalog(n_galaxies=n_gal)
+        print(f"  ✓ {catalog['n_galaxies']} galaxias: {catalog['source']}")
+
+        # Ejecutar Jackknife
+        jackknife_results = jackknife_test(catalog, n_regions=8)
+
+        print("\n" + "=" * 70)
+        print("SEMÁFORO - JACKKNIFE SDSS")
+        print("=" * 70)
+        print(f"\n  {jackknife_results['verdict']}")
+
+    elif run_mask_test:
+        # Ejecutar validación de máscara
+        print("=" * 70)
+        print("VALIDACIÓN DE MÁSCARA SDSS")
+        print("=" * 70)
+
+        # Cargar datos reales
+        os.makedirs(DATA_DIR, exist_ok=True)
+        os.makedirs(FIGURES_DIR, exist_ok=True)
+        os.makedirs(RESULTS_DIR, exist_ok=True)
+
+        print("\n[1] CARGANDO DATOS SDSS...")
+        catalog = download_sdss_sample(n_max=n_gal)
+        if catalog is None:
+            print("  ⚠ No se pudo cargar SDSS, usando simulación...")
+            catalog = generate_mock_sdss_catalog(n_galaxies=n_gal)
+        print(f"  ✓ {catalog['n_galaxies']} galaxias: {catalog['source']}")
+
+        # Ejecutar test de validación
+        mask_results, corr_uniform, corr_masked = mask_validation_test(catalog)
+
+        # Guardar resultados
+        with open(os.path.join(RESULTS_DIR, 'test3_mask_validation.json'), 'w') as f:
+            json.dump(mask_results, f, indent=2)
+
+        print(f"\n  ✓ Resultados guardados en test3_mask_validation.json")
+
+        # Mostrar semáforo final
+        print("\n" + "=" * 70)
+        print("SEMÁFORO FINAL - VALIDACIÓN SDSS")
+        print("=" * 70)
+        print(f"\n  {mask_results['verdict']}")
+
+    else:
+        results = run_test3(use_real_data=use_real, inject_hex=inject_hex,
+                            n_galaxies=n_gal)

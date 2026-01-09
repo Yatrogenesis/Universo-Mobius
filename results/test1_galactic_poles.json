@@ -1,0 +1,101 @@
+{
+  "test": "Galactic Poles Test (El Corte Gal\u00e1ctico)",
+  "scan_results": [
+    {
+      "cut": 5,
+      "sky_frac": 0.9114583333333334,
+      "n_pairs": 44800,
+      "correlation": -0.04763666247325927,
+      "z_score": -10.082780975469367
+    },
+    {
+      "cut": 10,
+      "sky_frac": 0.828125,
+      "n_pairs": 40704,
+      "correlation": -0.03665137286055663,
+      "z_score": -7.394499630662416
+    },
+    {
+      "cut": 15,
+      "sky_frac": 0.7447916666666666,
+      "n_pairs": 36608,
+      "correlation": -0.03480919125895439,
+      "z_score": -6.660118165297002
+    },
+    {
+      "cut": 20,
+      "sky_frac": 0.6614583333333334,
+      "n_pairs": 32512,
+      "correlation": -0.05023162882033976,
+      "z_score": -9.057307323459877
+    },
+    {
+      "cut": 25,
+      "sky_frac": 0.578125,
+      "n_pairs": 28416,
+      "correlation": -0.045030031965415884,
+      "z_score": -7.590733204280202
+    },
+    {
+      "cut": 30,
+      "sky_frac": 0.5052083333333334,
+      "n_pairs": 24832,
+      "correlation": -0.018654208887541428,
+      "z_score": -2.9395624118143457
+    },
+    {
+      "cut": 35,
+      "sky_frac": 0.421875,
+      "n_pairs": 20736,
+      "correlation": 0.008064799731776366,
+      "z_score": 1.1613311613757968
+    },
+    {
+      "cut": 40,
+      "sky_frac": 0.359375,
+      "n_pairs": 17664,
+      "correlation": 0.02391930819875942,
+      "z_score": 3.179019140292911
+    },
+    {
+      "cut": 45,
+      "sky_frac": 0.2880859375,
+      "n_pairs": 14160,
+      "correlation": 0.022561750717324604,
+      "z_score": 2.684753536416085
+    },
+    {
+      "cut": 50,
+      "sky_frac": 0.23291015625,
+      "n_pairs": 11448,
+      "correlation": 0.021003911012555363,
+      "z_score": 2.2473203270832682
+    }
+  ],
+  "optimal_cut": {
+    "cut_degrees": 5,
+    "sky_fraction": 0.9114583333333334,
+    "n_pairs": 44800,
+    "correlation": -0.04763666247325927,
+    "z_score": -10.082780975469367
+  },
+  "bootstrap": {
+    "mean": -0.04757229900104311,
+    "std": 0.004751076520497392,
+    "ci_95": [
+      -0.056542283240746574,
+      -0.038204560712635206
+    ]
+  },
+  "monte_carlo_control": {
+    "mean": 2.9966841351724795e-05,
+    "std": 0.004664221932737558,
+    "z_vs_control": -10.219631484523756
+  },
+  "comparison": {
+    "full_sky_correlation": -0.0480226996097411,
+    "ratio": 0.9919613611975382
+  },
+  "verdict": "\u2705 VERDE: Anti-correlaci\u00f3n PERSISTE en cielo limpio",
+  "is_cosmological": true
+}

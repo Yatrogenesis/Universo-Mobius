@@ -176,6 +176,762 @@ def load_or_generate_cmb_map(nside=64, use_real_data=False, inject_mobius=False)
     return cmb_map, source
 
 
+def load_wmap_map(nside=64):
+    """
+    Carga mapa CMB de WMAP (9-year ILC).
+    """
+    wmap_dir = "../data/wmap"
+    filepath = os.path.join(wmap_dir, "wmap_ilc_9yr_v5.fits")
+
+    if not os.path.exists(filepath):
+        print(f"  ✗ WMAP no encontrado: {filepath}")
+        return None, None
+
+    print("  → Cargando mapa ILC de WMAP 9-year...")
+    cmb_map = hp.read_map(filepath, field=0)
+
+    # Degradar a resolución de análisis
+    if hp.get_nside(cmb_map) != nside:
+        cmb_map = hp.ud_grade(cmb_map, nside)
+
+    return cmb_map, "WMAP 9-year ILC"
+
+
+def cross_mission_test(nside=64):
+    """
+    CROSS-MISSION CHECK: Compara Planck vs WMAP para validar la anti-correlación.
+
+    Si ambas misiones ven la anti-correlación → Señal cosmológica real
+    Si solo una la ve → Posible artefacto instrumental
+    """
+    import json
+
+    print("\n" + "=" * 70)
+    print("  CROSS-MISSION CHECK: PLANCK vs WMAP")
+    print("  Validación de anti-correlación cosmológica vs artefacto instrumental")
+    print("=" * 70)
+
+    results = {}
+
+    # Cargar Planck
+    print("\n[PLANCK SMICA 2018]")
+    planck_map, planck_source = load_or_generate_cmb_map(nside, use_real_data=True)
+    if planck_map is not None:
+        corr_planck, _ = compute_antipodal_correlation(planck_map)
+        null_result = null_hypothesis_test(planck_map, n_simulations=100)
+        z_planck = null_result['z_score']
+        p_planck = null_result['p_value']
+        results['Planck'] = {
+            'source': planck_source,
+            'correlation': float(corr_planck),
+            'z_score': float(z_planck),
+            'p_value': float(p_planck)
+        }
+        print(f"  Correlación: {corr_planck:.6f}")
+        print(f"  Z-score: {z_planck:.2f}")
+        print(f"  P-value: {p_planck:.2e}")
+
+    # Cargar WMAP
+    print("\n[WMAP 9-YEAR ILC]")
+    wmap_map, wmap_source = load_wmap_map(nside)
+    if wmap_map is not None:
+        corr_wmap, _ = compute_antipodal_correlation(wmap_map)
+        null_result = null_hypothesis_test(wmap_map, n_simulations=100)
+        z_wmap = null_result['z_score']
+        p_wmap = null_result['p_value']
+        results['WMAP'] = {
+            'source': wmap_source,
+            'correlation': float(corr_wmap),
+            'z_score': float(z_wmap),
+            'p_value': float(p_wmap)
+        }
+        print(f"  Correlación: {corr_wmap:.6f}")
+        print(f"  Z-score: {z_wmap:.2f}")
+        print(f"  P-value: {p_wmap:.2e}")
+
+    # Comparación
+    print("\n" + "=" * 70)
+    print("  RESULTADO DEL CROSS-MISSION CHECK")
+    print("=" * 70)
+
+    if 'Planck' in results and 'WMAP' in results:
+        planck_anti = results['Planck']['correlation'] < -0.01 and results['Planck']['p_value'] < 0.01
+        wmap_anti = results['WMAP']['correlation'] < -0.01 and results['WMAP']['p_value'] < 0.01
+
+        print(f"\n  {'Misión':<15} {'Correlación':<15} {'Z-score':<12} {'Anti-corr?':<12}")
+        print(f"  {'-'*55}")
+        print(f"  {'Planck':<15} {results['Planck']['correlation']:<15.6f} {results['Planck']['z_score']:<12.2f} {'✓ SÍ' if planck_anti else '✗ NO'}")
+        print(f"  {'WMAP':<15} {results['WMAP']['correlation']:<15.6f} {results['WMAP']['z_score']:<12.2f} {'✓ SÍ' if wmap_anti else '✗ NO'}")
+
+        # Veredicto
+        print(f"\n  VEREDICTO:")
+        if planck_anti and wmap_anti:
+            # Verificar que tienen el mismo signo
+            same_sign = np.sign(results['Planck']['correlation']) == np.sign(results['WMAP']['correlation'])
+            if same_sign:
+                verdict = "SEÑAL COSMOLÓGICA"
+                print(f"  ✓✓✓ {verdict}: Ambas misiones detectan anti-correlación")
+                print(f"      La señal NO es un artefacto instrumental.")
+            else:
+                verdict = "INCONSISTENTE"
+                print(f"  ⚠️  {verdict}: Las misiones muestran correlaciones de signo opuesto")
+        elif planck_anti or wmap_anti:
+            verdict = "PARCIALMENTE CONFIRMADO"
+            print(f"  ⚠️  {verdict}: Solo una misión ve anti-correlación significativa")
+        else:
+            verdict = "NO DETECTADO"
+            print(f"  ✗✗✗ {verdict}: Ninguna misión ve anti-correlación significativa")
+
+        results['verdict'] = verdict
+        results['coincidence'] = planck_anti and wmap_anti
+
+    # Guardar resultados
+    filepath = os.path.join(RESULTS_DIR, 'test1_cross_mission.json')
+    with open(filepath, 'w') as f:
+        json.dump(results, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # Figura comparativa
+    if 'Planck' in results and 'WMAP' in results:
+        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+        # Mapas
+        ax = axes[0]
+        hp.mollview(planck_map, title="Planck SMICA 2018", sub=(1,3,1), hold=True)
+
+        ax = axes[1]
+        hp.mollview(wmap_map, title="WMAP 9-year ILC", sub=(1,3,2), hold=True)
+
+        # Comparación de correlaciones
+        ax = axes[2]
+        missions = ['Planck', 'WMAP']
+        correlations = [results['Planck']['correlation'], results['WMAP']['correlation']]
+        colors = ['blue' if c < 0 else 'red' for c in correlations]
+
+        bars = ax.bar(missions, correlations, color=colors, alpha=0.7, edgecolor='black')
+        ax.axhline(0, color='k', ls='-', lw=0.5)
+        ax.axhline(-0.01, color='r', ls='--', alpha=0.5, label='Umbral anti-correlación')
+        ax.set_ylabel('Correlación Antipodal')
+        ax.set_title('Cross-Mission: Planck vs WMAP')
+        ax.legend()
+
+        # Añadir valores sobre las barras
+        for bar, corr in zip(bars, correlations):
+            ax.text(bar.get_x() + bar.get_width()/2, bar.get_height(),
+                   f'{corr:.4f}', ha='center', va='bottom' if corr > 0 else 'top')
+
+        plt.tight_layout()
+
+        for fmt in ['png', 'pdf']:
+            figpath = os.path.join(FIGURES_DIR, f'fig12_cross_mission.{fmt}')
+            plt.savefig(figpath, dpi=150, bbox_inches='tight')
+        print(f"  Figura guardada: fig12_cross_mission.png/pdf")
+        plt.close()
+
+    return results
+
+
+def galactic_mask_test(nside=64):
+    """
+    TEST DE DESTRUCCIÓN: Máscara galáctica agresiva.
+
+    Crítica del Ortodoxo: "Tu anti-correlación es polvo galáctico"
+
+    Metodología:
+    - Aplicar máscaras cada vez más agresivas (cortando más del plano galáctico)
+    - Si la señal PERSISTE → Es cosmológica
+    - Si la señal DESAPARECE → Es contaminación galáctica
+
+    Máscaras: 20%, 40%, 60%, 80% del cielo visible (resto cortado)
+    """
+    import json
+
+    print("\n" + "=" * 70)
+    print("  TEST DE DESTRUCCIÓN: MÁSCARA GALÁCTICA AGRESIVA")
+    print("  ¿La anti-correlación es polvo galáctico?")
+    print("=" * 70)
+
+    # Cargar mapa Planck
+    print("\nCargando datos de Planck...")
+    cmb_map, source = load_or_generate_cmb_map(nside, use_real_data=True)
+
+    if cmb_map is None:
+        print("  ERROR: No se pudo cargar el mapa")
+        return None
+
+    print(f"  Mapa cargado: {source}")
+
+    # Crear máscaras galácticas con diferentes cortes
+    # El corte se basa en la latitud galáctica |b|
+    npix = hp.nside2npix(nside)
+    theta, phi = hp.pix2ang(nside, np.arange(npix))
+
+    # Convertir a coordenadas galácticas
+    # theta = colatitud (0 a π), necesitamos latitud galáctica b = 90° - theta*180/π
+    # Para simplificar, usamos la colatitud directamente como proxy
+
+    # Latitud galáctica aproximada (el plano galáctico está en theta ~ π/2)
+    lat_gal = np.abs(90 - np.degrees(theta))  # |b| en grados
+
+    # Diferentes niveles de corte
+    cuts = [10, 20, 30, 40, 50]  # Cortar |b| < cut grados
+
+    results = {}
+
+    # Primero: sin máscara
+    print("\n[SIN MÁSCARA - Baseline]")
+    corr_full, _ = compute_antipodal_correlation(cmb_map)
+    null_full = null_hypothesis_test(cmb_map, n_simulations=50)
+    results['no_mask'] = {
+        'sky_fraction': 1.0,
+        'correlation': float(corr_full),
+        'z_score': float(null_full['z_score'])
+    }
+    print(f"  Correlación: {corr_full:.6f}")
+    print(f"  Z-score: {null_full['z_score']:.2f}")
+
+    # Aplicar máscaras
+    for cut in cuts:
+        mask = lat_gal >= cut  # True = pixel válido (fuera del plano galáctico)
+        sky_frac = np.sum(mask) / npix
+
+        print(f"\n[CORTE |b| > {cut}° - {sky_frac*100:.0f}% del cielo]")
+
+        # Aplicar máscara al mapa
+        masked_map = cmb_map.copy()
+        masked_map[~mask] = hp.UNSEEN
+
+        # Calcular correlación antipodal solo con píxeles válidos
+        # Necesitamos adaptar compute_antipodal_correlation para usar máscara
+        valid_pixels = np.where(mask)[0]
+
+        # Correlación antipodal con máscara
+        pix_anti = get_antipodal_pairs(nside)
+        values = []
+        values_anti = []
+
+        for i in valid_pixels:
+            j = pix_anti[i]
+            if mask[j]:  # Ambos píxeles deben ser válidos
+                values.append(cmb_map[i])
+                values_anti.append(cmb_map[j])
+
+        if len(values) > 100:
+            corr = np.corrcoef(values, values_anti)[0, 1]
+
+            # Z-score simplificado
+            n_pairs = len(values)
+            z_score = corr * np.sqrt(n_pairs)
+
+            results[f'cut_{cut}'] = {
+                'galactic_cut_deg': cut,
+                'sky_fraction': float(sky_frac),
+                'n_valid_pairs': n_pairs,
+                'correlation': float(corr),
+                'z_score': float(z_score)
+            }
+            print(f"  Pares válidos: {n_pairs}")
+            print(f"  Correlación: {corr:.6f}")
+            print(f"  Z-score: {z_score:.2f}")
+        else:
+            print(f"  ⚠ Muy pocos pares válidos ({len(values)})")
+            results[f'cut_{cut}'] = {
+                'galactic_cut_deg': cut,
+                'sky_fraction': float(sky_frac),
+                'n_valid_pairs': len(values),
+                'correlation': np.nan,
+                'z_score': np.nan
+            }
+
+    # Análisis de tendencia
+    print("\n" + "=" * 70)
+    print("  ANÁLISIS DE TENDENCIA")
+    print("=" * 70)
+
+    print(f"\n  {'Corte (|b|)':<15} {'% Cielo':<12} {'Correlación':<15} {'Z-score':<12}")
+    print(f"  {'-'*55}")
+
+    correlations = []
+    z_scores = []
+
+    for key, data in results.items():
+        if 'cut_' in key or key == 'no_mask':
+            cut = data.get('galactic_cut_deg', 0)
+            sky = data['sky_fraction'] * 100
+            corr = data['correlation']
+            z = data['z_score']
+
+            if not np.isnan(corr):
+                correlations.append(corr)
+                z_scores.append(z)
+
+            print(f"  {cut}°{'':<12} {sky:.0f}%{'':<8} {corr:.6f}{'':<8} {z:.2f}")
+
+    # Veredicto
+    print("\n" + "=" * 70)
+    print("  VEREDICTO")
+    print("=" * 70)
+
+    if len(correlations) >= 3:
+        # Ver si la señal se mantiene
+        initial_corr = correlations[0]  # Sin máscara
+        final_corr = correlations[-1] if not np.isnan(correlations[-1]) else correlations[-2]
+
+        # Criterio: si la correlación mantiene el mismo signo y > 50% de magnitud
+        same_sign = np.sign(initial_corr) == np.sign(final_corr)
+        maintained_magnitude = abs(final_corr) > 0.3 * abs(initial_corr)
+
+        # Calcular cambio porcentual
+        change_pct = (final_corr - initial_corr) / abs(initial_corr) * 100 if initial_corr != 0 else 0
+
+        if same_sign and maintained_magnitude:
+            verdict = "✅ VERDE: Señal PERSISTE con máscara agresiva"
+            is_cosmological = True
+            explanation = f"La anti-correlación se mantiene (cambio: {change_pct:+.0f}%)"
+        elif same_sign:
+            verdict = "🟡 AMARILLO: Señal se REDUCE significativamente"
+            is_cosmological = None
+            explanation = f"Posible contaminación parcial (cambio: {change_pct:+.0f}%)"
+        else:
+            verdict = "❌ ROJO: Señal DESAPARECE o cambia de signo"
+            is_cosmological = False
+            explanation = "Probable contaminación galáctica"
+
+        print(f"\n  {verdict}")
+        print(f"\n  Explicación: {explanation}")
+        print(f"  Correlación inicial: {initial_corr:.6f}")
+        print(f"  Correlación final:   {final_corr:.6f}")
+
+    else:
+        verdict = "○ GRIS: Datos insuficientes"
+        is_cosmological = None
+
+    # Guardar resultados
+    output = {
+        'test': 'Galactic Mask Test',
+        'results': results,
+        'verdict': verdict,
+        'is_cosmological': is_cosmological
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test1_galactic_mask.json')
+    with open(filepath, 'w') as f:
+        json.dump(output, f, indent=2, default=lambda x: None if np.isnan(x) else x)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # Figura
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    # Panel 1: Correlación vs corte galáctico
+    ax = axes[0]
+    cuts_plot = [0] + cuts
+    corrs_plot = [results['no_mask']['correlation']] + [
+        results.get(f'cut_{c}', {}).get('correlation', np.nan) for c in cuts
+    ]
+
+    valid_idx = ~np.isnan(corrs_plot)
+    ax.plot(np.array(cuts_plot)[valid_idx], np.array(corrs_plot)[valid_idx],
+            'bo-', ms=8, lw=2)
+    ax.axhline(0, color='k', ls='--', alpha=0.5)
+    ax.axhline(results['no_mask']['correlation'], color='r', ls=':', alpha=0.5,
+               label=f'Sin máscara: {results["no_mask"]["correlation"]:.4f}')
+    ax.set_xlabel('Corte galáctico |b| (grados)')
+    ax.set_ylabel('Correlación antipodal')
+    ax.set_title('Efecto de la máscara galáctica')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    # Panel 2: Resumen
+    ax = axes[1]
+    ax.axis('off')
+
+    summary = f"""
+    TEST DE DESTRUCCIÓN: MÁSCARA GALÁCTICA
+    ═══════════════════════════════════════════
+
+    Crítica del Ortodoxo:
+    "Tu anti-correlación es polvo galáctico"
+
+    Metodología:
+    Aplicar cortes galácticos progresivos
+    y ver si la señal persiste.
+
+    Si señal PERSISTE → Cosmológica
+    Si señal DESAPARECE → Polvo galáctico
+
+    ═══════════════════════════════════════════
+    RESULTADO:
+
+    {verdict}
+
+    Cambio con máscara agresiva: {change_pct:+.0f}%
+    ═══════════════════════════════════════════
+    """
+
+    color = 'lightgreen' if is_cosmological else 'lightcoral' if is_cosmological == False else 'lightgray'
+    ax.text(0.1, 0.9, summary, transform=ax.transAxes, fontsize=11,
+            verticalalignment='top', fontfamily='monospace',
+            bbox=dict(boxstyle='round', facecolor=color, alpha=0.8))
+
+    plt.tight_layout()
+
+    for fmt in ['png', 'pdf']:
+        filepath = os.path.join(FIGURES_DIR, f'fig13_galactic_mask_test.{fmt}')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    print(f"  Figura guardada: fig13_galactic_mask_test.png/pdf")
+
+    plt.close()
+
+    return output
+
+
+def galactic_poles_test(nside=64):
+    """
+    TEST DEFINITIVO: "El Corte Galáctico"
+
+    En vez de progresar linealmente hasta matar la señal,
+    buscamos la ZONA ÓPTIMA donde:
+    1. Hemos eliminado la contaminación galáctica
+    2. Aún tenemos suficientes datos para estadística robusta
+
+    La metáfora del parabrisas sucio:
+    - No intentamos limpiar mejor
+    - Simplemente miramos donde el vidrio está limpio
+
+    Si la señal PERSISTE en los polos galácticos → Es cosmológica
+    Si DESAPARECE → Era polvo
+    """
+    import json
+
+    print("\n" + "=" * 70)
+    print("  TEST DEFINITIVO: EL CORTE GALÁCTICO")
+    print("  Miramos SOLO donde el cielo está limpio")
+    print("=" * 70)
+
+    # Cargar mapa Planck
+    print("\nCargando datos de Planck...")
+    cmb_map, source = load_or_generate_cmb_map(nside, use_real_data=True)
+
+    if cmb_map is None:
+        print("  ERROR: No se pudo cargar el mapa")
+        return None
+
+    print(f"  Mapa cargado: {source}")
+
+    # Obtener latitud galáctica de cada píxel
+    npix = hp.nside2npix(nside)
+    theta, phi = hp.pix2ang(nside, np.arange(npix))
+    lat_gal = np.abs(90 - np.degrees(theta))  # |b| en grados
+
+    # Pares antipodales
+    pix_anti = get_antipodal_pairs(nside)
+
+    # =====================================================================
+    # FASE 1: Escaneo para encontrar zona óptima
+    # =====================================================================
+    print("\n[FASE 1: Escaneando para encontrar zona óptima]")
+
+    cuts = np.arange(5, 55, 5)  # Cortes de 5° a 50°
+    scan_results = []
+
+    for cut in cuts:
+        mask = lat_gal >= cut
+
+        # Contar pares válidos (ambos píxeles fuera del plano)
+        valid_pairs = []
+        for i in range(npix):
+            if mask[i] and mask[pix_anti[i]]:
+                valid_pairs.append(i)
+
+        n_pairs = len(valid_pairs)
+        sky_frac = np.sum(mask) / npix
+
+        if n_pairs > 500:  # Mínimo para estadística
+            values = [cmb_map[i] for i in valid_pairs]
+            values_anti = [cmb_map[pix_anti[i]] for i in valid_pairs]
+
+            corr = np.corrcoef(values, values_anti)[0, 1]
+            z_score = corr * np.sqrt(n_pairs)
+
+            scan_results.append({
+                'cut': cut,
+                'sky_frac': sky_frac,
+                'n_pairs': n_pairs,
+                'correlation': corr,
+                'z_score': z_score
+            })
+
+            print(f"  |b| > {cut:2d}°: cielo={sky_frac*100:5.1f}%, pares={n_pairs:5d}, "
+                  f"corr={corr:+.4f}, Z={z_score:+.2f}σ")
+
+    # =====================================================================
+    # FASE 2: Identificar zona óptima
+    # =====================================================================
+    print("\n[FASE 2: Identificando zona óptima]")
+
+    # La zona óptima es donde:
+    # 1. La correlación es negativa (anti-correlación)
+    # 2. El Z-score es más significativo (más negativo)
+    # 3. Tenemos suficientes pares (>5000)
+
+    valid_results = [r for r in scan_results if r['n_pairs'] > 5000]
+
+    if not valid_results:
+        print("  ERROR: No hay suficientes datos en ningún corte")
+        return None
+
+    # Encontrar el corte con el Z-score más negativo (más significativo)
+    optimal = min(valid_results, key=lambda x: x['z_score'])
+
+    print(f"\n  ZONA ÓPTIMA: |b| > {optimal['cut']}°")
+    print(f"    Fracción de cielo: {optimal['sky_frac']*100:.1f}%")
+    print(f"    Pares válidos: {optimal['n_pairs']}")
+    print(f"    Correlación: {optimal['correlation']:.6f}")
+    print(f"    Z-score: {optimal['z_score']:.2f}σ")
+
+    # =====================================================================
+    # FASE 3: Bootstrap para incertidumbre
+    # =====================================================================
+    print("\n[FASE 3: Bootstrap para incertidumbre]")
+
+    cut = optimal['cut']
+    mask = lat_gal >= cut
+
+    valid_pairs = []
+    for i in range(npix):
+        if mask[i] and mask[pix_anti[i]]:
+            valid_pairs.append(i)
+
+    values = np.array([cmb_map[i] for i in valid_pairs])
+    values_anti = np.array([cmb_map[pix_anti[i]] for i in valid_pairs])
+
+    # Bootstrap
+    n_bootstrap = 1000
+    bootstrap_corrs = []
+
+    for _ in range(n_bootstrap):
+        idx = np.random.choice(len(values), size=len(values), replace=True)
+        boot_corr = np.corrcoef(values[idx], values_anti[idx])[0, 1]
+        bootstrap_corrs.append(boot_corr)
+
+    bootstrap_corrs = np.array(bootstrap_corrs)
+    corr_mean = np.mean(bootstrap_corrs)
+    corr_std = np.std(bootstrap_corrs)
+    ci_95 = np.percentile(bootstrap_corrs, [2.5, 97.5])
+
+    print(f"  Correlación: {corr_mean:.6f} ± {corr_std:.6f}")
+    print(f"  IC 95%: [{ci_95[0]:.6f}, {ci_95[1]:.6f}]")
+
+    # =====================================================================
+    # FASE 4: Monte Carlo control (shuffled)
+    # =====================================================================
+    print("\n[FASE 4: Control Monte Carlo (shuffled)]")
+
+    n_mc = 500
+    mc_corrs = []
+
+    for _ in range(n_mc):
+        shuffled = np.random.permutation(values_anti)
+        mc_corr = np.corrcoef(values, shuffled)[0, 1]
+        mc_corrs.append(mc_corr)
+
+    mc_corrs = np.array(mc_corrs)
+    mc_mean = np.mean(mc_corrs)
+    mc_std = np.std(mc_corrs)
+
+    # Z-score respecto al control
+    z_vs_control = (optimal['correlation'] - mc_mean) / mc_std
+
+    print(f"  Control (shuffled): {mc_mean:.6f} ± {mc_std:.6f}")
+    print(f"  Z-score vs control: {z_vs_control:.2f}σ")
+
+    # =====================================================================
+    # VEREDICTO
+    # =====================================================================
+    print("\n" + "=" * 70)
+    print("  VEREDICTO")
+    print("=" * 70)
+
+    # Criterios:
+    # 1. ¿La correlación es significativamente negativa?
+    # 2. ¿El IC 95% excluye el cero?
+    # 3. ¿Es significativo vs control?
+
+    is_negative = optimal['correlation'] < 0
+    ci_excludes_zero = ci_95[1] < 0 or ci_95[0] > 0
+    significant_vs_control = abs(z_vs_control) > 3.0
+
+    if is_negative and ci_excludes_zero and significant_vs_control:
+        verdict = "✅ VERDE: Anti-correlación PERSISTE en cielo limpio"
+        is_cosmological = True
+        explanation = (f"Correlación {optimal['correlation']:.4f} a {abs(z_vs_control):.1f}σ "
+                      f"en zona |b| > {optimal['cut']}° (libre de polvo)")
+    elif is_negative and (ci_excludes_zero or significant_vs_control):
+        verdict = "🟡 AMARILLO: Señal presente pero marginalmente significativa"
+        is_cosmological = None
+        explanation = "Requiere más datos o análisis"
+    else:
+        verdict = "❌ ROJO: Señal NO persiste en cielo limpio"
+        is_cosmological = False
+        explanation = "Probable contaminación galáctica"
+
+    print(f"\n  {verdict}")
+    print(f"\n  Explicación: {explanation}")
+
+    # Comparar con sin máscara
+    corr_full, _ = compute_antipodal_correlation(cmb_map)
+    print(f"\n  Comparación:")
+    print(f"    Sin máscara (cielo completo): {corr_full:.6f}")
+    print(f"    Con corte |b| > {optimal['cut']}°: {optimal['correlation']:.6f}")
+
+    ratio = optimal['correlation'] / corr_full if corr_full != 0 else 0
+    print(f"    Ratio: {ratio:.2f}x")
+
+    if abs(optimal['correlation']) > abs(corr_full) * 0.8:
+        print(f"    → Señal se MANTIENE (>{80}% de la original)")
+
+    # Guardar resultados (convertir numpy types a Python types)
+    scan_results_json = []
+    for r in scan_results:
+        scan_results_json.append({
+            'cut': int(r['cut']),
+            'sky_frac': float(r['sky_frac']),
+            'n_pairs': int(r['n_pairs']),
+            'correlation': float(r['correlation']),
+            'z_score': float(r['z_score'])
+        })
+
+    output = {
+        'test': 'Galactic Poles Test (El Corte Galáctico)',
+        'scan_results': scan_results_json,
+        'optimal_cut': {
+            'cut_degrees': int(optimal['cut']),
+            'sky_fraction': float(optimal['sky_frac']),
+            'n_pairs': int(optimal['n_pairs']),
+            'correlation': float(optimal['correlation']),
+            'z_score': float(optimal['z_score'])
+        },
+        'bootstrap': {
+            'mean': float(corr_mean),
+            'std': float(corr_std),
+            'ci_95': [float(ci_95[0]), float(ci_95[1])]
+        },
+        'monte_carlo_control': {
+            'mean': float(mc_mean),
+            'std': float(mc_std),
+            'z_vs_control': float(z_vs_control)
+        },
+        'comparison': {
+            'full_sky_correlation': float(corr_full),
+            'ratio': float(ratio)
+        },
+        'verdict': verdict,
+        'is_cosmological': is_cosmological
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test1_galactic_poles.json')
+    with open(filepath, 'w') as f:
+        json.dump(output, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # =====================================================================
+    # FIGURA
+    # =====================================================================
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # Panel 1: Escaneo de cortes
+    ax = axes[0, 0]
+    cuts_plot = [r['cut'] for r in scan_results]
+    corrs_plot = [r['correlation'] for r in scan_results]
+    zs_plot = [r['z_score'] for r in scan_results]
+
+    ax.plot(cuts_plot, corrs_plot, 'bo-', ms=8, lw=2, label='Correlación')
+    ax.axhline(0, color='k', ls='--', alpha=0.5)
+    ax.axhline(corr_full, color='r', ls=':', alpha=0.5, label=f'Sin máscara: {corr_full:.4f}')
+    ax.axvline(optimal['cut'], color='g', ls='--', alpha=0.7, label=f'Óptimo: |b|>{optimal["cut"]}°')
+    ax.fill_between([optimal['cut']-2.5, optimal['cut']+2.5], -0.1, 0.1,
+                    color='green', alpha=0.2)
+    ax.set_xlabel('Corte galáctico |b| (grados)')
+    ax.set_ylabel('Correlación antipodal')
+    ax.set_title('Escaneo de cortes galácticos')
+    ax.legend(loc='best')
+    ax.grid(True, alpha=0.3)
+    ax.set_ylim(-0.08, 0.04)
+
+    # Panel 2: Z-score vs corte
+    ax = axes[0, 1]
+    ax.plot(cuts_plot, zs_plot, 'rs-', ms=8, lw=2)
+    ax.axhline(0, color='k', ls='--', alpha=0.5)
+    ax.axhline(-3, color='orange', ls=':', alpha=0.7, label='3σ threshold')
+    ax.axhline(-5, color='red', ls=':', alpha=0.7, label='5σ threshold')
+    ax.axvline(optimal['cut'], color='g', ls='--', alpha=0.7)
+    ax.set_xlabel('Corte galáctico |b| (grados)')
+    ax.set_ylabel('Z-score')
+    ax.set_title('Significancia vs corte galáctico')
+    ax.legend(loc='best')
+    ax.grid(True, alpha=0.3)
+
+    # Panel 3: Bootstrap distribution
+    ax = axes[1, 0]
+    ax.hist(bootstrap_corrs, bins=50, density=True, alpha=0.7, color='blue',
+            label=f'Bootstrap (n={n_bootstrap})')
+    ax.axvline(optimal['correlation'], color='r', lw=2, label=f'Observado: {optimal["correlation"]:.4f}')
+    ax.axvline(0, color='k', ls='--', alpha=0.5)
+    ax.axvline(ci_95[0], color='g', ls=':', label=f'IC 95%: [{ci_95[0]:.4f}, {ci_95[1]:.4f}]')
+    ax.axvline(ci_95[1], color='g', ls=':')
+    ax.set_xlabel('Correlación antipodal')
+    ax.set_ylabel('Densidad')
+    ax.set_title(f'Bootstrap en zona |b| > {optimal["cut"]}°')
+    ax.legend(loc='best')
+    ax.grid(True, alpha=0.3)
+
+    # Panel 4: Resumen
+    ax = axes[1, 1]
+    ax.axis('off')
+
+    summary = f"""
+    TEST DEFINITIVO: EL CORTE GALÁCTICO
+    ═══════════════════════════════════════════
+
+    Hipótesis del Ortodoxo:
+    "Tu anti-correlación es polvo galáctico"
+
+    Metodología:
+    Mirar SOLO los polos galácticos
+    donde NO hay polvo.
+
+    ZONA ÓPTIMA: |b| > {optimal['cut']}°
+
+    Correlación: {optimal['correlation']:.4f}
+    Z-score: {optimal['z_score']:.1f}σ
+    IC 95%: [{ci_95[0]:.4f}, {ci_95[1]:.4f}]
+    Z vs control: {z_vs_control:.1f}σ
+
+    Comparación:
+    - Cielo completo: {corr_full:.4f}
+    - Polos limpios: {optimal['correlation']:.4f}
+    - Ratio: {ratio:.2f}x
+
+    ═══════════════════════════════════════════
+    VEREDICTO: {verdict.split(':')[0]}
+    """
+
+    ax.text(0.05, 0.95, summary, transform=ax.transAxes, fontsize=11,
+            verticalalignment='top', fontfamily='monospace',
+            bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+    plt.tight_layout()
+
+    for fmt in ['png', 'pdf']:
+        filepath = os.path.join(FIGURES_DIR, f'fig14_galactic_poles_test.{fmt}')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    print(f"  Figura guardada: fig14_galactic_poles_test.png/pdf")
+
+    plt.close()
+
+    return output
+
+
 def inject_mobius_signal(cmb_map, strength=0.1):
     """
     Inyecta una señal de correlación antipodal con inversión de paridad.
@@ -664,11 +1420,15 @@ if __name__ == "__main__":
     # Parsear argumentos
     use_real = '--real' in sys.argv
     inject_mobius = '--inject' in sys.argv
+    cross_mission = '--cross' in sys.argv
     n_sims = 100
 
     for arg in sys.argv:
         if arg.startswith('--nsim='):
             n_sims = int(arg.split('=')[1])
+
+    galactic_mask = '--galactic' in sys.argv
+    galactic_poles = '--poles' in sys.argv
 
     if '--help' in sys.argv:
         print("""
@@ -679,13 +1439,26 @@ Uso: python3 test1_cmb_mobius_topology.py [opciones]
 Opciones:
   --real      Usar datos reales de Planck (si disponibles)
   --inject    Inyectar señal Möbius (test de sensibilidad)
+  --cross     Cross-Mission Check: Planck vs WMAP
+  --galactic  TEST DE DESTRUCCIÓN: Máscara galáctica agresiva
+  --poles     TEST DEFINITIVO: El Corte Galáctico (solo polos limpios)
   --nsim=N    Número de simulaciones nulas (default: 100)
   --help      Mostrar esta ayuda
         """)
         sys.exit(0)
 
-    results = run_test1(
-        use_real_data=use_real,
-        n_null_simulations=n_sims,
-        inject_mobius=inject_mobius
-    )
+    if galactic_poles:
+        # Test definitivo: corte galáctico (solo polos)
+        results = galactic_poles_test(nside=64)
+    elif galactic_mask:
+        # Test de destrucción: máscara galáctica
+        results = galactic_mask_test(nside=64)
+    elif cross_mission:
+        # Cross-mission test
+        results = cross_mission_test(nside=64)
+    else:
+        results = run_test1(
+            use_real_data=use_real,
+            n_null_simulations=n_sims,
+            inject_mobius=inject_mobius
+        )

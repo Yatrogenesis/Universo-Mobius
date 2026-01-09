@@ -1,0 +1,16 @@
+{
+  "Planck": {
+    "source": "Planck SMICA 2018",
+    "correlation": -0.0480226996097411,
+    "z_score": -6.63664026445615,
+    "p_value": 3.2091440616e-11
+  },
+  "WMAP": {
+    "source": "WMAP 9-year ILC",
+    "correlation": -0.0918636039516897,
+    "z_score": -12.221724073731789,
+    "p_value": 0.0
+  },
+  "verdict": "SE\u00d1AL COSMOL\u00d3GICA",
+  "coincidence": true
+}

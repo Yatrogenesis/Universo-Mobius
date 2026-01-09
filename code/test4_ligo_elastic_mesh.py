@@ -1127,36 +1127,895 @@ def analyze_real_ligo_data():
     return results
 
 
-if __name__ == '__main__':
-    # Primero análisis con simulación
-    results_sim = run_full_analysis()
+def coincidence_test_h1_l1():
+    """
+    COINCIDENCE TEST: Compara H1 vs L1 para validar que la señal es astrofísica.
 
-    # Luego con datos reales si están disponibles
-    h1_path = os.path.join(DATA_DIR, 'H1_GW150914.hdf5')
-    if os.path.exists(h1_path):
-        print("\n" + "="*70)
-        print("  DATOS REALES DE LIGO DETECTADOS - EJECUTANDO ANÁLISIS")
-        print("="*70)
-        results_real = analyze_real_ligo_data()
+    Si los modos de malla aparecen en AMBOS detectores → Señal real
+    Si solo aparecen en UNO → Ruido local (descartado)
+    """
+    print("\n" + "=" * 70)
+    print("  COINCIDENCE TEST: H1 (Hanford) vs L1 (Livingston)")
+    print("  Validación de señal astrofísica vs ruido instrumental")
+    print("=" * 70)
 
-        if results_real:
-            print("\n" + "="*70)
-            print("  RESUMEN FINAL: SIMULACIÓN vs DATOS REALES")
-            print("="*70)
-            print(f"""
-    ┌──────────────────────────────────────────────────────────┐
-    │  COMPARACIÓN OCTH: PREDICCIÓN vs OBSERVACIÓN             │
-    ├────────────────────┬──────────────┬──────────────────────┤
-    │ Métrica            │ Predicción   │ Datos Reales         │
-    ├────────────────────┼──────────────┼──────────────────────┤
-    │ Desfase de fase    │ {results_sim['octh_analysis']['phase_difference_deg']:.1f}°         │ {results_real['phase_analysis']['max_diff_deg']:.1f}° (máx)           │
-    │ Ψ mínimo           │ {results_sim['octh_analysis']['psi_minimum']:.2f}          │ (no medible)         │
-    │ SNR                │ (simulado)   │ {results_real['detection']['snr_estimate']:.1f}                 │
-    └────────────────────┴──────────────┴──────────────────────┘
+    GPS_EVENT = 1126259462.4
 
-    {'✓ CONSISTENTE: Desfase observado dentro del rango OCTH' if results_real['interpretation']['phase_consistent_with_octh'] else '○ INCONCLUSO: Requiere análisis más profundo'}
-            """)
+    # Cargar ambos detectores
+    print("\nCargando datos de ambos detectores...")
+    ligo_data = load_real_ligo_data()
+
+    if 'H1' not in ligo_data or 'L1' not in ligo_data:
+        print("  ERROR: Se requieren datos de H1 Y L1")
+        return None
+
+    results = {}
+
+    for det in ['H1', 'L1']:
+        print(f"\n{'='*60}")
+        print(f"  Analizando {det}...")
+        print(f"{'='*60}")
+
+        data = ligo_data[det]
+        fs = data['fs']
+
+        # Extraer segmento
+        segment = extract_event_segment(data, GPS_EVENT, window_before=2.0, window_after=0.5)
+
+        # Preprocesar
+        whitened = whiten_data(segment['strain'], fs)
+        filtered = bandpass_filter(whitened, fs, f_low=35, f_high=350)
+        filtered = filtered / np.std(filtered)
+
+        # Generar plantilla GR
+        gr = generate_gr_template(36, 29, 410, fs, duration=2.0)
+        template = gr['strain'] / np.std(gr['strain'])
+
+        # Matched filter
+        corr = signal.correlate(filtered, template, mode='full')
+        corr = corr / (len(template) * np.std(filtered))
+        max_idx = np.argmax(np.abs(corr))
+        max_corr = np.abs(corr[max_idx])
+        snr = max_corr * np.sqrt(len(template))
+
+        print(f"  SNR: {snr:.1f}")
+
+        # Extraer señal y calcular residuos
+        signal_start = max(0, max_idx - len(template) + 1)
+        signal_end = min(len(filtered), signal_start + len(template))
+        detected = filtered[signal_start:signal_end]
+
+        n = min(len(detected), len(template))
+        data_seg = detected[:n]
+        tmpl = template[:n]
+
+        scale = np.dot(data_seg, tmpl) / (np.dot(tmpl, tmpl) + 1e-10)
+        residuals = data_seg - scale * tmpl
+
+        # Espectro de residuos
+        freqs = np.fft.rfftfreq(n, 1/fs)
+        fft_res = np.abs(np.fft.rfft(residuals))
+
+        # Buscar modos de malla
+        f_isco = gr['f_isco']
+        mesh_freqs = [0.5*f_isco, 0.7*f_isco, 0.85*f_isco]
+
+        baseline = np.mean(fft_res**2)
+        mesh_ratios = {}
+
+        print(f"\n  Modos de malla (f_ISCO = {f_isco:.1f} Hz):")
+        for f_mesh in mesh_freqs:
+            mask = (freqs >= f_mesh - 5) & (freqs <= f_mesh + 5)
+            if np.any(mask):
+                power = np.mean(fft_res[mask]**2)
+                ratio = power / baseline if baseline > 0 else 0
+                mesh_ratios[f_mesh] = ratio
+                status = "EXCESO" if ratio > 1.5 else "normal"
+                print(f"    {f_mesh:.0f} Hz: ratio = {ratio:.2f} ({status})")
+
+        results[det] = {
+            'snr': snr,
+            'mesh_ratios': mesh_ratios,
+            'residuals_spectrum': fft_res,
+            'freqs': freqs
+        }
+
+    # COMPARACIÓN H1 vs L1
+    print("\n" + "=" * 70)
+    print("  RESULTADO DEL COINCIDENCE TEST")
+    print("=" * 70)
+
+    print(f"\n  {'Frecuencia':<15} {'H1 Ratio':<15} {'L1 Ratio':<15} {'Coincidencia':<15}")
+    print(f"  {'-'*60}")
+
+    coincidences = []
+    mesh_freqs_list = list(results['H1']['mesh_ratios'].keys())
+
+    for f in mesh_freqs_list:
+        h1_ratio = results['H1']['mesh_ratios'].get(f, 0)
+        l1_ratio = results['L1']['mesh_ratios'].get(f, 0)
+
+        # Criterio de coincidencia: ambos > 1.5 (exceso)
+        h1_excess = h1_ratio > 1.5
+        l1_excess = l1_ratio > 1.5
+
+        if h1_excess and l1_excess:
+            status = "✓ AMBOS"
+            coincidences.append(True)
+        elif h1_excess or l1_excess:
+            status = "✗ SOLO UNO"
+            coincidences.append(False)
+        else:
+            status = "○ ninguno"
+            coincidences.append(None)
+
+        print(f"  {f:.0f} Hz{'':<9} {h1_ratio:<15.2f} {l1_ratio:<15.2f} {status}")
+
+    # Veredicto
+    real_coincidences = [c for c in coincidences if c is not None]
+    n_coincident = sum(1 for c in real_coincidences if c)
+    n_total = len(real_coincidences)
+
+    print(f"\n  VEREDICTO:")
+    if n_coincident == n_total and n_total > 0:
+        verdict = "SEÑAL ASTROFÍSICA"
+        print(f"  ✓✓✓ {verdict}: Todos los modos coinciden en H1 y L1")
+        print(f"      La señal NO es ruido local.")
+    elif n_coincident > 0:
+        verdict = "PARCIALMENTE CONFIRMADO"
+        print(f"  ⚠️  {verdict}: {n_coincident}/{n_total} modos coinciden")
+        print(f"      Requiere investigación adicional.")
     else:
-        print("\n  Datos reales no encontrados. Para analizar:")
-        print("  1. Descargar datos de GWOSC")
-        print("  2. Colocar en data/ligo/H1_GW150914.hdf5")
+        verdict = "RUIDO INSTRUMENTAL"
+        print(f"  ✗✗✗ {verdict}: Los modos NO coinciden entre detectores")
+        print(f"      La señal es probablemente ruido local.")
+
+    # Guardar resultados
+    output = {
+        'test': 'Coincidence Test H1 vs L1',
+        'H1': {
+            'snr': float(results['H1']['snr']),
+            'mesh_ratios': {f'{k:.0f}Hz': float(v) for k, v in results['H1']['mesh_ratios'].items()}
+        },
+        'L1': {
+            'snr': float(results['L1']['snr']),
+            'mesh_ratios': {f'{k:.0f}Hz': float(v) for k, v in results['L1']['mesh_ratios'].items()}
+        },
+        'coincidences': n_coincident,
+        'total_modes': n_total,
+        'verdict': verdict
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test4_coincidence_h1_l1.json')
+    with open(filepath, 'w') as f:
+        json.dump(output, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # Figura comparativa
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # Espectros de residuos
+    for i, det in enumerate(['H1', 'L1']):
+        ax = axes[0, i]
+        ax.semilogy(results[det]['freqs'], results[det]['residuals_spectrum'],
+                   'b-' if det == 'H1' else 'r-', lw=0.8)
+        for f in mesh_freqs_list:
+            ax.axvline(f, color='g', ls='--', alpha=0.7)
+        ax.axvline(f_isco, color='purple', ls=':', label=f'f_ISCO={f_isco:.0f}Hz')
+        ax.set_xlabel('Frecuencia (Hz)')
+        ax.set_ylabel('Amplitud')
+        ax.set_title(f'{det} - Espectro de Residuos')
+        ax.set_xlim(20, 100)
+        ax.grid(True, alpha=0.3)
+        ax.legend()
+
+    # Comparación de ratios
+    ax = axes[1, 0]
+    x = np.arange(len(mesh_freqs_list))
+    width = 0.35
+    h1_vals = [results['H1']['mesh_ratios'].get(f, 0) for f in mesh_freqs_list]
+    l1_vals = [results['L1']['mesh_ratios'].get(f, 0) for f in mesh_freqs_list]
+
+    bars1 = ax.bar(x - width/2, h1_vals, width, label='H1 (Hanford)', color='blue', alpha=0.7)
+    bars2 = ax.bar(x + width/2, l1_vals, width, label='L1 (Livingston)', color='red', alpha=0.7)
+    ax.axhline(1.5, color='k', ls='--', label='Umbral exceso')
+    ax.set_xticks(x)
+    ax.set_xticklabels([f'{f:.0f} Hz' for f in mesh_freqs_list])
+    ax.set_ylabel('Ratio Potencia/Baseline')
+    ax.set_title('Comparación de Modos de Malla: H1 vs L1')
+    ax.legend()
+    ax.grid(True, alpha=0.3, axis='y')
+
+    # Resumen
+    ax = axes[1, 1]
+    ax.axis('off')
+
+    summary = f"""
+    COINCIDENCE TEST: H1 vs L1
+    ══════════════════════════════════════
+
+    Detector H1 (Hanford):
+      SNR: {results['H1']['snr']:.1f}
+      Modos con exceso: {sum(1 for v in h1_vals if v > 1.5)}/3
+
+    Detector L1 (Livingston):
+      SNR: {results['L1']['snr']:.1f}
+      Modos con exceso: {sum(1 for v in l1_vals if v > 1.5)}/3
+
+    Coincidencias: {n_coincident}/{n_total}
+
+    ══════════════════════════════════════
+    VEREDICTO: {verdict}
+    ══════════════════════════════════════
+
+    {'✓ Los modos aparecen en AMBOS detectores' if n_coincident > 0 else '✗ Los modos NO coinciden'}
+    {'  → Señal es ASTROFÍSICA' if n_coincident == n_total and n_total > 0 else '  → Probable ruido instrumental'}
+    """
+
+    ax.text(0.1, 0.9, summary, transform=ax.transAxes, fontsize=11,
+            verticalalignment='top', fontfamily='monospace',
+            bbox=dict(boxstyle='round', facecolor='lightyellow' if n_coincident > 0 else 'lightcoral', alpha=0.8))
+
+    plt.tight_layout()
+
+    for fmt in ['png', 'pdf']:
+        filepath = os.path.join(FIGURES_DIR, f'fig11_coincidence_test.{fmt}')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    print(f"  Figura guardada: fig11_coincidence_test.png/pdf")
+
+    plt.close()
+
+    return output
+
+
+def download_gw151226_data():
+    """
+    Descarga datos de GW151226 (Boxing Day Event).
+    Sistema más ligero: m1~14 M_sun, m2~7.5 M_sun
+    f_ISCO mucho más alta → modos de malla en frecuencias diferentes
+    """
+    print("\n" + "=" * 70)
+    print("  DESCARGANDO DATOS DE GW151226 (Boxing Day Event)")
+    print("=" * 70)
+
+    # GW151226 fue en O1, GPS ~1135136350
+    event_name = 'GW151226'
+    gps_time = 1135136350.6
+
+    # URLs de GWOSC (corregidas)
+    h1_url = 'https://gwosc.org/eventapi/json/GWTC-1-confident/GW151226/v2/H-H1_GWOSC_4KHZ_R1-1135136335-32.hdf5'
+    l1_url = 'https://gwosc.org/eventapi/json/GWTC-1-confident/GW151226/v2/L-L1_GWOSC_4KHZ_R1-1135136335-32.hdf5'
+
+    h1_path = os.path.join(DATA_DIR, 'H1_GW151226.hdf5')
+    l1_path = os.path.join(DATA_DIR, 'L1_GW151226.hdf5')
+
+    for url, path, det in [(h1_url, h1_path, 'H1'), (l1_url, l1_path, 'L1')]:
+        if not os.path.exists(path):
+            print(f"  Descargando {det}...")
+            try:
+                urllib.request.urlretrieve(url, path)
+                print(f"    ✓ {det} descargado")
+            except Exception as e:
+                print(f"    ✗ Error: {e}")
+        else:
+            print(f"  {det}: Ya existe")
+
+    return {
+        'gps_time': gps_time,
+        'h1_path': h1_path,
+        'l1_path': l1_path,
+        'event': event_name
+    }
+
+
+def mass_scaling_test():
+    """
+    TEST DEFINITIVO: ¿Los modos de malla escalan con la masa?
+
+    Si los modos son ruido de 60Hz → Siempre en 60Hz (no escalan)
+    Si los modos son física OCTH → Escalan con f_ISCO (depende de masa)
+
+    GW150914: m1=36, m2=29 M_sun → f_ISCO ≈ 67 Hz → Modos en ~34, 47, 57 Hz
+    GW151226: m1=14, m2=7.5 M_sun → f_ISCO ≈ 450 Hz → Modos en ~225, 315, 382 Hz
+
+    Si los modos se MUEVEN con la masa → NO ES RUIDO → ES FÍSICA
+    """
+    import h5py
+
+    print("\n" + "=" * 70)
+    print("  MASS SCALING TEST: ¿Los modos escalan con la masa?")
+    print("  Si escalan → Física real. Si no escalan → Ruido 60Hz")
+    print("=" * 70)
+
+    # Parámetros de los eventos
+    events = {
+        'GW150914': {
+            'm1': 36, 'm2': 29,  # masas solares
+            'gps': 1126259462.4,
+            'h1_file': 'H1_GW150914.hdf5',
+            'description': 'Sistema masivo (36+29 M_sun)'
+        },
+        'GW151226': {
+            'm1': 14.2, 'm2': 7.5,
+            'gps': 1135136350.6,
+            'h1_file': 'H1_GW151226.hdf5',
+            'description': 'Sistema ligero (14+7.5 M_sun)'
+        }
+    }
+
+    results = {}
+
+    # Descargar GW151226 si no existe
+    gw151226_path = os.path.join(DATA_DIR, 'H1_GW151226.hdf5')
+    if not os.path.exists(gw151226_path):
+        print("\nDescargando GW151226...")
+        download_gw151226_data()
+
+    for event_name, params in events.items():
+        print(f"\n{'='*60}")
+        print(f"  ANALIZANDO {event_name}")
+        print(f"  {params['description']}")
+        print(f"{'='*60}")
+
+        # Calcular f_ISCO teórica
+        m1, m2 = params['m1'], params['m2']
+        M_total = m1 + m2
+        # f_ISCO ≈ c³/(6√6 π G M) para Schwarzschild
+        # En Hz: f_ISCO ≈ 4400 / M_total (donde M en masas solares)
+        f_isco_theory = 4400 / M_total
+
+        print(f"\n  Masas: {m1} + {m2} = {M_total} M_sun")
+        print(f"  f_ISCO teórica: {f_isco_theory:.1f} Hz")
+
+        # Frecuencias de modos predichas por OCTH
+        mesh_freqs_predicted = [0.5 * f_isco_theory, 0.7 * f_isco_theory, 0.85 * f_isco_theory]
+        print(f"  Modos OCTH predichos: {mesh_freqs_predicted[0]:.1f}, {mesh_freqs_predicted[1]:.1f}, {mesh_freqs_predicted[2]:.1f} Hz")
+
+        # Cargar datos
+        h1_path = os.path.join(DATA_DIR, params['h1_file'])
+        if not os.path.exists(h1_path):
+            print(f"  ⚠ Archivo no encontrado: {h1_path}")
+            continue
+
+        try:
+            with h5py.File(h1_path, 'r') as f:
+                strain = f['strain']['Strain'][:]
+                gps_start = f['strain']['Strain'].attrs['Xstart']
+                dt = f['strain']['Strain'].attrs['Xspacing']
+                fs = int(1/dt)
+        except Exception as e:
+            print(f"  Error cargando datos: {e}")
+            continue
+
+        print(f"  Datos cargados: {len(strain)} muestras @ {fs} Hz")
+
+        # Extraer segmento del evento
+        gps_event = params['gps']
+        event_idx = int((gps_event - gps_start) * fs)
+        window_samples = int(2.0 * fs)
+
+        start_idx = max(0, event_idx - window_samples)
+        end_idx = min(len(strain), event_idx + int(0.5 * fs))
+
+        segment = strain[start_idx:end_idx]
+
+        # Preprocesar
+        whitened = whiten_data(segment, fs)
+        filtered = bandpass_filter(whitened, fs, f_low=20, f_high=min(500, fs/2 - 10))
+
+        # Espectro
+        freqs = np.fft.rfftfreq(len(filtered), 1/fs)
+        fft_mag = np.abs(np.fft.rfft(filtered))
+
+        # Buscar picos cerca de las frecuencias predichas
+        baseline = np.median(fft_mag**2)
+
+        print(f"\n  Buscando modos de malla:")
+        mesh_results = []
+
+        for i, f_pred in enumerate(mesh_freqs_predicted):
+            # Ventana de búsqueda: ±10% de la frecuencia predicha
+            window = max(5, f_pred * 0.1)
+            mask = (freqs >= f_pred - window) & (freqs <= f_pred + window)
+
+            if np.any(mask):
+                # Encontrar pico máximo en la ventana
+                fft_window = fft_mag[mask]
+                freq_window = freqs[mask]
+
+                peak_idx = np.argmax(fft_window)
+                peak_freq = freq_window[peak_idx]
+                peak_power = fft_window[peak_idx]**2 / baseline
+
+                mesh_results.append({
+                    'predicted': f_pred,
+                    'found': peak_freq,
+                    'ratio': peak_power,
+                    'offset_percent': (peak_freq - f_pred) / f_pred * 100
+                })
+
+                status = "EXCESO" if peak_power > 2 else "normal"
+                print(f"    Modo {i+1}: predicho {f_pred:.1f} Hz, encontrado {peak_freq:.1f} Hz, ratio={peak_power:.1f} ({status})")
+
+        # También buscar en 60Hz (control de ruido)
+        mask_60 = (freqs >= 58) & (freqs <= 62)
+        if np.any(mask_60):
+            power_60 = np.mean(fft_mag[mask_60]**2) / baseline
+            print(f"    60 Hz (power line): ratio = {power_60:.1f}")
+
+        results[event_name] = {
+            'masses': [m1, m2],
+            'f_isco_theory': f_isco_theory,
+            'mesh_freqs_predicted': mesh_freqs_predicted,
+            'mesh_results': mesh_results,
+            'power_60hz': power_60 if 'power_60' in dir() else 0
+        }
+
+    # Comparación y veredicto
+    print("\n" + "=" * 70)
+    print("  COMPARACIÓN: ¿Los modos escalan con la masa?")
+    print("=" * 70)
+
+    if 'GW150914' in results and 'GW151226' in results:
+        r1 = results['GW150914']
+        r2 = results['GW151226']
+
+        print(f"\n  {'Evento':<12} {'f_ISCO':<12} {'Modo 1':<12} {'Modo 2':<12} {'Modo 3':<12}")
+        print(f"  {'-'*60}")
+
+        # GW150914
+        m1_found = r1['mesh_results'][0]['found'] if len(r1['mesh_results']) > 0 else 0
+        m2_found = r1['mesh_results'][1]['found'] if len(r1['mesh_results']) > 1 else 0
+        m3_found = r1['mesh_results'][2]['found'] if len(r1['mesh_results']) > 2 else 0
+        print(f"  {'GW150914':<12} {r1['f_isco_theory']:<12.1f} {m1_found:<12.1f} {m2_found:<12.1f} {m3_found:<12.1f}")
+
+        # GW151226
+        m1_found2 = r2['mesh_results'][0]['found'] if len(r2['mesh_results']) > 0 else 0
+        m2_found2 = r2['mesh_results'][1]['found'] if len(r2['mesh_results']) > 1 else 0
+        m3_found2 = r2['mesh_results'][2]['found'] if len(r2['mesh_results']) > 2 else 0
+        print(f"  {'GW151226':<12} {r2['f_isco_theory']:<12.1f} {m1_found2:<12.1f} {m2_found2:<12.1f} {m3_found2:<12.1f}")
+
+        # Calcular ratio de escalamiento
+        if m1_found > 0 and m1_found2 > 0:
+            freq_ratio = m1_found2 / m1_found
+            mass_ratio = r1['f_isco_theory'] / r2['f_isco_theory']  # Inverso porque f_ISCO ~ 1/M
+            theoretical_ratio = r2['f_isco_theory'] / r1['f_isco_theory']
+
+            print(f"\n  Ratio de frecuencias observado: {freq_ratio:.2f}")
+            print(f"  Ratio teórico (f_ISCO): {theoretical_ratio:.2f}")
+
+            # Veredicto
+            print("\n" + "=" * 70)
+            print("  VEREDICTO")
+            print("=" * 70)
+
+            # Si las frecuencias escalan aproximadamente con f_ISCO, no es 60Hz
+            scales_correctly = abs(freq_ratio - theoretical_ratio) / theoretical_ratio < 0.3
+
+            if scales_correctly and freq_ratio > 1.5:
+                verdict = "✅ VERDE: Los modos ESCALAN con la masa"
+                is_physical = True
+                explanation = f"Ratio observado ({freq_ratio:.2f}) cercano a teórico ({theoretical_ratio:.2f})"
+            elif freq_ratio < 1.2:
+                verdict = "❌ ROJO: Los modos NO escalan (probable ruido 60Hz)"
+                is_physical = False
+                explanation = "Las frecuencias son similares en ambos eventos → ruido fijo"
+            else:
+                verdict = "🟡 AMARILLO: Escalamiento parcial"
+                is_physical = None
+                explanation = "Resultado ambiguo, requiere más eventos"
+
+            print(f"\n  {verdict}")
+            print(f"\n  Explicación: {explanation}")
+
+        else:
+            verdict = "○ GRIS: Datos insuficientes"
+            is_physical = None
+    else:
+        verdict = "○ GRIS: Faltan datos de uno o ambos eventos"
+        is_physical = None
+        print(f"\n  {verdict}")
+
+    # Guardar resultados
+    output = {
+        'test': 'Mass Scaling Test',
+        'events': {k: {
+            'masses': v['masses'],
+            'f_isco': v['f_isco_theory'],
+            'mesh_predicted': v['mesh_freqs_predicted'],
+            'mesh_found': [m['found'] for m in v['mesh_results']]
+        } for k, v in results.items()},
+        'verdict': verdict,
+        'is_physical': is_physical
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test4_mass_scaling.json')
+    with open(filepath, 'w') as f:
+        json.dump(output, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # Figura
+    if len(results) >= 2:
+        fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+
+        events_list = list(results.keys())
+
+        # Panel 1 y 2: Espectros de cada evento
+        for i, event in enumerate(events_list[:2]):
+            ax = axes[i]
+            r = results[event]
+
+            # Recargar y plotear espectro
+            h1_path = os.path.join(DATA_DIR, events[event]['h1_file'])
+            with h5py.File(h1_path, 'r') as f:
+                strain = f['strain']['Strain'][:]
+                gps_start = f['strain']['Strain'].attrs['Xstart']
+                dt = f['strain']['Strain'].attrs['Xspacing']
+                fs = int(1/dt)
+
+            gps_event = events[event]['gps']
+            event_idx = int((gps_event - gps_start) * fs)
+            window_samples = int(2.0 * fs)
+            start_idx = max(0, event_idx - window_samples)
+            end_idx = min(len(strain), event_idx + int(0.5 * fs))
+            segment = strain[start_idx:end_idx]
+
+            whitened = whiten_data(segment, fs)
+            filtered = bandpass_filter(whitened, fs, f_low=20, f_high=min(500, fs/2-10))
+            freqs = np.fft.rfftfreq(len(filtered), 1/fs)
+            fft_mag = np.abs(np.fft.rfft(filtered))
+
+            ax.semilogy(freqs, fft_mag, 'b-', lw=0.8, alpha=0.7)
+
+            # Marcar frecuencias predichas
+            for f_pred in r['mesh_freqs_predicted']:
+                ax.axvline(f_pred, color='r', ls='--', alpha=0.7)
+
+            ax.axvline(60, color='orange', ls=':', lw=2, label='60 Hz')
+            ax.set_xlabel('Frecuencia (Hz)')
+            ax.set_ylabel('Amplitud')
+            ax.set_title(f"{event}\nf_ISCO = {r['f_isco_theory']:.0f} Hz")
+            ax.set_xlim(20, 250 if event == 'GW150914' else 500)
+            ax.legend()
+            ax.grid(True, alpha=0.3)
+
+        # Panel 3: Resumen
+        ax = axes[2]
+        ax.axis('off')
+
+        summary = f"""
+    MASS SCALING TEST
+    ═══════════════════════════════════════════
+
+    Pregunta clave:
+    ¿Los modos de malla escalan con f_ISCO?
+
+    Si SÍ escalan → Física real (OCTH)
+    Si NO escalan → Ruido 60Hz fijo
+
+    GW150914 (masivo):
+      f_ISCO = {results['GW150914']['f_isco_theory']:.0f} Hz
+      Modos en ~34, 47, 57 Hz
+
+    GW151226 (ligero):
+      f_ISCO = {results['GW151226']['f_isco_theory']:.0f} Hz
+      Modos esperados ~100-200 Hz
+
+    ═══════════════════════════════════════════
+    {verdict}
+    ═══════════════════════════════════════════
+        """
+
+        color = 'lightgreen' if is_physical else 'lightcoral' if is_physical == False else 'lightgray'
+        ax.text(0.05, 0.95, summary, transform=ax.transAxes, fontsize=10,
+                verticalalignment='top', fontfamily='monospace',
+                bbox=dict(boxstyle='round', facecolor=color, alpha=0.8))
+
+        plt.tight_layout()
+
+        for fmt in ['png', 'pdf']:
+            filepath = os.path.join(FIGURES_DIR, f'fig15_mass_scaling_test.{fmt}')
+            plt.savefig(filepath, dpi=150, bbox_inches='tight')
+        print(f"  Figura guardada: fig15_mass_scaling_test.png/pdf")
+
+        plt.close()
+
+    return output
+
+
+def quiet_time_noise_test():
+    """
+    TEST DE DESTRUCCIÓN: Analizar datos de "silencio" (sin evento GW).
+
+    Si los picos de 34, 47, 57 Hz aparecen TAMBIÉN en tiempos de silencio
+    → Son ruido instrumental (posiblemente 60Hz power line o sus armónicos)
+
+    Si los picos DESAPARECEN en tiempos de silencio
+    → Son señal astrofísica real
+
+    Esta es la crítica del "Maldito Perro Ortodoxo" sobre la red eléctrica.
+    """
+    print("\n" + "=" * 70)
+    print("  TEST DE DESTRUCCIÓN: RUIDO PURO (sin evento GW)")
+    print("  ¿Los picos de malla son basura de 60Hz?")
+    print("=" * 70)
+
+    GPS_EVENT = 1126259462.4
+
+    # Cargar datos
+    print("\nCargando datos de LIGO...")
+    ligo_data = load_real_ligo_data()
+
+    if 'H1' not in ligo_data:
+        print("  ERROR: Se requieren datos de H1")
+        return None
+
+    h1 = ligo_data['H1']
+    fs = h1['fs']
+
+    # Parámetros GW150914
+    m1, m2 = 36, 29
+    gr = generate_gr_template(m1, m2, 410, fs, duration=2.0)
+    f_isco = gr['f_isco']
+    mesh_freqs = [0.5*f_isco, 0.7*f_isco, 0.85*f_isco]  # 34, 47, 57 Hz aprox
+
+    print(f"\nFrecuencias de malla a buscar:")
+    for f in mesh_freqs:
+        print(f"  {f:.1f} Hz")
+
+    # ========================================
+    # ANÁLISIS 1: DURANTE EL EVENTO
+    # ========================================
+    print(f"\n[A] DURANTE EL EVENTO (GPS = {GPS_EVENT})")
+    print("-" * 50)
+
+    segment_event = extract_event_segment(h1, GPS_EVENT, window_before=2.0, window_after=0.5)
+    whitened_event = whiten_data(segment_event['strain'], fs)
+    filtered_event = bandpass_filter(whitened_event, fs, f_low=20, f_high=400)
+
+    # Espectro del evento
+    freqs = np.fft.rfftfreq(len(filtered_event), 1/fs)
+    fft_event = np.abs(np.fft.rfft(filtered_event))
+
+    event_ratios = {}
+    baseline_event = np.median(fft_event**2)
+
+    for f_mesh in mesh_freqs:
+        mask = (freqs >= f_mesh - 5) & (freqs <= f_mesh + 5)
+        if np.any(mask):
+            power = np.mean(fft_event[mask]**2)
+            ratio = power / baseline_event
+            event_ratios[f_mesh] = ratio
+            print(f"  {f_mesh:.0f} Hz: ratio = {ratio:.2f}")
+
+    # ========================================
+    # ANÁLISIS 2: TIEMPO DE SILENCIO (lejos del evento)
+    # ========================================
+    # Usar datos 10 segundos ANTES del evento (donde no hay señal GW)
+    GPS_QUIET = GPS_EVENT - 10.0
+
+    print(f"\n[B] TIEMPO DE SILENCIO (GPS = {GPS_QUIET})")
+    print("-" * 50)
+
+    segment_quiet = extract_event_segment(h1, GPS_QUIET, window_before=2.0, window_after=0.5)
+    whitened_quiet = whiten_data(segment_quiet['strain'], fs)
+    filtered_quiet = bandpass_filter(whitened_quiet, fs, f_low=20, f_high=400)
+
+    # Espectro del silencio
+    fft_quiet = np.abs(np.fft.rfft(filtered_quiet))
+
+    quiet_ratios = {}
+    baseline_quiet = np.median(fft_quiet**2)
+
+    for f_mesh in mesh_freqs:
+        mask = (freqs >= f_mesh - 5) & (freqs <= f_mesh + 5)
+        if np.any(mask):
+            power = np.mean(fft_quiet[mask]**2)
+            ratio = power / baseline_quiet
+            quiet_ratios[f_mesh] = ratio
+            print(f"  {f_mesh:.0f} Hz: ratio = {ratio:.2f}")
+
+    # ========================================
+    # COMPARACIÓN Y VEREDICTO
+    # ========================================
+    print("\n" + "=" * 70)
+    print("  COMPARACIÓN: EVENTO vs SILENCIO")
+    print("=" * 70)
+
+    print(f"\n  {'Frecuencia':<12} {'EVENTO':<12} {'SILENCIO':<12} {'Diferencia':<15} {'Veredicto'}")
+    print(f"  {'-'*65}")
+
+    verdicts = []
+    for f in mesh_freqs:
+        r_event = event_ratios.get(f, 0)
+        r_quiet = quiet_ratios.get(f, 0)
+        diff = r_event - r_quiet
+
+        # Criterio: Si el pico aparece SOLO durante el evento (diff > 5), es señal
+        # Si aparece en ambos (diff ~ 0), es ruido instrumental
+        if r_event > 1.5 and r_quiet < 1.5:
+            v = "✓ SEÑAL (solo evento)"
+            verdicts.append(True)
+        elif r_event > 1.5 and r_quiet > 1.5 and diff > 5:
+            v = "✓ SEÑAL (amplificado)"
+            verdicts.append(True)
+        elif r_event > 1.5 and r_quiet > 1.5 and diff < 5:
+            v = "✗ RUIDO (ambos)"
+            verdicts.append(False)
+        else:
+            v = "○ Sin exceso"
+            verdicts.append(None)
+
+        print(f"  {f:.0f} Hz{'':<6} {r_event:<12.2f} {r_quiet:<12.2f} {diff:+.2f}{'':<10} {v}")
+
+    # Veredicto final
+    print("\n" + "=" * 70)
+    print("  VEREDICTO FINAL")
+    print("=" * 70)
+
+    real_verdicts = [v for v in verdicts if v is not None]
+    n_signal = sum(1 for v in real_verdicts if v)
+    n_noise = sum(1 for v in real_verdicts if not v)
+
+    if n_noise > 0:
+        final_verdict = "❌ ROJO: Algunos picos son RUIDO INSTRUMENTAL"
+        is_valid = False
+        explanation = "Los picos aparecen también en tiempos de silencio - probable contaminación de 60Hz"
+    elif n_signal > 0:
+        final_verdict = "✅ VERDE: Los picos son SEÑAL ASTROFÍSICA"
+        is_valid = True
+        explanation = "Los picos aparecen SOLO durante el evento - no son ruido instrumental"
+    else:
+        final_verdict = "○ GRIS: Sin exceso significativo"
+        is_valid = None
+        explanation = "No hay picos claros en ningún caso"
+
+    print(f"\n  {final_verdict}")
+    print(f"\n  Explicación: {explanation}")
+
+    # Verificación específica de 60Hz
+    print(f"\n  Verificación adicional - Líneas de 60Hz:")
+    for f_check in [60, 120, 180]:  # 60Hz y armónicos
+        mask = (freqs >= f_check - 2) & (freqs <= f_check + 2)
+        if np.any(mask):
+            power_event = np.mean(fft_event[mask]**2) / baseline_event
+            power_quiet = np.mean(fft_quiet[mask]**2) / baseline_quiet
+            print(f"    {f_check} Hz (power line): evento={power_event:.2f}, silencio={power_quiet:.2f}")
+
+    # Guardar resultados
+    results = {
+        'test': 'Quiet Time Noise Test',
+        'event_gps': GPS_EVENT,
+        'quiet_gps': GPS_QUIET,
+        'mesh_frequencies': [float(f) for f in mesh_freqs],
+        'event_ratios': {f'{f:.0f}Hz': float(event_ratios.get(f, 0)) for f in mesh_freqs},
+        'quiet_ratios': {f'{f:.0f}Hz': float(quiet_ratios.get(f, 0)) for f in mesh_freqs},
+        'verdict': final_verdict,
+        'is_valid_signal': is_valid
+    }
+
+    filepath = os.path.join(RESULTS_DIR, 'test4_quiet_time_noise.json')
+    with open(filepath, 'w') as f:
+        json.dump(results, f, indent=2)
+    print(f"\n  Resultados guardados: {filepath}")
+
+    # Generar figura comparativa
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # Espectro durante evento
+    ax = axes[0, 0]
+    ax.semilogy(freqs, fft_event, 'b-', lw=0.8)
+    for f in mesh_freqs:
+        ax.axvline(f, color='r', ls='--', alpha=0.7, label=f'{f:.0f} Hz' if f == mesh_freqs[0] else '')
+    ax.axvline(60, color='orange', ls=':', alpha=0.8, label='60 Hz (power)')
+    ax.set_xlabel('Frecuencia (Hz)')
+    ax.set_ylabel('Amplitud')
+    ax.set_title(f'DURANTE EVENTO (GPS={GPS_EVENT})')
+    ax.set_xlim(20, 100)
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    # Espectro durante silencio
+    ax = axes[0, 1]
+    ax.semilogy(freqs, fft_quiet, 'gray', lw=0.8)
+    for f in mesh_freqs:
+        ax.axvline(f, color='r', ls='--', alpha=0.7)
+    ax.axvline(60, color='orange', ls=':', alpha=0.8, label='60 Hz (power)')
+    ax.set_xlabel('Frecuencia (Hz)')
+    ax.set_ylabel('Amplitud')
+    ax.set_title(f'TIEMPO DE SILENCIO (GPS={GPS_QUIET})')
+    ax.set_xlim(20, 100)
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    # Comparación de ratios
+    ax = axes[1, 0]
+    x = np.arange(len(mesh_freqs))
+    width = 0.35
+    event_vals = [event_ratios.get(f, 0) for f in mesh_freqs]
+    quiet_vals = [quiet_ratios.get(f, 0) for f in mesh_freqs]
+
+    ax.bar(x - width/2, event_vals, width, label='Durante Evento', color='blue', alpha=0.7)
+    ax.bar(x + width/2, quiet_vals, width, label='Silencio', color='gray', alpha=0.7)
+    ax.axhline(1.5, color='k', ls='--', label='Umbral exceso')
+    ax.set_xticks(x)
+    ax.set_xticklabels([f'{f:.0f} Hz' for f in mesh_freqs])
+    ax.set_ylabel('Ratio Potencia/Baseline')
+    ax.set_title('Comparación: Evento vs Silencio')
+    ax.legend()
+    ax.grid(True, alpha=0.3, axis='y')
+
+    # Resumen
+    ax = axes[1, 1]
+    ax.axis('off')
+
+    summary = f"""
+    TEST DE DESTRUCCIÓN: RUIDO PURO
+    ═══════════════════════════════════════════
+
+    Crítica del Ortodoxo:
+    "Tus picos de 34, 47, 57 Hz son ruido de 60Hz"
+
+    Metodología:
+    Comparar espectro DURANTE evento vs SILENCIO
+
+    Si picos aparecen en AMBOS → RUIDO
+    Si picos aparecen SOLO en evento → SEÑAL
+
+    ═══════════════════════════════════════════
+    RESULTADO:
+
+    {final_verdict}
+
+    Señal válida: {n_signal} modos
+    Ruido confirmado: {n_noise} modos
+    ═══════════════════════════════════════════
+    """
+
+    color = 'lightgreen' if is_valid else 'lightcoral' if is_valid == False else 'lightgray'
+    ax.text(0.1, 0.9, summary, transform=ax.transAxes, fontsize=11,
+            verticalalignment='top', fontfamily='monospace',
+            bbox=dict(boxstyle='round', facecolor=color, alpha=0.8))
+
+    plt.tight_layout()
+
+    for fmt in ['png', 'pdf']:
+        filepath = os.path.join(FIGURES_DIR, f'fig12_quiet_time_test.{fmt}')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    print(f"  Figura guardada: fig12_quiet_time_test.png/pdf")
+
+    plt.close()
+
+    return results
+
+
+if __name__ == '__main__':
+    import sys
+
+    if '--mass-scaling' in sys.argv:
+        # Mass Scaling Test (anti-60Hz)
+        results = mass_scaling_test()
+    elif '--quiet' in sys.argv:
+        # Test de ruido puro (destrucción)
+        results = quiet_time_noise_test()
+    elif '--coincidence' in sys.argv:
+        # Solo correr el test de coincidencia
+        results = coincidence_test_h1_l1()
+    else:
+        # Análisis completo
+        results_sim = run_full_analysis()
+
+        h1_path = os.path.join(DATA_DIR, 'H1_GW150914.hdf5')
+        l1_path = os.path.join(DATA_DIR, 'L1_GW150914.hdf5')
+
+        if os.path.exists(h1_path) and os.path.exists(l1_path):
+            print("\n" + "="*70)
+            print("  DATOS REALES DE LIGO DETECTADOS")
+            print("="*70)
+
+            # Coincidence test
+            results_coincidence = coincidence_test_h1_l1()
+        elif os.path.exists(h1_path):
+            results_real = analyze_real_ligo_data()
+        else:
+            print("\n  Datos reales no encontrados.")
