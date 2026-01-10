@@ -197,14 +197,20 @@ class RealtimeProcessor:
 
             for _ in range(frames_available):
                 frame_start = self.buffer_pos
-                frame = self.input_buffer[frame_start:frame_start + self.frame_size]
+                frame_end = frame_start + self.frame_size
+
+                # Bounds check
+                if frame_end > len(self.input_buffer):
+                    break
+
+                frame = self.input_buffer[frame_start:frame_end]
 
                 # Process frame
                 processed = self._process_frame(frame)
 
                 # Overlap-add to output
-                self.output_buffer[frame_start:frame_start + self.frame_size] += processed
-                self.window_sum_buffer[frame_start:frame_start + self.frame_size] += self.wola_window
+                self.output_buffer[frame_start:frame_end] += processed
+                self.window_sum_buffer[frame_start:frame_end] += self.wola_window
 
                 self.buffer_pos += self.hop_size
                 self.stats.frames_processed += 1
