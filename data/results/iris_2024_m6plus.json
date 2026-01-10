@@ -1,0 +1,452 @@
+[
+  {
+    "id": "11786236",
+    "time": "2024-01-01T07:10:09",
+    "lat": 37.4893,
+    "lon": 137.2638,
+    "depth_km": 10.0,
+    "mag": 7.5,
+    "region": "NEAR WEST COAST OF HONSHU, JAPAN"
+  },
+  {
+    "id": "11864021",
+    "time": "2024-07-19T01:50:48",
+    "lat": -23.0813,
+    "lon": -67.8098,
+    "depth_km": 122.897,
+    "mag": 7.4,
+    "region": "CHILE-ARGENTINA BORDER REGION"
+  },
+  {
+    "id": "11824102",
+    "time": "2024-04-02T23:58:12",
+    "lat": 23.8322,
+    "lon": 121.6044,
+    "depth_km": 40.0,
+    "mag": 7.4,
+    "region": "TAIWAN"
+  },
+  {
+    "id": "11914214",
+    "time": "2024-12-17T01:47:25",
+    "lat": -17.6914,
+    "lon": 168.0842,
+    "depth_km": 54.372,
+    "mag": 7.3,
+    "region": "VANUATU ISLANDS"
+  },
+  {
+    "id": "11857071",
+    "time": "2024-06-28T05:36:36",
+    "lat": -15.8265,
+    "lon": -74.4635,
+    "depth_km": 24.442,
+    "mag": 7.2,
+    "region": "NEAR COAST OF PERU"
+  },
+  {
+    "id": "11871818",
+    "time": "2024-08-08T07:42:55",
+    "lat": 31.7581,
+    "lon": 131.5191,
+    "depth_km": 24.0,
+    "mag": 7.1,
+    "region": "KYUSHU, JAPAN"
+  },
+  {
+    "id": "11861478",
+    "time": "2024-07-11T02:13:17",
+    "lat": 6.0898,
+    "lon": 123.1548,
+    "depth_km": 627.865,
+    "mag": 7.1,
+    "region": "MINDANAO, PHILIPPINES"
+  },
+  {
+    "id": "11875044",
+    "time": "2024-08-17T19:10:26",
+    "lat": 52.9369,
+    "lon": 160.1158,
+    "depth_km": 29.0,
+    "mag": 7.0,
+    "region": "OFF EAST COAST OF KAMCHATKA"
+  },
+  {
+    "id": "11909383",
+    "time": "2024-12-05T18:44:21",
+    "lat": 40.374,
+    "lon": -125.021667,
+    "depth_km": 10.0,
+    "mag": 7.0,
+    "region": "OFF COAST OF NORTHERN CALIFORNIA"
+  },
+  {
+    "id": "11793750",
+    "time": "2024-01-22T18:09:04",
+    "lat": 41.2632,
+    "lon": 78.6535,
+    "depth_km": 13.0,
+    "mag": 7.0,
+    "region": "KYRGYZSTAN-XINJIANG BORDER REG."
+  },
+  {
+    "id": "11877689",
+    "time": "2024-08-25T23:29:07",
+    "lat": -19.7907,
+    "lon": -175.073,
+    "depth_km": 96.0,
+    "mag": 6.9,
+    "region": "TONGA ISLANDS"
+  },
+  {
+    "id": "11820244",
+    "time": "2024-03-23T20:22:03",
+    "lat": -4.1155,
+    "lon": 143.1701,
+    "depth_km": 37.0,
+    "mag": 6.9,
+    "region": "NEW GUINEA, PAPUA NEW GUINEA"
+  },
+  {
+    "id": "11901608",
+    "time": "2024-11-10T16:49:50",
+    "lat": 19.8191,
+    "lon": -77.0757,
+    "depth_km": 14.0,
+    "mag": 6.8,
+    "region": "CUBA REGION"
+  },
+  {
+    "id": "11825136",
+    "time": "2024-04-05T11:03:16",
+    "lat": 19.0958,
+    "lon": 145.36,
+    "depth_km": 222.0,
+    "mag": 6.8,
+    "region": "MARIANA ISLANDS"
+  },
+  {
+    "id": "11869854",
+    "time": "2024-08-02T22:23:02",
+    "lat": 8.1812,
+    "lon": 126.6154,
+    "depth_km": 35.0,
+    "mag": 6.8,
+    "region": "MINDANAO, PHILIPPINES"
+  },
+  {
+    "id": "11812185",
+    "time": "2024-03-03T16:16:53",
+    "lat": -58.8881,
+    "lon": 159.1441,
+    "depth_km": 23.187,
+    "mag": 6.8,
+    "region": "MACQUARIE ISLAND REGION"
+  },
+  {
+    "id": "11917397",
+    "time": "2024-12-27T12:47:37",
+    "lat": 47.3114,
+    "lon": 151.3468,
+    "depth_km": 146.0,
+    "mag": 6.8,
+    "region": "KURIL ISLANDS"
+  },
+  {
+    "id": "11821444",
+    "time": "2024-03-27T01:28:21",
+    "lat": -20.9,
+    "lon": 173.8,
+    "depth_km": 10.0,
+    "mag": 6.7,
+    "region": "VANUATU ISLANDS REGION"
+  },
+  {
+    "id": "11788904",
+    "time": "2024-01-08T20:48:43",
+    "lat": 4.9096,
+    "lon": 126.1541,
+    "depth_km": 76.893,
+    "mag": 6.7,
+    "region": "TALAUD ISLANDS, INDONESIA"
+  },
+  {
+    "id": "11845709",
+    "time": "2024-05-26T20:47:10",
+    "lat": -19.4182,
+    "lon": -174.8667,
+    "depth_km": 127.09,
+    "mag": 6.6,
+    "region": "TONGA ISLANDS"
+  },
+  {
+    "id": "11861184",
+    "time": "2024-07-10T04:55:41",
+    "lat": -53.3092,
+    "lon": 25.3481,
+    "depth_km": 4.0,
+    "mag": 6.6,
+    "region": "SOUTH OF AFRICA"
+  },
+  {
+    "id": "11890130",
+    "time": "2024-10-01T20:05:34",
+    "lat": -19.2886,
+    "lon": -173.0007,
+    "depth_km": 10.0,
+    "mag": 6.6,
+    "region": "TONGA ISLANDS"
+  },
+  {
+    "id": "11902851",
+    "time": "2024-11-15T05:28:30",
+    "lat": -4.7395,
+    "lon": 153.3133,
+    "depth_km": 56.0,
+    "mag": 6.6,
+    "region": "NEW IRELAND REGION, P.N.G."
+  },
+  {
+    "id": "11793085",
+    "time": "2024-01-20T21:31:05",
+    "lat": -7.2879,
+    "lon": -71.464,
+    "depth_km": 607.0,
+    "mag": 6.6,
+    "region": "WESTERN BRAZIL"
+  },
+  {
+    "id": "11833538",
+    "time": "2024-04-27T08:35:34",
+    "lat": 27.8217,
+    "lon": 139.577,
+    "depth_km": 503.896,
+    "mag": 6.5,
+    "region": "BONIN ISLANDS, JAPAN REGION"
+  },
+  {
+    "id": "11796302",
+    "time": "2024-01-28T09:38:56",
+    "lat": -8.236,
+    "lon": -71.4005,
+    "depth_km": 621.081,
+    "mag": 6.5,
+    "region": "WESTERN BRAZIL"
+  },
+  {
+    "id": "11884970",
+    "time": "2024-09-15T22:22:48",
+    "lat": 51.5827,
+    "lon": -130.6302,
+    "depth_km": 6.037,
+    "mag": 6.5,
+    "region": "QUEEN CHARLOTTE ISLANDS REGION"
+  },
+  {
+    "id": "11872512",
+    "time": "2024-08-10T03:28:32",
+    "lat": 47.1936,
+    "lon": 144.7822,
+    "depth_km": 400.786,
+    "mag": 6.5,
+    "region": "SEA OF OKHOTSK"
+  },
+  {
+    "id": "11828438",
+    "time": "2024-04-14T20:56:28",
+    "lat": -5.8037,
+    "lon": 151.0832,
+    "depth_km": 49.0,
+    "mag": 6.5,
+    "region": "NEW BRITAIN REGION, P.N.G."
+  },
+  {
+    "id": "11913116",
+    "time": "2024-12-13T23:38:18",
+    "lat": -35.33,
+    "lon": -70.7256,
+    "depth_km": 109.0,
+    "mag": 6.4,
+    "region": "CHILE-ARGENTINA BORDER REGION"
+  },
+  {
+    "id": "11826528",
+    "time": "2024-04-09T09:48:01",
+    "lat": 2.7057,
+    "lon": 127.0614,
+    "depth_km": 35.0,
+    "mag": 6.4,
+    "region": "NORTHERN MOLUCCA SEA"
+  },
+  {
+    "id": "11821443",
+    "time": "2024-03-27T01:28:17",
+    "lat": -21.0715,
+    "lon": 173.7373,
+    "depth_km": 10.0,
+    "mag": 6.4,
+    "region": "VANUATU ISLANDS REGION"
+  },
+  {
+    "id": "11840063",
+    "time": "2024-05-12T11:39:12",
+    "lat": 14.4523,
+    "lon": -92.4483,
+    "depth_km": 58.166,
+    "mag": 6.4,
+    "region": "NEAR COAST OF CHIAPAS, MEXICO"
+  },
+  {
+    "id": "11792157",
+    "time": "2024-01-18T22:12:22",
+    "lat": -18.9068,
+    "lon": -175.4176,
+    "depth_km": 211.0,
+    "mag": 6.4,
+    "region": "TONGA ISLANDS"
+  },
+  {
+    "id": "11789809",
+    "time": "2024-01-11T09:20:26",
+    "lat": 36.4999,
+    "lon": 70.6275,
+    "depth_km": 211.228,
+    "mag": 6.4,
+    "region": "HINDU KUSH REGION, AFGHANISTAN"
+  },
+  {
+    "id": "11824108",
+    "time": "2024-04-03T00:11:25",
+    "lat": 24.1021,
+    "lon": 121.6812,
+    "depth_km": 13.931,
+    "mag": 6.4,
+    "region": "TAIWAN"
+  },
+  {
+    "id": "11819752",
+    "time": "2024-03-22T08:52:58",
+    "lat": -5.8756,
+    "lon": 112.3661,
+    "depth_km": 8.91,
+    "mag": 6.4,
+    "region": "JAVA SEA"
+  },
+  {
+    "id": "11879963",
+    "time": "2024-09-01T20:13:34",
+    "lat": -6.8295,
+    "lon": 155.5297,
+    "depth_km": 39.0,
+    "mag": 6.4,
+    "region": "SOLOMON ISLANDS"
+  },
+  {
+    "id": "11861636",
+    "time": "2024-07-11T15:08:46",
+    "lat": 48.7312,
+    "lon": -128.7499,
+    "depth_km": 10.0,
+    "mag": 6.4,
+    "region": "VANCOUVER ISLAND, CANADA REGION"
+  },
+  {
+    "id": "11910696",
+    "time": "2024-12-08T19:57:08",
+    "lat": 51.0018,
+    "lon": -177.3278,
+    "depth_km": 18.0,
+    "mag": 6.3,
+    "region": "ANDREANOF ISLANDS, ALEUTIAN IS."
+  },
+  {
+    "id": "11910757",
+    "time": "2024-12-09T00:15:30",
+    "lat": 50.9985,
+    "lon": -177.1779,
+    "depth_km": 19.0,
+    "mag": 6.3,
+    "region": "ANDREANOF ISLANDS, ALEUTIAN IS."
+  },
+  {
+    "id": "11869944",
+    "time": "2024-08-03T04:20:26",
+    "lat": 8.1703,
+    "lon": 126.7636,
+    "depth_km": 15.865,
+    "mag": 6.3,
+    "region": "MINDANAO, PHILIPPINES"
+  },
+  {
+    "id": "11888697",
+    "time": "2024-09-26T19:19:28",
+    "lat": -17.199,
+    "lon": 66.5336,
+    "depth_km": 10.0,
+    "mag": 6.3,
+    "region": "MAURITIUS - REUNION REGION"
+  },
+  {
+    "id": "11794082",
+    "time": "2024-01-23T14:33:45",
+    "lat": -17.9827,
+    "lon": 168.0499,
+    "depth_km": 31.0,
+    "mag": 6.3,
+    "region": "VANUATU ISLANDS"
+  },
+  {
+    "id": "11808218",
+    "time": "2024-02-23T01:51:13",
+    "lat": -35.0892,
+    "lon": -110.7745,
+    "depth_km": 10.0,
+    "mag": 6.3,
+    "region": "SOUTHERN EAST PACIFIC RISE"
+  },
+  {
+    "id": "11845510",
+    "time": "2024-05-25T22:23:16",
+    "lat": -17.1155,
+    "lon": 167.8753,
+    "depth_km": 22.3,
+    "mag": 6.3,
+    "region": "VANUATU ISLANDS"
+  },
+  {
+    "id": "11829538",
+    "time": "2024-04-17T14:14:46",
+    "lat": 33.2503,
+    "lon": 132.3647,
+    "depth_km": 32.0,
+    "mag": 6.3,
+    "region": "SHIKOKU, JAPAN"
+  },
+  {
+    "id": "11883447",
+    "time": "2024-09-11T16:46:05",
+    "lat": -3.2871,
+    "lon": 146.4088,
+    "depth_km": 8.0,
+    "mag": 6.3,
+    "region": "BISMARCK SEA"
+  },
+  {
+    "id": "11885158",
+    "time": "2024-09-16T11:36:34",
+    "lat": 17.1539,
+    "lon": 147.2254,
+    "depth_km": 31.0,
+    "mag": 6.3,
+    "region": "MARIANA ISLANDS REGION"
+  },
+  {
+    "id": "11901077",
+    "time": "2024-11-08T11:38:00",
+    "lat": -46.7782,
+    "lon": -75.6266,
+    "depth_km": 10.0,
+    "mag": 6.3,
+    "region": "SOUTHERN CHILE"
+  }
+]

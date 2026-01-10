@@ -1,0 +1,108 @@
+{
+  "layers": [
+    {
+      "name": "Megaregolith",
+      "depth_range_km": [
+        0,
+        25
+      ],
+      "vp_km_s": 2.0,
+      "vs_km_s": 1.0,
+      "Q": 100,
+      "description": "Heavily fractured, extreme scattering",
+      "color": "#8B4513"
+    },
+    {
+      "name": "Upper Crust",
+      "depth_range_km": [
+        25,
+        45
+      ],
+      "vp_km_s": 5.5,
+      "vs_km_s": 3.0,
+      "Q": 4000,
+      "description": "Anorthositic, fractured",
+      "color": "#A0522D"
+    },
+    {
+      "name": "Lower Crust",
+      "depth_range_km": [
+        45,
+        60
+      ],
+      "vp_km_s": 6.8,
+      "vs_km_s": 3.8,
+      "Q": 5000,
+      "description": "Noritic, more intact",
+      "color": "#CD853F"
+    },
+    {
+      "name": "Upper Mantle",
+      "depth_range_km": [
+        60,
+        500
+      ],
+      "vp_km_s": 7.7,
+      "vs_km_s": 4.4,
+      "Q": 6000,
+      "description": "Olivine-pyroxene, cold",
+      "color": "#2E8B57"
+    },
+    {
+      "name": "Middle Mantle",
+      "depth_range_km": [
+        500,
+        1000
+      ],
+      "vp_km_s": 8.0,
+      "vs_km_s": 4.5,
+      "Q": 1500,
+      "description": "Possible partial melt zone",
+      "color": "#3CB371"
+    },
+    {
+      "name": "Lower Mantle",
+      "depth_range_km": [
+        1000,
+        1400
+      ],
+      "vp_km_s": 8.2,
+      "vs_km_s": 4.0,
+      "Q": 500,
+      "description": "Attenuating zone (detected by Apollo)",
+      "color": "#90EE90"
+    },
+    {
+      "name": "Core",
+      "depth_range_km": [
+        1400,
+        1737
+      ],
+      "vp_km_s": 4.5,
+      "vs_km_s": 2.5,
+      "Q": 1000,
+      "description": "Small iron core (~350 km radius)",
+      "color": "#FFD700"
+    }
+  ],
+  "total_radius_km": 1737,
+  "core_radius_km": 350,
+  "crust_thickness_km": 45,
+  "deep_moonquake_zone_km": [
+    700,
+    1100
+  ],
+  "key_findings": [
+    "VMS coherence ratio: 83% (vs 24% for Earth)",
+    "Coda duration: up to 4 hours (vs 6 min for Earth)",
+    "Extreme scattering in upper 25 km (megaregolith)",
+    "Very high Q (low attenuation) in mantle",
+    "Deep moonquakes at 700-1100 km depth, tidally triggered",
+    "No global magnetic field"
+  ],
+  "vms_analysis_notes": [
+    "Topological approach reveals long-range connectivity in lunar signals",
+    "Few but LARGE coherent components (spindle-shaped envelope)",
+    "Ideal application of VMS: signals maintain structure for hours"
+  ]
+}
