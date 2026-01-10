@@ -1,0 +1,43 @@
+# ============================================================================
+# UNIVERSO-MOBIUS - Requirements
+# ============================================================================
+# Core scientific computing
+numpy>=1.21.0,<2.0.0
+scipy>=1.7.0
+
+# Audio processing
+soundfile>=0.10.0  # High-quality audio I/O
+
+# Web framework (API)
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+python-multipart>=0.0.6  # File uploads
+
+# Visualization
+plotly>=5.10.0
+dash>=2.10.0
+
+# Data validation
+pydantic>=2.0.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-asyncio>=0.21.0
+
+# Development
+black>=23.0.0
+isort>=5.12.0
+mypy>=1.0.0
+
+# Optional: Enhanced audio processing
+# librosa>=0.10.0  # Uncomment for advanced audio features
+
+# Optional: Machine learning extensions
+# torch>=2.0.0  # Uncomment for ML-based processing
+
+# ============================================================================
+# Installation notes:
+# - pip install -r requirements.txt
+# - For development: pip install -r requirements.txt -e .
+# ============================================================================

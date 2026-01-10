@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  9 JAN 2026 12:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  9 JAN 2026 11:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**OCTH_Nature_Article.tex
-(./OCTH_Nature_Article.tex
+**OCTH_Mathematical_Formalization.tex
+(./OCTH_Mathematical_Formalization.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
-(/usr/local/texlive/2025basic/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
+(/usr/local/texlive/2025basic/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count196
 \c@section=\count197
@@ -107,12 +107,24 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+(/usr/local/texlive/2025basic/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks24
+\thm@bodyfont=\toks25
+\thm@headfont=\toks26
+\thm@notefont=\toks27
+\thm@headpunct=\toks28
+\thm@preskip=\skip54
+\thm@postskip=\skip55
+\thm@headsep=\skip56
+\dth@everypar=\toks29
+)
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks24
+\KV@toks@=\toks30
 )
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
@@ -270,13 +282,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 85.
 )
-\Hy@SectionHShift=\skip54
-) (/usr/local/texlive/2025basic/texmf-dist/tex/latex/natbib/natbib.sty
-Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip55
-\bibsep=\skip56
-LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count294
+\Hy@SectionHShift=\skip57
 )
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
@@ -284,9 +290,9 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/local/texlive/2025basic/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count295
-\Gm@cntv=\count296
-\c@Gm@tempcnt=\count297
+\Gm@cnth=\count294
+\Gm@cntv=\count295
+\c@Gm@tempcnt=\count296
 \Gm@bindingoffset=\dimen157
 \Gm@wd@mp=\dimen158
 \Gm@odd@mp=\dimen159
@@ -295,63 +301,53 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutheight=\dimen162
 \Gm@layouthoffset=\dimen163
 \Gm@layoutvoffset=\dimen164
-\Gm@dimlist=\toks25
+\Gm@dimlist=\toks31
 )
+\c@definition=\count297
+\c@theorem=\count298
+\c@proposition=\count299
+\c@corollary=\count300
+
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/l3backend/l3backend-pdftex.d
 ef
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count298
+\l__color_backend_stack_int=\count301
 \l__pdf_internal_box=\box54
-) (./OCTH_Nature_Article.aux
-
-! Package natbib Error: Bibliography not compatible with author-year citations.
-
-(natbib)                Press <return> to continue in numerical citation style.
-
-
-See the natbib package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.39 ...mand\NAT@force@numbers{}\NAT@force@numbers
-                                                  
-Check the bibliography entries for non-compliant syntax,
-or select author-year BibTeX style, e.g. plainnat
-
 )
-\openout1 = `OCTH_Nature_Article.aux'.
+No file OCTH_Mathematical_Formalization.aux.
+\openout1 = `OCTH_Mathematical_Formalization.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
- (/usr/local/texlive/2025basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+(/usr/local/texlive/2025basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count299
+\scratchcounter=\count302
 \scratchdimen=\dimen165
 \scratchbox=\box55
-\nofMPsegments=\count300
-\nofMParguments=\count301
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count302
+\nofMPsegments=\count303
+\nofMParguments=\count304
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count305
 \MPscratchDim=\dimen166
-\MPnumerator=\count303
-\makeMPintoPDFobject=\count304
-\everyMPtoPDFconversion=\toks27
+\MPnumerator=\count306
+\makeMPintoPDFobject=\count307
+\everyMPtoPDFconversion=\toks33
 )
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.s
 ty
@@ -363,10 +359,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 25.
- (./OCTH_Nature_Article.out) (./OCTH_Nature_Article.out)
+Package hyperref Info: Link coloring OFF on input line 30.
 \@outlinefile=\write3
-\openout3 = `OCTH_Nature_Article.out'.
+\openout3 = `OCTH_Mathematical_Formalization.out'.
 
 
 *geometry* driver: auto-detecting
@@ -388,12 +383,12 @@ Package hyperref Info: Link coloring OFF on input line 25.
 * \topmargin=-38.1381pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=11.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=50.0pt
+* \marginparwidth=35.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -403,150 +398,115 @@ Package hyperref Info: Link coloring OFF on input line 25.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 28.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 33.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 33.
 
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Overfull \hbox (0.41289pt too wide) in paragraph at lines 35--36
+\OT1/cmr/m/n/10.95 tol-ogy (OCTH), de-riv-ing the mod-i-fied Schwarzschild met-
+ric that in-cor-po-rates hexag-
+ []
+
+No file OCTH_Mathematical_Formalization.toc.
+\tf@toc=\write4
+\openout4 = `OCTH_Mathematical_Formalization.toc'.
+
+
 
 [1
 
 {/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (49.1988pt too wide) in paragraph at lines 80--81
-[]\OT1/cmr/m/n/10.95 We an-a-lyzed GW170814---the first triple-detector event o
-b-served by H1, L1, and V1 simultaneously([]).
- []
 
+[2]
 
-
-[2{/usr/local/texlive/2025basic/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts
+[3{/usr/local/texlive/2025basic/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts
 1.enc}]
-
-[3]
 
 [4]
 
 [5]
-Underfull \hbox (badness 5359) in paragraph at lines 217--218
-[]\OT1/cmr/m/n/10.95 Bousso, R. The holo-graphic prin-ci-ple. \OT1/cmr/m/it/10.
-95 Rev. Mod. Phys. \OT1/cmr/bx/n/10.95 74\OT1/cmr/m/n/10.95 , 825--874 (2002).
- []
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 266.
 
 
-Underfull \hbox (badness 2495) in paragraph at lines 221--222
-[]\OT1/cmr/m/n/10.95 Isi, M., Giesler, M., Farr, W. M., Scheel, M. A. & Teukol-
-sky, S. A. Test-
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 266.
 
 
-Underfull \hbox (badness 1990) in paragraph at lines 221--222
-\OT1/cmr/m/n/10.95 ing the no-hair the-o-rem with GW150914. \OT1/cmr/m/it/10.95
- Phys. Rev. Lett. \OT1/cmr/bx/n/10.95 123\OT1/cmr/m/n/10.95 , 111102 (2019).
- []
+LaTeX Warning: Command \textdegree invalid in math mode on input line 266.
 
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 266.
+
+Missing character: There is no ° in font cmr12!
+Missing character: There is no ° in font cmr12!
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 298.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 298.
+
+Missing character: There is no ° in font cmr12!
 
 
 [6]
-<../figures/fig_gwtc3_hexagonal_analysis.png, id=111, 899.5206pt x 675.7245pt>
-File: ../figures/fig_gwtc3_hexagonal_analysis.png Graphic file (type png)
-<use ../figures/fig_gwtc3_hexagonal_analysis.png>
-Package pdftex.def Info: ../figures/fig_gwtc3_hexagonal_analysis.png  used on i
-nput line 233.
-(pdftex.def)             Requested size: 432.48051pt x 324.88023pt.
 
+[7]
 
-[7 <../figures/fig_gwtc3_hexagonal_analysis.png>]
-<../figures/fig14_galactic_poles_test.png, id=122, 1004.0712pt x 712.1004pt>
-File: ../figures/fig14_galactic_poles_test.png Graphic file (type png)
-<use ../figures/fig14_galactic_poles_test.png>
-Package pdftex.def Info: ../figures/fig14_galactic_poles_test.png  used on inpu
-t line 241.
-(pdftex.def)             Requested size: 432.48051pt x 306.71877pt.
-
-
-[8 <../figures/fig14_galactic_poles_test.png>]
-<../figures/fig_cmb_ligo_cross_correlation.png, id=130, 1019.7297pt x 681.0243p
-t>
-File: ../figures/fig_cmb_ligo_cross_correlation.png Graphic file (type png)
-<use ../figures/fig_cmb_ligo_cross_correlation.png>
-Package pdftex.def Info: ../figures/fig_cmb_ligo_cross_correlation.png  used on
- input line 249.
-(pdftex.def)             Requested size: 432.48051pt x 288.8236pt.
-
-
-[9 <../figures/fig_cmb_ligo_cross_correlation.png>]
-<../figures/fig_european_test_virgo.png, id=139, 970.3452pt x 1075.3776pt>
-File: ../figures/fig_european_test_virgo.png Graphic file (type png)
-<use ../figures/fig_european_test_virgo.png>
-Package pdftex.def Info: ../figures/fig_european_test_virgo.png  used on input 
-line 257.
-(pdftex.def)             Requested size: 432.48051pt x 479.30453pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[10]
-<../figures/sanity_checks_combined.png, id=145, 1004.0712pt x 445.4241pt>
-File: ../figures/sanity_checks_combined.png Graphic file (type png)
-<use ../figures/sanity_checks_combined.png>
-Package pdftex.def Info: ../figures/sanity_checks_combined.png  used on input l
-ine 265.
-(pdftex.def)             Requested size: 432.48051pt x 191.85486pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
-[11]
-
-[12]
-
-[13 <../figures/fig_european_test_virgo.png>]
-
-[14 <../figures/sanity_checks_combined.png>] (./OCTH_Nature_Article.aux)
+[8] (./OCTH_Mathematical_Formalization.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-Package rerunfilecheck Info: File `OCTH_Nature_Article.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
+
+Package rerunfilecheck Warning: File `OCTH_Mathematical_Formalization.out' has 
+changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `OCTH_Mathematical_Formalization.out
+':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  7DF151A22E0C1D3F15C74F6ABB8F755B;4961.
  ) 
 Here is how much of TeX's memory you used:
- 10669 strings out of 474662
- 163151 string characters out of 5751110
- 566566 words of memory out of 5000000
- 33527 multiletter control sequences out of 15000+600000
- 569411 words of font info for 77 fonts, out of 8000000 for 9000
+ 10403 strings out of 474662
+ 158928 string characters out of 5751110
+ 561890 words of memory out of 5000000
+ 33241 multiletter control sequences out of 15000+600000
+ 570841 words of font info for 81 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,9n,79p,1386b,556s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,79p,779b,642s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
 0.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx12.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025basic/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025basic/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025basic/texm
-f-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on OCTH_Nature_Article.pdf (14 pages, 2857676 bytes).
+cm/cmex10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi12.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025basic/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025basic/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025basic/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025basic/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025basic/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2025bas
+ic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025
+basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/tex
+live/2025basic/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on OCTH_Mathematical_Formalization.pdf (8 pages, 241427 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 189 compressed objects within 2 object streams
- 63 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 233 PDF objects out of 1000 (max. 8388607)
+ 185 compressed objects within 2 object streams
+ 89 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
