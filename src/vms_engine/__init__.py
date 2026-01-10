@@ -11,6 +11,10 @@ Key Features:
 - Real-time capable with low latency (<50ms)
 - Based on OCTH hexagonal frequency detection
 
+Versions:
+- V1 (VMSAudioCleaner): Manual parameter tuning
+- V2 (VMSAdaptiveCleaner): Fully adaptive, interdependent parameters
+
 Products:
 - ClearVoice Pro: Consumer audio cleaning
 - HexaMonitor: Industrial vibration analysis
@@ -20,19 +24,39 @@ Date: January 2026
 License: Proprietary - Patent Pending
 """
 
+# V1: Original cleaner with manual parameters
 from .cleaner import VMSAudioCleaner, CleaningResult
+
+# V2: Adaptive cleaner with interdependent parameters
+from .adaptive import VMSAdaptiveCleaner, AdaptiveState
+
+# Real-time processing
 from .realtime import RealtimeProcessor
+
+# Spectral tools
 from .spectral import (
     SpectralAnalyzer,
     wiener_filter,
     harmonic_preserving_filter,
 )
 
-__version__ = "0.1.0"
+# V3: Topological cleaner (combines all methods)
+from .topological import VMSTopologicalCleaner, TopologicalResult
+
+__version__ = "0.3.0"
 __all__ = [
+    # V1: Manual parameters
     "VMSAudioCleaner",
     "CleaningResult",
+    # V2: Adaptive parameters
+    "VMSAdaptiveCleaner",
+    "AdaptiveState",
+    # V3: Topological (RECOMMENDED)
+    "VMSTopologicalCleaner",
+    "TopologicalResult",
+    # Real-time
     "RealtimeProcessor",
+    # Tools
     "SpectralAnalyzer",
     "wiener_filter",
     "harmonic_preserving_filter",
