@@ -11,7 +11,7 @@ Predicción ÚNICA de OCTH que NO hace ningún otro modelo:
 Si encontramos correlación entre direcciones LIGO y anomalías CMB,
 sería evidencia independiente y devastadora para OCTH.
 
-Autor: Francisco Molina Burgos & Claude
+Autor: Francisco Molina Burgos 
 Fecha: 2026-01-09
 """
 

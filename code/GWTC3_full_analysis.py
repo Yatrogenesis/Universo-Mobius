@@ -9,7 +9,7 @@ Predicción OCTH: Los modos de vibración de agujeros negros fusionándose
 deberían mostrar frecuencias en proporciones 1:√3:2 (hexagonales) debido
 a la geometría de la malla espacio-temporal subyacente.
 
-Autor: Francisco Molina Burgos & Claude
+Autor: Francisco Molina Burgos 
 Fecha: 2026-01-09
 """
 

@@ -17,7 +17,7 @@ METODO:
 3. Comparar con distribucion teorica esperada
 4. Calcular probabilidad de 4/4 modos por AZAR
 
-Autor: Francisco Molina Burgos & Claude
+Autor: Francisco Molina Burgos 
 Fecha: 2026-01-09
 """
 

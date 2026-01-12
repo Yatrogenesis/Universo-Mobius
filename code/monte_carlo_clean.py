@@ -6,7 +6,7 @@ MONTE CARLO LIMPIO: Ruido sin lineas de potencia
 El test anterior mostro que las lineas de 60/120 Hz siempre coinciden
 con modos predichos. Este test usa ruido PURO sin estructura.
 
-Autor: Francisco Molina Burgos & Claude
+Autor: Francisco Molina Burgos 
 Fecha: 2026-01-09
 """
 
