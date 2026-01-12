@@ -1,0 +1,88 @@
+{
+  "analysis": "OCTH Solar System Constraints",
+  "date": "2026-01-12T16:47:23.758487",
+  "author": "Francisco Molina-Burgos",
+  "a_0": 1.2e-10,
+  "planets": {
+    "Mercury": {
+      "r_AU": 0.387,
+      "r_m": 57894375960.9,
+      "a_m_s2": 0.03960502433266995,
+      "a_over_a0": 330041869.43891627,
+      "psi": 0.9999999984850407,
+      "deviation_from_newton": 1.5149592691443559e-09
+    },
+    "Venus": {
+      "r_AU": 0.723,
+      "r_m": 108159260516.09999,
+      "a_m_s2": 0.011347380553364452,
+      "a_over_a0": 94561504.61137043,
+      "psi": 0.9999999947124361,
+      "deviation_from_newton": 5.28756394224672e-09
+    },
+    "Earth": {
+      "r_AU": 1.0,
+      "r_m": 149597870700.0,
+      "a_m_s2": 0.005931604889279646,
+      "a_over_a0": 49430040.743997045,
+      "psi": 0.999999989884694,
+      "deviation_from_newton": 1.0115306037228322e-08
+    },
+    "Mars": {
+      "r_AU": 1.524,
+      "r_m": 227987154946.80002,
+      "a_m_s2": 0.0025538905462209396,
+      "a_over_a0": 21282421.21850783,
+      "psi": 0.9999999765064332,
+      "deviation_from_newton": 2.3493566758681084e-08
+    },
+    "Jupiter": {
+      "r_AU": 5.203,
+      "r_m": 778357721252.1001,
+      "a_m_s2": 0.00021911119260612424,
+      "a_over_a0": 1825926.6050510353,
+      "psi": 0.9999997261665429,
+      "deviation_from_newton": 2.7383345713172247e-07
+    },
+    "Saturn": {
+      "r_AU": 9.537,
+      "r_m": 1426714892865.9001,
+      "a_m_s2": 6.521517277833728e-05,
+      "a_over_a0": 543459.7731528106,
+      "psi": 0.9999990799699727,
+      "deviation_from_newton": 9.200300272738104e-07
+    },
+    "Uranus": {
+      "r_AU": 19.19,
+      "r_m": 2870783138733.0,
+      "a_m_s2": 1.6107282104165135e-05,
+      "a_over_a0": 134227.3508680428,
+      "psi": 0.9999962749975843,
+      "deviation_from_newton": 3.7250024157442496e-06
+    },
+    "Neptune": {
+      "r_AU": 30.07,
+      "r_m": 4498407971949.0,
+      "a_m_s2": 6.560022943117921e-06,
+      "a_over_a0": 54666.85785931601,
+      "psi": 0.9999908538160057,
+      "deviation_from_newton": 9.146183994279689e-06
+    },
+    "Pluto": {
+      "r_AU": 39.48,
+      "r_m": 5906123935236.0,
+      "a_m_s2": 3.8055543296900014e-06,
+      "a_over_a0": 31712.95274741668,
+      "psi": 0.9999842339444242,
+      "deviation_from_newton": 1.576605557584987e-05
+    }
+  },
+  "transition_radius_AU": 7030.650093981142,
+  "conclusions": {
+    "inner_planets": "Compatible - deviations < 10^-6",
+    "outer_planets": "Compatible - deviations < 10^-4",
+    "spacecraft": "Compatible - no anomalies produced",
+    "oort_cloud": "OCTH effects would be detectable"
+  },
+  "status": "VERIFIED - Compatible with Solar System observations"
+}

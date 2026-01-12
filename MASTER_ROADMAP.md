@@ -47,7 +47,7 @@
 | CMB Anti-correlation | ✅ Verified | 5.2σ | `OCTH_cmb_anticorrelation.py` |
 | Hubble Tension | ✅ Verified | 100% match | `OCTH_hubble_tension_v2.py` |
 | Galaxy Clusters | ⚠️ Partial | ~0.7x ratio | `OCTH_galaxy_clusters.py` |
-| Solar System | ⏳ Pending | - | - |
+| Solar System | ⚠️ Partial | 10^-8 diff. | `OCTH_solar_system.py` |
 | CMB Spectrum | ⏳ Pending | - | - |
 
 **Combined statistical significance:** p < 10⁻⁸⁹
