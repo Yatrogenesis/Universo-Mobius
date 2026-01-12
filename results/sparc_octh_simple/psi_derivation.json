@@ -1,0 +1,9 @@
+{
+  "derivation": "Psi = sqrt(a_bar / a_0)",
+  "a_0_mond": 1.2e-10,
+  "correlation_fit_vs_predicted": 0.36166928528654424,
+  "p_value": 2.430478352296634e-06,
+  "n_galaxies": 161,
+  "ratio_mean": 1.33681545684047,
+  "ratio_std": 1.1151826415936144
+}
