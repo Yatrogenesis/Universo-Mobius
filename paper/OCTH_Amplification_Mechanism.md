@@ -2,7 +2,7 @@
 
 ## Resolución de la "paradoja epsilon"
 
-**Autor:** Francisco Molina Burgos
+**Autor:** Francisco Molina-Burgos
 **Fecha:** Enero 2026
 **Versión:** 1.0
 

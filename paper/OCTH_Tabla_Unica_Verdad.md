@@ -2,7 +2,7 @@
 
 ## Reconciliación de Métricas y Resultados
 
-**Autor:** Francisco Molina Burgos
+**Autor:** Francisco Molina-Burgos
 **Fecha:** Enero 2026
 **Estado:** Documento de Control de Consistencia
 

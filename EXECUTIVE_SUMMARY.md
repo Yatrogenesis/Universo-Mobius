@@ -1,6 +1,6 @@
 # OCTH - Resumen ejecutivo de evidencia
 ## Ontología Cíclica Topo-Holográfica (Universo-Möbius)
-### Francisco Molina Burgos | Enero 2026
+### Francisco Molina-Burgos | Enero 2026
 
 ---
 

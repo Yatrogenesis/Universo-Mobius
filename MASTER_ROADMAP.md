@@ -1,8 +1,9 @@
 # MASTER ROADMAP - Universo Möbius / OCTH Project
 ## Complete Development Blueprint
 
-**Author:** Francisco Molina Burgos
-**Email:** pako.molina@gmail.com | fmolina@avermex.com
+**Author:** Francisco Molina-Burgos
+**Email:** fmolina@avermex.com
+**Affiliation:** Avermex Research Division, Mérida, Yucatán, México
 **Repository:** https://github.com/Yatrogenesis/Universo-Mobius
 **Date:** January 2026
 **Version:** 1.0
@@ -1026,7 +1027,7 @@ jobs:
 
 ### Critical Context
 
-- **User:** Francisco Molina Burgos (pako.molina@gmail.com)
+- **User:** Francisco Molina-Burgos (fmolina@avermex.com)
 - **Goal:** Monetize OCTH algorithms, needs money urgently
 - **Primary product:** ClearVoice Pro (audio cleaning)
 - **Unique value:** Algorithms from gravitational wave detection (75σ)

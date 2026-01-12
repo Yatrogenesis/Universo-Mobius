@@ -461,9 +461,9 @@ python3 GWTC3_raw_pipeline.py
 
 ## Autor
 
-**Francisco Molina Burgos**
-Email: pako.molina@gmail.com
-Institucional: fmolina@avermex.com
+**Francisco Molina-Burgos**
+Email: fmolina@avermex.com
+Afiliación: Avermex Research Division, Mérida, Yucatán, México
 
 ## Acknowledgments
 

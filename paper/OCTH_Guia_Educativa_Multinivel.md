@@ -3,7 +3,7 @@
 ## Ontología Cíclica Topo-Holográfica
 ### Del bachillerato al postdoctorado
 
-**Autor:** Francisco Molina Burgos
+**Autor:** Francisco Molina-Burgos
 **Versión:** 1.0 (Enero 2026)
 
 ---

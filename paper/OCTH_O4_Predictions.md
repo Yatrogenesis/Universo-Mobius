@@ -1,6 +1,6 @@
 # OCTH Predictions for LIGO O4 observing run
 
-**Author:** Francisco Molina Burgos
+**Author:** Francisco Molina-Burgos
 **Date:** January 9, 2026
 **Status:** PRE-RELEASE PREDICTIONS (Before O4 Data Publication)
 
@@ -136,11 +136,11 @@ Any analysis of O4 data using OCTH methods should reference this prediction docu
 
 | Date | Event |
 |------|-------|
-| Jan 2025 | Predictions published (this document) |
-| Q2 2025 | O4a data release expected |
-| Q3 2025 | Initial OCTH analysis of O4a |
-| Q4 2025 | O4b data release expected |
-| Q1 2026 | Full O4 analysis complete |
+| Jan 2026 | Predictions published (this document) |
+| Q2 2026 | O4a data release expected |
+| Q3 2026 | Initial OCTH analysis of O4a |
+| Q4 2026 | O4b data release expected |
+| Q1 2027 | Full O4 analysis complete |
 
 ---
 

@@ -1,7 +1,7 @@
 # OCTH: Referencias bibliográficas verificadas
 
 **Documento de Verificación Completa**
-**Autor:** Francisco Molina Burgos
+**Autor:** Francisco Molina-Burgos
 **Fecha:** Enero 2026
 **Estado:** TODAS LAS REFERENCIAS VERIFICADAS CON DOI
 
