@@ -1,0 +1,48 @@
+{
+  "analysis": "OCTH CMB Boltzmann Simplified",
+  "date": "2026-01-12T17:43:25.784762",
+  "author": "Francisco Molina-Burgos",
+  "parameters": {
+    "h": 0.674,
+    "Omega_b": 0.0493,
+    "Omega_c": 0.264,
+    "Omega_Lambda": 0.685,
+    "z_rec": 1089.8,
+    "z_drag": 1059.94,
+    "a_0": 1.2e-10
+  },
+  "results": {
+    "standard": {
+      "l_1": 213.66613981286864,
+      "r_s_Mpc": 147.1125492709177,
+      "D_com_Mpc": 13896.423984552168,
+      "theta_s_deg": 0.606553757715215,
+      "peak_ratio": 2.3
+    },
+    "geometric": {
+      "l_1": 213.66955281673873,
+      "r_s_Mpc": 147.110199400787,
+      "D_com_Mpc": 13896.423984552168,
+      "theta_s_deg": 0.6065440690614261,
+      "peak_ratio": 1.6
+    },
+    "topological": {
+      "l_1": 225.64748313560764,
+      "r_s_Mpc": 139.30122367842728,
+      "D_com_Mpc": 13896.423984552168,
+      "theta_s_deg": 0.5743471994416801,
+      "peak_ratio": 2.2
+    }
+  },
+  "observations": {
+    "l_1": 220.0,
+    "r_s_Mpc": 147.09,
+    "D_A_Mpc": 12900.0,
+    "peak_ratio": 2.32
+  },
+  "conclusions": {
+    "geometric_only": "Cannot reproduce peak ratio without DM",
+    "topological": "Can potentially reproduce CMB with tuned parameters",
+    "next_steps": "Implement in CLASS for exact calculation"
+  }
+}
