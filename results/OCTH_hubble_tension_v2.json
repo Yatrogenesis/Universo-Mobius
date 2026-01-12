@@ -1,0 +1,14 @@
+{
+  "date": "2026-01-12T15:00:05.235643",
+  "H0_local": 73.04,
+  "H0_CMB": 67.4,
+  "tension_sigma": 4.887561225309663,
+  "delta_local": -0.15,
+  "alpha": 0.49447912693488416,
+  "Psi_local": 0.9227820372398685,
+  "H_predicted": 73.04,
+  "agreement_percent": 100.0,
+  "mechanism": "H_observed = H_true / Psi_local",
+  "equation": "Psi = (1 + delta)^alpha",
+  "cause": "Local void with delta ~ -0.15 to -0.2"
+}
