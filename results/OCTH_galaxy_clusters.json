@@ -1,0 +1,48 @@
+{
+  "date": "2026-01-12T16:36:46.483572",
+  "analysis": "OCTH_galaxy_clusters",
+  "clusters": [
+    {
+      "name": "Coma (Abell 1656)",
+      "v_bar_kms": 456.9568132005961,
+      "a_bar": 2.3332237818227418e-12,
+      "a_bar_over_a0": 0.019443531515189516,
+      "Psi": 0.13944006423976402,
+      "v_octh_kms": 1223.7180611108156,
+      "sigma_octh_kms": 706.5139519945363,
+      "sigma_obs_kms": 1000,
+      "ratio_sigma": 0.7065139519945364
+    },
+    {
+      "name": "Bullet Cluster",
+      "v_bar_kms": 735.3009797247564,
+      "a_bar": 8.760005359432706e-12,
+      "a_bar_over_a0": 0.07300004466193921,
+      "Psi": 0.27018520437273985,
+      "v_octh_kms": 1414.6023107807584,
+      "sigma_octh_kms": 816.7210249255377,
+      "sigma_obs_kms": 1100,
+      "ratio_sigma": 0.742473659023216
+    },
+    {
+      "name": "Virgo",
+      "v_bar_kms": 339.6209748635869,
+      "a_bar": 2.491734857794192e-12,
+      "a_bar_over_a0": 0.020764457148284933,
+      "Psi": 0.14409877566546128,
+      "v_octh_kms": 894.6730570809117,
+      "sigma_octh_kms": 516.5397303423698,
+      "sigma_obs_kms": 760,
+      "ratio_sigma": 0.6796575399241708
+    }
+  ],
+  "conclusion": "OCTH has similar performance to MOND in clusters",
+  "advantage": "OCTH is relativistic - naturally predicts lensing",
+  "status": "PARTIALLY_RESOLVED",
+  "notes": [
+    "Basic OCTH underestimates velocities like MOND",
+    "Lopez-Corredoira (2022) showed MOND works with proper boundary conditions",
+    "Same treatment should work for OCTH",
+    "OCTH advantage: explains Bullet Cluster lensing naturally"
+  ]
+}
