@@ -1,0 +1,9 @@
+{
+  "date": "2026-01-12T14:36:17.525832",
+  "H0_local": 73.04,
+  "H0_CMB": 67.4,
+  "tension_percent": 8.367952522255193,
+  "Psi_solar_estimate": 1.2909944487358056,
+  "status": "REQUIRES_REFINEMENT",
+  "note": "Sign of effect needs careful re-derivation for Hubble tension"
+}

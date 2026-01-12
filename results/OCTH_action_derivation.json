@@ -1,0 +1,14 @@
+{
+  "derivation_date": "2026-01-12T14:35:16.182679",
+  "equation": "Psi = sqrt(a_bar / a_0)",
+  "a_0": 1.2e-10,
+  "btfr_predicted": 62.43132554190392,
+  "btfr_observed": 47,
+  "agreement_percent": 75.28271999999998,
+  "action": "S = int sqrt(-g) { R/16piG - omega(dPsi)^2/Psi^2 - lambda*a0^2*(Psi-1)^2/c^2 + Lm/Psi^2 }",
+  "parameters": {
+    "omega": 1.0,
+    "lambda": 1.0,
+    "a_0_m_s2": 1.2e-10
+  }
+}
