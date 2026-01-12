@@ -156,7 +156,27 @@ Los "Little Red Dots" de JWST son **naturalmente explicados** por OCTH como:
 3. **Predicen** correlaciones antipodales y patrones hexagonales
 4. **Distinguibles** de SMBHs clásicos por ausencia de jets y polarización anómala
 
-**Siguiente paso**: Obtener catálogo de posiciones de los ~300 Red Dots y ejecutar análisis de correlación antipodal con el código existente.
+## 7. RESULTADOS PRELIMINARES (2026-01-12)
+
+### Datos Analizados
+- **Catalogo**: ALT DR1 (All the Little Things, JWST Cycle 2)
+- **Fuentes**: 1630 total, 836 con z > 4, 403 con z > 5
+- **Redshift range**: 0.24 - 8.51 (media 3.79)
+
+### Limitacion Critica
+El catalogo ALT DR1 cubre solo **~0.1 grados** de cielo (deep field).
+Todas las fuentes estan en el mismo pequeno parche - **NO ES POSIBLE**
+realizar analisis de correlacion antipodal.
+
+Para verificar predicciones OCTH necesitamos:
+1. Catalogo combinando MULTIPLES campos JWST
+2. Datos de surveys de campo amplio (Euclid, Roman)
+3. Posiciones de los ~341 LRDs confirmados de diferentes programas
+
+### Proximos Pasos
+1. Buscar catalogo COSMOS-Web (mayor cobertura)
+2. Combinar datos de EIGER, FRESCO, RUBIES, UNCOVER
+3. Cuando Roman lance (2027): analisis a gran escala
 
 ---
 
