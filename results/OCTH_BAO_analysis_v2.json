@@ -1,0 +1,440 @@
+{
+  "date": "2026-01-13T09:10:58.943404",
+  "version": "2.0",
+  "parameters": {
+    "cosmology": {
+      "H_0": 67.4,
+      "Omega_m": 0.315,
+      "Omega_b": 0.0493,
+      "Omega_Lambda": 0.685
+    },
+    "octh": {
+      "epsilon": 0.18326757897945808,
+      "sigma": 0.6,
+      "z_topo": 1089
+    }
+  },
+  "base_quantities": {
+    "z_drag": 1020.7809749027432,
+    "z_star": 1091.8779673070737,
+    "r_d_lcdm": 151.0988854904803,
+    "r_d_octh": 142.62404022254654,
+    "r_d_ratio": 0.9439119273419941
+  },
+  "cmb_analysis": {
+    "lcdm": {
+      "model": "LCDM",
+      "z_star": 1091.8779673070737,
+      "r_d": 151.0988854904803,
+      "D_C_star": 13866.326910388874,
+      "theta_s_predicted": 0.010896821232252545,
+      "theta_s_observed": 0.010411,
+      "theta_s_error": 3.1e-06,
+      "tension_sigma": 156.71652653307885,
+      "theta_s_predicted_arcmin": 37.46051200299695,
+      "theta_s_observed_arcmin": 35.790381630642
+    },
+    "octh": {
+      "model": "OCTH",
+      "z_star": 1091.8779673070737,
+      "r_d": 142.62404022254654,
+      "D_C_star": 13832.20936927857,
+      "theta_s_predicted": 0.010311009356127554,
+      "theta_s_observed": 0.010411,
+      "theta_s_error": 3.1e-06,
+      "tension_sigma": -32.2550464104665,
+      "theta_s_predicted_arcmin": 35.44663911756079,
+      "theta_s_observed_arcmin": 35.790381630642
+    }
+  },
+  "bao_isotropic": {
+    "lcdm": {
+      "model": "LCDM",
+      "r_d_used": 151.0988854904803,
+      "measurements": [
+        {
+          "name": "6dFGS",
+          "z": 0.106,
+          "observed": 2.976,
+          "predicted": 3.0136201496553783,
+          "error": 0.133,
+          "tension_sigma": 0.2828582680855511,
+          "ref": "Beutler+2011"
+        },
+        {
+          "name": "SDSS MGS",
+          "z": 0.15,
+          "observed": 4.466,
+          "predicted": 4.200341118130176,
+          "error": 0.168,
+          "tension_sigma": -1.5813028682727646,
+          "ref": "Ross+2015"
+        },
+        {
+          "name": "BOSS DR12 lowz",
+          "z": 0.32,
+          "observed": 8.467,
+          "predicted": 8.424748233381305,
+          "error": 0.167,
+          "tension_sigma": -0.2530045905311131,
+          "ref": "Alam+2017"
+        },
+        {
+          "name": "BOSS DR12 CMASS",
+          "z": 0.57,
+          "observed": 13.773,
+          "predicted": 13.635242811408125,
+          "error": 0.134,
+          "tension_sigma": -1.028038720834889,
+          "ref": "Alam+2017"
+        }
+      ],
+      "chi2": 3.70140249539768,
+      "n_points": 4,
+      "chi2_reduced": 0.92535062384942
+    },
+    "octh": {
+      "model": "OCTH",
+      "r_d_used": 142.62404022254654,
+      "measurements": [
+        {
+          "name": "6dFGS",
+          "z": 0.106,
+          "observed": 2.976,
+          "predicted": 3.192692095905147,
+          "error": 0.133,
+          "tension_sigma": 1.6292638789860678,
+          "ref": "Beutler+2011"
+        },
+        {
+          "name": "SDSS MGS",
+          "z": 0.15,
+          "observed": 4.466,
+          "predicted": 4.449929062723165,
+          "error": 0.168,
+          "tension_sigma": -0.09566034093354071,
+          "ref": "Ross+2015"
+        },
+        {
+          "name": "BOSS DR12 lowz",
+          "z": 0.32,
+          "observed": 8.467,
+          "predicted": 8.925354145174275,
+          "error": 0.167,
+          "tension_sigma": 2.744635599845954,
+          "ref": "Alam+2017"
+        },
+        {
+          "name": "BOSS DR12 CMASS",
+          "z": 0.57,
+          "observed": 13.773,
+          "predicted": 14.445460870278698,
+          "error": 0.134,
+          "tension_sigma": 5.018364703572373,
+          "ref": "Alam+2017"
+        }
+      ],
+      "chi2": 35.38066056219904,
+      "n_points": 4,
+      "chi2_reduced": 8.84516514054976
+    }
+  },
+  "desi_y1": {
+    "lcdm": {
+      "model": "LCDM",
+      "r_d_used": 151.0988854904803,
+      "measurements": [
+        {
+          "name": "DESI BGS",
+          "z": 0.295,
+          "observed": 7.93,
+          "predicted": 7.839280332787862,
+          "error": 0.15,
+          "tension_sigma": -0.6047977814142532,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI LRG1",
+          "z": 0.51,
+          "observed": 13.62,
+          "predicted": 12.48733392911209,
+          "error": 0.25,
+          "tension_sigma": -4.530664283551637,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI LRG2",
+          "z": 0.706,
+          "observed": 16.85,
+          "predicted": 16.01839579956248,
+          "error": 0.32,
+          "tension_sigma": -2.598763126367254,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI LRG3+ELG1",
+          "z": 0.93,
+          "observed": 21.71,
+          "predicted": 19.35719648176125,
+          "error": 0.28,
+          "tension_sigma": -8.402869707995539,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI ELG2",
+          "z": 1.317,
+          "observed": 27.79,
+          "predicted": 23.77226100932281,
+          "error": 0.69,
+          "tension_sigma": -5.822810131416214,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI QSO",
+          "z": 1.491,
+          "observed": 26.07,
+          "predicted": 25.33161209217965,
+          "error": 0.67,
+          "tension_sigma": -1.1020715042094773,
+          "ref": "DESI+2024"
+        }
+      ],
+      "chi2": 133.37416775008305,
+      "n_points": 6,
+      "chi2_reduced": 22.229027958347174
+    },
+    "octh": {
+      "model": "OCTH",
+      "r_d_used": 142.62404022254654,
+      "measurements": [
+        {
+          "name": "DESI BGS",
+          "z": 0.295,
+          "observed": 7.93,
+          "predicted": 8.305097229635459,
+          "error": 0.15,
+          "tension_sigma": 2.500648197569729,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI LRG1",
+          "z": 0.51,
+          "observed": 13.62,
+          "predicted": 13.229342237761271,
+          "error": 0.25,
+          "tension_sigma": -1.5626310489549127,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI LRG2",
+          "z": 0.706,
+          "observed": 16.85,
+          "predicted": 16.970222894279377,
+          "error": 0.32,
+          "tension_sigma": 0.3756965446230498,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI LRG3+ELG1",
+          "z": 0.93,
+          "observed": 21.71,
+          "predicted": 20.507418034508884,
+          "error": 0.28,
+          "tension_sigma": -4.294935591039702,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI ELG2",
+          "z": 1.317,
+          "observed": 27.79,
+          "predicted": 25.184829559537654,
+          "error": 0.69,
+          "tension_sigma": -3.775609334003399,
+          "ref": "DESI+2024"
+        },
+        {
+          "name": "DESI QSO",
+          "z": 1.491,
+          "observed": 26.07,
+          "predicted": 26.83683864819054,
+          "error": 0.67,
+          "tension_sigma": 1.1445352958067752,
+          "ref": "DESI+2024"
+        }
+      ],
+      "chi2": 42.84786371434901,
+      "n_points": 6,
+      "chi2_reduced": 7.141310619058168
+    }
+  },
+  "bao_anisotropic": {
+    "lcdm": {
+      "model": "LCDM",
+      "r_d_used": 151.0988854904803,
+      "measurements": [
+        {
+          "name": "BOSS DR12 z=0.38",
+          "z": 0.38,
+          "DM_rd_obs": 10.27,
+          "DM_rd_pred": 10.143108434007116,
+          "DM_err": 0.15,
+          "DM_tension": -0.8459437732858888,
+          "DH_rd_obs": 25.0,
+          "DH_rd_pred": 23.93132478584244,
+          "DH_err": 0.76,
+          "DH_tension": -1.406151597575739
+        },
+        {
+          "name": "BOSS DR12 z=0.51",
+          "z": 0.51,
+          "DM_rd_obs": 13.38,
+          "DM_rd_pred": 13.135827167456418,
+          "DM_err": 0.18,
+          "DM_tension": -1.3565157363532403,
+          "DH_rd_obs": 22.33,
+          "DH_rd_pred": 22.127082197760792,
+          "DH_err": 0.58,
+          "DH_tension": -0.34985827972276895
+        },
+        {
+          "name": "BOSS DR12 z=0.61",
+          "z": 0.61,
+          "DM_rd_obs": 15.45,
+          "DM_rd_pred": 15.282325126433285,
+          "DM_err": 0.2,
+          "DM_tension": -0.8383743678335698,
+          "DH_rd_obs": 20.75,
+          "DH_rd_pred": 20.81493399338456,
+          "DH_err": 0.6,
+          "DH_tension": 0.1082233223076005
+        },
+        {
+          "name": "eBOSS DR16 LRG",
+          "z": 0.7,
+          "DM_rd_obs": 17.65,
+          "DM_rd_pred": 17.104954331964823,
+          "DM_err": 0.3,
+          "DM_tension": -1.8168188934505856,
+          "DH_rd_obs": 19.78,
+          "DH_rd_pred": 19.698465602721722,
+          "DH_err": 0.46,
+          "DH_tension": -0.17724868973538946
+        },
+        {
+          "name": "eBOSS DR16 QSO",
+          "z": 1.48,
+          "DM_rd_obs": 30.21,
+          "DM_rd_pred": 29.40952466777155,
+          "DM_err": 0.79,
+          "DM_tension": -1.0132599142132297,
+          "DH_rd_obs": 13.23,
+          "DH_rd_pred": 12.560352823423882,
+          "DH_err": 0.47,
+          "DH_tension": -1.424781226757699
+        },
+        {
+          "name": "eBOSS DR16 Lya",
+          "z": 2.33,
+          "DM_rd_obs": 37.41,
+          "DM_rd_pred": 38.127222408533214,
+          "DM_err": 1.86,
+          "DM_tension": 0.3856034454479664,
+          "DH_rd_obs": 8.93,
+          "DH_rd_pred": 8.384327574985754,
+          "DH_err": 0.28,
+          "DH_tension": -1.9488300893365917
+        }
+      ],
+      "chi2": 15.70557673165166,
+      "n_points": 12,
+      "chi2_reduced": 1.3087980609709717
+    },
+    "octh": {
+      "model": "OCTH",
+      "r_d_used": 142.62404022254654,
+      "measurements": [
+        {
+          "name": "BOSS DR12 z=0.38",
+          "z": 0.38,
+          "DM_rd_obs": 10.27,
+          "DM_rd_pred": 10.745820812509036,
+          "DM_err": 0.15,
+          "DM_tension": 3.1721387500602445,
+          "DH_rd_obs": 25.0,
+          "DH_rd_pred": 25.35334504484097,
+          "DH_err": 0.76,
+          "DH_tension": 0.46492769058022493
+        },
+        {
+          "name": "BOSS DR12 z=0.51",
+          "z": 0.51,
+          "DM_rd_obs": 13.38,
+          "DM_rd_pred": 13.916369511768126,
+          "DM_err": 0.18,
+          "DM_tension": 2.9798306209340297,
+          "DH_rd_obs": 22.33,
+          "DH_rd_pred": 23.441892783439535,
+          "DH_err": 0.58,
+          "DH_tension": 1.9170565231716148
+        },
+        {
+          "name": "BOSS DR12 z=0.61",
+          "z": 0.61,
+          "DM_rd_obs": 15.45,
+          "DM_rd_pred": 16.19041425768133,
+          "DM_err": 0.2,
+          "DM_tension": 3.70207128840665,
+          "DH_rd_obs": 20.75,
+          "DH_rd_pred": 22.051775584612336,
+          "DH_err": 0.6,
+          "DH_tension": 2.1696259743538944
+        },
+        {
+          "name": "eBOSS DR16 LRG",
+          "z": 0.7,
+          "DM_rd_obs": 17.65,
+          "DM_rd_pred": 18.121345685430068,
+          "DM_err": 0.3,
+          "DM_tension": 1.5711522847668984,
+          "DH_rd_obs": 19.78,
+          "DH_rd_pred": 20.868965665251796,
+          "DH_err": 0.46,
+          "DH_tension": 2.3673166635908585
+        },
+        {
+          "name": "eBOSS DR16 QSO",
+          "z": 1.48,
+          "DM_rd_obs": 30.21,
+          "DM_rd_pred": 31.157064357251222,
+          "DM_err": 0.79,
+          "DM_tension": 1.198815642090154,
+          "DH_rd_obs": 13.23,
+          "DH_rd_pred": 13.306699978665561,
+          "DH_err": 0.47,
+          "DH_tension": 0.163191443969278
+        },
+        {
+          "name": "eBOSS DR16 Lya",
+          "z": 2.33,
+          "DM_rd_obs": 37.41,
+          "DM_rd_pred": 40.39277532586907,
+          "DM_err": 1.86,
+          "DM_tension": 1.6036426483167046,
+          "DH_rd_obs": 8.93,
+          "DH_rd_pred": 8.882531655888252,
+          "DH_err": 0.28,
+          "DH_tension": -0.1695298003990978
+        }
+      ],
+      "chi2": 53.38263511810049,
+      "n_points": 12,
+      "chi2_reduced": 4.448552926508374
+    }
+  },
+  "total_chi2": {
+    "lcdm": 152.78114697713238,
+    "octh": 131.61115939464855,
+    "dof": 22,
+    "delta_chi2": -21.169987582483827
+  }
+}
