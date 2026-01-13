@@ -1,0 +1,43 @@
+{
+  "fundamental_parameters": {
+    "a_0": 1.2e-10,
+    "a_0_unit": "m/s^2",
+    "a_H": 6.547802981205444e-10,
+    "a_H_unit": "m/s^2",
+    "ratio": 0.1832675789794581,
+    "sqrt_ratio": 0.4280976278601157
+  },
+  "geometric_factors": {
+    "f": 0.6420127083438707,
+    "f_source": "Klein-Gordon Green function integral",
+    "k": 0.13136520329863757,
+    "k_source": "Halo response + matter fraction"
+  },
+  "derived_parameters": {
+    "epsilon": {
+      "formula": "a_0 / a_H",
+      "derived": 0.1832675789794581,
+      "used": 0.18,
+      "difference_percent": 1.8153216552545106
+    },
+    "sigma": {
+      "formula": "f * sqrt(a_0/a_H)",
+      "derived": 0.27484411749805937,
+      "used": 0.6,
+      "difference_percent": 54.19264708365677
+    },
+    "alpha": {
+      "formula": "k * sqrt(a_0/a_H)",
+      "derived": 0.05623713191550859,
+      "used": 0.12,
+      "difference_percent": 53.13572340374285
+    }
+  },
+  "quantum_connection": {
+    "m_Psi_GeV": 1.2161024273990843e-08,
+    "M_Planck_GeV": 1.2213768614683728e+19,
+    "M_GUT_GeV": 2e+16,
+    "a_0_from_GUT": 2.0268716587677726e+30,
+    "GUT_connection_ratio": 5.920453792962572e-41
+  }
+}

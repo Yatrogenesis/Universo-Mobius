@@ -1,0 +1,41 @@
+{
+  "fundamental": {
+    "a_0": 1.2e-10,
+    "a_H": 6.547802981205444e-10,
+    "ratio": 0.1832675789794581,
+    "sqrt_ratio": 0.4280976278601157
+  },
+  "exact_derivations": {
+    "epsilon": {
+      "formula": "a_0 / a_H",
+      "value": 0.1832675789794581,
+      "status": "EXACT"
+    }
+  },
+  "scaling_derivations": {
+    "sigma": {
+      "formula": "f * sqrt(a_0/a_H)",
+      "f_value": 1.4015494619747222,
+      "f_constraint": "O(1) from potential V(Psi)",
+      "status": "SCALING DERIVED"
+    },
+    "alpha": {
+      "formula": "k * sqrt(a_0/a_H)",
+      "k_value": 0.2803098923949444,
+      "k_constraint": "O(1) from halo response",
+      "status": "SCALING DERIVED"
+    }
+  },
+  "theoretical_predictions": {
+    "f_range": [
+      1.0,
+      2.0
+    ],
+    "k_range": [
+      0.2,
+      0.4
+    ],
+    "f_empirical_in_range": true,
+    "k_empirical_in_range": true
+  }
+}
