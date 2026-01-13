@@ -1,0 +1,82 @@
+{
+  "summary": {
+    "r_s_standard_Mpc": 151.0988854904803,
+    "r_s_mobius_Mpc": 138.94821758167683,
+    "z_drag": 1020.7809749027432,
+    "chi2_isotropic": 1131.9135901471775,
+    "chi2_anisotropic": 87.49154691201707,
+    "dof": 6,
+    "tension_with_DESI_sigma": -13.211371792259989
+  },
+  "detailed_results": {
+    "Planck 2018 (CMB)": {
+      "r_d_observed": 147.09,
+      "r_d_predicted": 138.94821758167683,
+      "tension_sigma": -31.314547762781437
+    },
+    "SDSS DR12 (2017)": {
+      "r_d_observed": 147.78,
+      "r_d_predicted": 138.94821758167683,
+      "tension_sigma": -11.934841105842125
+    },
+    "BOSS DR14 (2018)": {
+      "r_d_observed": 147.33,
+      "r_d_predicted": 138.94821758167683,
+      "tension_sigma": -17.10567840474119
+    },
+    "eBOSS DR16 (2020)": {
+      "r_d_observed": 147.21,
+      "r_d_predicted": 138.94821758167683,
+      "tension_sigma": -17.212046704839956
+    },
+    "DESI 2024": {
+      "r_d_observed": 142.1,
+      "r_d_predicted": 138.94821758167683,
+      "tension_sigma": -1.5758912091615827
+    },
+    "6dFGS": {
+      "z": 0.15,
+      "DV_rd_observed": 4.47,
+      "DV_rd_predicted": 4.161286483405218,
+      "tension_sigma": -1.8159618623222473
+    },
+    "BOSS lowz": {
+      "z": 0.32,
+      "DV_rd_observed": 8.47,
+      "DV_rd_predicted": 7.613469133077348,
+      "tension_sigma": -5.0384168642509
+    },
+    "BOSS CMASS": {
+      "z": 0.51,
+      "DV_rd_observed": 13.38,
+      "DV_rd_predicted": 10.317157051935002,
+      "tension_sigma": -17.015794155916662
+    },
+    "eBOSS LRG": {
+      "z": 0.7,
+      "DV_rd_observed": 17.86,
+      "DV_rd_predicted": 12.153473699699475,
+      "tension_sigma": -17.292503940304616
+    },
+    "eBOSS QSO": {
+      "z": 1.48,
+      "DV_rd_observed": 30.21,
+      "DV_rd_predicted": 14.980294409811131,
+      "tension_sigma": -19.278108342011226
+    },
+    "eBOSS Lya": {
+      "z": 2.33,
+      "DV_rd_observed": 37.6,
+      "DV_rd_predicted": 14.877968107491942,
+      "tension_sigma": -11.95896415395161
+    }
+  },
+  "parameters": {
+    "epsilon": 0.18326757897945808,
+    "sigma": 0.6,
+    "z_topo": 1089,
+    "H_0": 67.4,
+    "Omega_m": 0.315,
+    "Omega_b": 0.0493
+  }
+}
