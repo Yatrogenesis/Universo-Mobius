@@ -1,0 +1,59 @@
+{
+  "analysis": "OCTH Action and Exact Boltzmann",
+  "date": "2026-01-12T18:23:27.416715",
+  "author": "Francisco Molina-Burgos",
+  "field_theory": {
+    "m2": 10.0,
+    "lambda": 0.1,
+    "g_rad": 0.035,
+    "omega": 1.0
+  },
+  "potential_modification": {
+    "alpha": 0.12,
+    "beta": 0.05,
+    "xi_1": 0.15,
+    "xi_2": 0.08
+  },
+  "psi_recombination": 0.8200000000000001,
+  "phi_ratio_crude": 1.4872099940511598,
+  "phi_ratio_exact": 1.518204785257839,
+  "peaks_standard": [
+    [
+      279,
+      9525.980417280356
+    ],
+    [
+      570,
+      8169.06044000308
+    ],
+    [
+      768,
+      5177.173138695989
+    ],
+    [
+      1179,
+      6574.636430357132
+    ]
+  ],
+  "peaks_octh": [
+    [
+      279,
+      9188.47702141027
+    ],
+    [
+      570,
+      7449.07753153885
+    ],
+    [
+      765,
+      4584.54284863292
+    ],
+    [
+      1179,
+      6073.986505598688
+    ]
+  ],
+  "ratio_standard": 1.1661047787861347,
+  "ratio_octh": 1.233505354523017,
+  "ratio_observed": 2.32
+}
