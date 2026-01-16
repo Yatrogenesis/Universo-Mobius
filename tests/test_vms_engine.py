@@ -293,7 +293,8 @@ class TestSpectralTools:
         """Should gate low-energy regions."""
         spectrum = np.array([1, 2, 10, 2, 1])
 
-        gated = spectral_gate(spectrum, threshold=5, attack_ratio=0)
+        # Use hold_bins=0 for pure hard gate (default hold_bins=2 would keep neighbors)
+        gated = spectral_gate(spectrum, threshold=5, attack_ratio=0, hold_bins=0)
 
         assert gated[2] == 10  # Above threshold preserved
         assert gated[0] == 0   # Below threshold gated

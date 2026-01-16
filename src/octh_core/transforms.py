@@ -93,17 +93,29 @@ class HexagonalTransform:
             return freq_masked[np.argmax(spec_masked)]
 
         # Score each peak by harmonic support
-        best_f0 = freq_masked[peaks[0]]
-        best_score = 0
+        # Prefer lower frequencies as fundamentals (they generate harmonics)
+        candidates = []
 
         for peak_idx in peaks:
             f0_candidate = freq_masked[peak_idx]
-            score = self._harmonic_score(spectrum, freqs, f0_candidate)
-            if score > best_score:
-                best_score = score
-                best_f0 = f0_candidate
+            harmonic_score = self._harmonic_score(spectrum, freqs, f0_candidate)
+            peak_amplitude = spec_masked[peak_idx]
+            candidates.append((f0_candidate, harmonic_score, peak_amplitude))
 
-        return best_f0
+        if not candidates:
+            return freq_masked[np.argmax(spec_masked)]
+
+        # Sort by: 1) harmonic score (desc), 2) frequency (asc - prefer lower)
+        # Among peaks with similar harmonic scores, prefer lower frequency
+        max_score = max(c[1] for c in candidates)
+        threshold = max_score * 0.7  # Within 70% of best score
+
+        good_candidates = [c for c in candidates if c[1] >= threshold]
+
+        # Among good candidates, pick the lowest frequency (fundamental)
+        good_candidates.sort(key=lambda x: x[0])  # Sort by frequency ascending
+
+        return good_candidates[0][0]
 
     def _harmonic_score(
         self,

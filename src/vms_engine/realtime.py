@@ -344,7 +344,14 @@ class StreamingCleaner:
             # Multi-channel
             output = np.zeros_like(audio)
             for ch in range(min(audio.shape[1], self.channels)):
-                output[:, ch] = self.processors[ch].process_chunk(audio[:, ch])
+                processed = self.processors[ch].process_chunk(audio[:, ch])
+                # Handle case where processor returns shorter array during warmup
+                if len(processed) == 0:
+                    continue  # Leave zeros
+                elif len(processed) < audio.shape[0]:
+                    output[:len(processed), ch] = processed
+                else:
+                    output[:, ch] = processed[:audio.shape[0]]
             return output
 
     def reset(self):
