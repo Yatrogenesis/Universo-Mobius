@@ -1,0 +1,45 @@
+# MP-GADGET parameter file for MÖBIUS cosmology
+# Author: Francisco Molina-Burgos
+# January 2026
+
+#  Relevant files
+InitCondFile = ICs/mobius_test
+OutputDir = output
+OutputList = 0.02,0.1,0.15,0.2,0.33333,0.5,1.0
+
+# CPU time limit (12 hours)
+TimeLimitCPU = 43000
+
+# Characteristics of run
+TimeMax = 1.00000
+
+# MÖBIUS Cosmological parameters
+# H0 = 73.1 km/s/Mpc corresponds to h = 0.731
+Omega0 = 0.3111      # Total matter density (at z=0)
+OmegaLambda = 0.6889 # Cosmological constant (at z=0)
+OmegaBaryon = 0.0464 # Baryon density (at z=0)
+HubbleParam = 0.731  # h = H0/100
+
+# Physics modules
+CoolingOn = 0
+StarformationOn = 0
+RadiationOn = 1
+BlackHoleOn = 0
+MetalReturnOn = 0
+DensityIndependentSphOn = 1
+HydroOn = 0
+WindOn = 0
+MassiveNuLinRespOn = 0
+
+# FOF halo finding
+SnapshotWithFOF = 1
+FOFHaloLinkingLength = 0.2
+FOFHaloMinLength = 32
+
+# Softening lengths (kpc/h)
+GravitySoftening = 20
+GravitySofteningGas = 20
+
+# Time stepping
+ErrTolIntAccuracy = 0.02
+MaxSizeTimestep = 0.1
