@@ -2,6 +2,7 @@
 
 ## Ontología Cíclica Topo-Holográfica
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18408178.svg)](https://doi.org/10.5281/zenodo.18408178)
 [![Status](https://img.shields.io/badge/Status-Veredicto_Honesto_Completo-brightgreen)]()
 [![Combined](https://img.shields.io/badge/Combined_Z--score-6.69σ-red)]()
 [![RawData](https://img.shields.io/badge/Raw_Data-100%25_OCTH-blue)]()
@@ -15,6 +16,8 @@
 [![Math](https://img.shields.io/badge/Formalización-✅_VERDE_(Métrica_Hexagonal)-success)]()
 [![O4](https://img.shields.io/badge/Predicciones_O4-✅_PUBLICADAS-blue)]()
 
+### Resultado Clave
+[![KeyResult](https://img.shields.io/badge/33_eventos_GWTC--3-100%25_favorecen_OCTH-red)]()
 ### Resultado Clave
 [![KeyResult](https://img.shields.io/badge/33_eventos_GWTC--3-100%25_favorecen_OCTH-red)]()
 
