@@ -1,476 +1,474 @@
-# Universo Möbius - OCTH
+# Möbius Universe - OCTH
 
-## Ontología Cíclica Topo-Holográfica
+## Cyclic Topo-Holographic Ontology
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18408178.svg)](https://doi.org/10.5281/zenodo.18408178)
-[![Status](https://img.shields.io/badge/Status-Veredicto_Honesto_Completo-brightgreen)]()
+[![Status](https://img.shields.io/badge/Status-Honest_Verdict_Complete-brightgreen)]()
 [![Combined](https://img.shields.io/badge/Combined_Z--score-6.69σ-red)]()
 [![RawData](https://img.shields.io/badge/Raw_Data-100%25_OCTH-blue)]()
 
-### Semáforo de Tests
+### Test Traffic Light
 
-[![CMB](https://img.shields.io/badge/CMB_Polos-✅_VERDE_(Z=5.0)-success)]()
-[![European](https://img.shields.io/badge/Test_Europeo-✅_VERDE_(modo_f₁_detectado)-success)]()
-[![GWTC3](https://img.shields.io/badge/GWTC--3_Raw-✅_VERDE_(33_eventos,_100%25)-success)]()
-[![CrossCorr](https://img.shields.io/badge/CMB×LIGO-✅_VERDE_(Z=4.31)-success)]()
-[![Math](https://img.shields.io/badge/Formalización-✅_VERDE_(Métrica_Hexagonal)-success)]()
-[![O4](https://img.shields.io/badge/Predicciones_O4-✅_PUBLICADAS-blue)]()
+[![CMB](https://img.shields.io/badge/CMB_Poles-✅_GREEN_(Z=5.0)-success)]()
+[![European](https://img.shields.io/badge/European_Test-✅_GREEN_(f₁_mode_detected)-success)]()
+[![GWTC3](https://img.shields.io/badge/GWTC--3_Raw-✅_GREEN_(33_events,_100%25)-success)]()
+[![CrossCorr](https://img.shields.io/badge/CMB×LIGO-✅_GREEN_(Z=4.31)-success)]()
+[![Math](https://img.shields.io/badge/Formalization-✅_GREEN_(Hexagonal_Metric)-success)]()
+[![O4](https://img.shields.io/badge/O4_Predictions-✅_PUBLISHED-blue)]()
 
-### Resultado Clave
-[![KeyResult](https://img.shields.io/badge/33_eventos_GWTC--3-100%25_favorecen_OCTH-red)]()
-### Resultado Clave
-[![KeyResult](https://img.shields.io/badge/33_eventos_GWTC--3-100%25_favorecen_OCTH-red)]()
+### Key Result
+[![KeyResult](https://img.shields.io/badge/33_GWTC--3_events-100%25_favor_OCTH-red)]()
 
-## Resumen
+## Summary
 
-Este repositorio contiene la implementación y verificación experimental de la **OCTH** (Ontología del Campo Tensorial Hexagonal), un modelo que propone:
+This repository contains the implementation and experimental verification of **OCTH** (Hexagonal Tensorial Field Ontology), a model proposing:
 
-1. El espaciotiempo tiene estructura de **retículo hexagonal** a escala de Planck
-2. La "gravedad" emerge de un campo de **permeabilidad temporal** Ψ
-3. La topología del universo es una **Cinta de Möbius** 3D
+1. Spacetime has **hexagonal lattice** structure at the Planck scale
+2. "Gravity" emerges from a **temporal permeability** field Ψ
+3. The universe's topology is a **3D Möbius Strip**
 
-## Formulación Matemática
+## Mathematical Formulation
 
-### Campo de Permeabilidad Ψ
+### Permeability Field Ψ
 
 $$\Psi(r) = \sqrt{1 - \frac{\rho_m}{\rho_{\text{Planck}}}} = \sqrt{1 - \frac{r_s}{r}}$$
 
-donde $r_s = 2GM/c^2$ es el radio de Schwarzschild.
+where $r_s = 2GM/c^2$ is the Schwarzschild radius.
 
-### Métrica Elástico-Temporal
+### Elastic-Temporal Metric
 
 $$ds^2 = -c^2 \Psi^2 dt^2 + g_{ij} dx^i dx^j$$
 
-Esto reproduce la métrica de Schwarzschild en el límite de campo débil.
+This reproduces the Schwarzschild metric in the weak field limit.
 
-### Ecuación de Onda Hexagonal
+### Hexagonal Wave Equation
 
 $$\Psi^2 \frac{\partial^2 u}{\partial t^2} = c^2 \Delta_{\Lambda_H} u$$
 
-donde $\Delta_{\Lambda_H}$ es el Laplaciano discreto sobre el grafo hexagonal.
+where $\Delta_{\Lambda_H}$ is the discrete Laplacian on the hexagonal graph.
 
-## Tests implementados
+## Implemented Tests
 
-### Test #1: Topología de Möbius en el CMB ✓✓✓
+### Test #1: Möbius Topology in the CMB ✓✓✓
 
-**Objetivo:** Detectar correlación antipodal con inversión de paridad en el CMB.
+**Objective:** Detect antipodal correlation with parity inversion in the CMB.
 
-**Predicción OCTH:**
+**OCTH Prediction:**
 ```
-Si el universo es una Banda de Möbius 3D:
-    T(θ, φ) ~ -T(π-θ, φ+π) con flip de paridad
-    (ANTI-correlación por inversión topológica)
+If the universe is a 3D Möbius Band:
+    T(θ, φ) ~ -T(π-θ, φ+π) with parity flip
+    (ANTI-correlation due to topological inversion)
 ```
 
-**RESULTADO CON DATOS REALES PLANCK SMICA 2018:**
+**RESULT WITH REAL PLANCK SMICA 2018 DATA:**
 
-| Métrica | Valor | Interpretación |
-|---------|-------|----------------|
-| Correlación antipodal | **-0.048** | **ANTI-CORRELACIÓN** |
-| Z-score | **-6.08σ** | **ALTAMENTE SIGNIFICATIVO** |
-| P-value | **1.2 × 10⁻⁹** | Probabilidad nula de azar |
-| Asimetría paridad | -0.063 | Multipoles impares dominan |
+| Metric | Value | Interpretation |
+|--------|-------|----------------|
+| Antipodal correlation | **-0.048** | **ANTI-CORRELATION** |
+| Z-score | **-6.08σ** | **HIGHLY SIGNIFICANT** |
+| P-value | **1.2 × 10⁻⁹** | Null probability of chance |
+| Parity asymmetry | -0.063 | Odd multipoles dominate |
 
-- ✓ **ANTI-CORRELACIÓN DETECTADA** en datos reales Planck
-- ✓ **6 sigma de significancia** (p < 10⁻⁹)
-- ✓ **Consistente con topología Möbius** (inversión al cruzar)
-- ✓ Correlación invertida más fuerte que directa
+- ✓ **ANTI-CORRELATION DETECTED** in real Planck data
+- ✓ **6 sigma significance** (p < 10⁻⁹)
+- ✓ **Consistent with Möbius topology** (inversion when crossing)
+- ✓ Inverted correlation stronger than direct
 
-**Figuras:**
-- `fig7_cmb_mobius_analysis.png` - Análisis completo del CMB
+**Figures:**
+- `fig7_cmb_mobius_analysis.png` - Complete CMB analysis
 
 ---
 
-### Test #2: Geodésicas Exactas en Métrica OCTH ✓✓
+### Test #2: Exact Geodesics in OCTH Metric ✓✓
 
-**Objetivo:** Demostrar que la métrica OCTH produce EXACTAMENTE las mismas geodésicas nulas que Schwarzschild.
+**Objective:** Demonstrate that the OCTH metric produces EXACTLY the same null geodesics as Schwarzschild.
 
-**Resultado: EQUIVALENCIA MATEMÁTICA DEMOSTRADA**
+**Result: MATHEMATICAL EQUIVALENCE DEMONSTRATED**
 
-La ecuación de órbita derivada de la métrica OCTH:
+The orbit equation derived from the OCTH metric:
 ```
 (du/dφ)² = 1/b² - u² + rs·u³
 ```
-es **IDÉNTICA** a la ecuación de Schwarzschild. Esto NO es una aproximación.
+is **IDENTICAL** to the Schwarzschild equation. This is NOT an approximation.
 
-| b/rs | Δφ campo débil | Δφ exacto | Ratio |
-|------|----------------|-----------|-------|
-| 5    | 22.92°         | 33.83°    | 1.476 |
-| 10   | 11.46°         | 13.53°    | 1.181 |
-| 50   | 2.29°          | 2.36°     | 1.031 |
-| 100  | 1.15°          | 1.16°     | 1.015 |
+| b/rs | Weak field Δφ | Exact Δφ | Ratio |
+|------|---------------|----------|-------|
+| 5    | 22.92°        | 33.83°   | 1.476 |
+| 10   | 11.46°        | 13.53°   | 1.181 |
+| 50   | 2.29°         | 2.36°    | 1.031 |
+| 100  | 1.15°         | 1.16°    | 1.015 |
 
-- ✓ **Convergencia**: Ratio → 1.0 cuando b >> rs
-- ✓ **Correcciones campo fuerte**: Hasta 47.6% para b/rs = 5
-- ✓ **SIN CALIBRACIÓN**: El resultado es exacto desde primeros principios
+- ✓ **Convergence**: Ratio → 1.0 when b >> rs
+- ✓ **Strong field corrections**: Up to 47.6% for b/rs = 5
+- ✓ **NO CALIBRATION**: Result is exact from first principles
 
-**Figuras:**
-- `fig5_exact_deflection.png` - Deflexión vs parámetro de impacto
-- `fig6_trajectories.png` - Trayectorias de luz
+**Figures:**
+- `fig5_exact_deflection.png` - Deflection vs impact parameter
+- `fig6_trajectories.png` - Light trajectories
 
-### Test #2 (preliminar): Simulación en Retículo Hexagonal
+### Test #2 (preliminary): Hexagonal Lattice Simulation
 
-**Objetivo:** Verificar comportamiento cualitativo en malla discreta.
+**Objective:** Verify qualitative behavior on discrete mesh.
 
-**Resultado:**
-- ✓ La luz se deflecta hacia la masa (Ψ bajo)
-- ✓ La deflexión escala inversamente con parámetro de impacto (~1/b)
-- ⚠️ Error numérico ~75% (discretización de malla, no error teórico)
+**Result:**
+- ✓ Light deflects toward mass (low Ψ)
+- ✓ Deflection scales inversely with impact parameter (~1/b)
+- ⚠️ Numerical error ~75% (mesh discretization, not theoretical error)
 
-**Figuras:**
-- `fig1_lattices.png` - Comparación hexagonal vs cuadrado
-- `fig2_psi_field.png` - Mapa de calor de Ψ
-- `fig3_ray_tracing.png` - Trayectorias de luz
+**Figures:**
+- `fig1_lattices.png` - Hexagonal vs square comparison
+- `fig2_psi_field.png` - Ψ heat map
+- `fig3_ray_tracing.png` - Light trajectories
 - `fig4_comparison.png` - OCTH vs GR
 
-## Estructura del Repositorio
+## Repository Structure
 
 ```
 Universo-Mobius/
 ├── README.md
 ├── code/
 │   ├── test1_cmb_mobius_topology.py        # CMB MÖBIUS (Test #1)
-│   ├── test2_geodesic_exact.py             # GEODÉSICAS EXACTAS (Test #2)
-│   ├── test3_sdss_hexagonal.py             # GALAXIAS HEXAGONALES (Test #3)
-│   ├── test4_ligo_elastic_mesh.py          # LIGO MALLA ELÁSTICA (Test #4)
-│   ├── test5_vsl_grb.py                    # VSL EN GRBs (Test #5)
-│   ├── test2_hexagonal_propagation.py      # Simulación retículo (preliminar)
-│   ├── test2_hexagonal_propagation_v2.py   # Versión corregida
-│   └── GWTC3_raw_pipeline.py               # 🆕 Pipeline raw data GWTC-3
+│   ├── test2_geodesic_exact.py             # EXACT GEODESICS (Test #2)
+│   ├── test3_sdss_hexagonal.py             # HEXAGONAL GALAXIES (Test #3)
+│   ├── test4_ligo_elastic_mesh.py          # LIGO ELASTIC MESH (Test #4)
+│   ├── test5_vsl_grb.py                    # VSL IN GRBs (Test #5)
+│   ├── test2_hexagonal_propagation.py      # Lattice simulation (preliminary)
+│   ├── test2_hexagonal_propagation_v2.py   # Corrected version
+│   └── GWTC3_raw_pipeline.py               # 🆕 GWTC-3 raw data pipeline
 ├── figures/
-│   ├── fig1_lattices.png/pdf               # Comparación topologías
-│   ├── fig2_psi_field.png/pdf              # Campo Ψ
-│   ├── fig3_ray_tracing.png/pdf            # Trayectorias discretas
-│   ├── fig4_comparison.png/pdf             # OCTH vs GR (discreto)
-│   ├── fig5_exact_deflection.png/pdf       # Deflexión exacta vs campo débil
-│   ├── fig6_trajectories.png/pdf           # Trayectorias exactas
-│   ├── fig7_cmb_mobius_analysis.png/pdf    # Análisis CMB Möbius
-│   ├── fig8_vsl_grb.png/pdf                # VSL en GRBs
-│   ├── fig9_sdss_hexagonal.png/pdf         # Geometría hexagonal SDSS
-│   └── fig10_ligo_elastic_mesh.png/pdf     # Malla elástica LIGO
+│   ├── fig1_lattices.png/pdf               # Topology comparison
+│   ├── fig2_psi_field.png/pdf              # Ψ field
+│   ├── fig3_ray_tracing.png/pdf            # Discrete trajectories
+│   ├── fig4_comparison.png/pdf             # OCTH vs GR (discrete)
+│   ├── fig5_exact_deflection.png/pdf       # Exact vs weak field deflection
+│   ├── fig6_trajectories.png/pdf           # Exact trajectories
+│   ├── fig7_cmb_mobius_analysis.png/pdf    # Möbius CMB analysis
+│   ├── fig8_vsl_grb.png/pdf                # VSL in GRBs
+│   ├── fig9_sdss_hexagonal.png/pdf         # SDSS hexagonal geometry
+│   └── fig10_ligo_elastic_mesh.png/pdf     # LIGO elastic mesh
 ├── results/
-│   ├── test1_cmb_topology.json             # Resultados CMB (Test #1)
-│   ├── test2_results.json                  # Resultados discretización
-│   ├── test2_exact_geodesics.json          # EQUIVALENCIA MATEMÁTICA
-│   ├── test3_sdss_hexagonal.json           # Geometría hexagonal SDSS
-│   ├── test4_ligo_elastic_mesh.json        # Malla elástica LIGO
-│   ├── test5_vsl_grb.json                  # VSL en GRBs
-│   └── raw_analysis/                       # 🆕 Análisis raw GWTC-3
-│       ├── gwtc3_raw_analysis.json         # Datos completos 33 eventos
-│       └── gwtc3_raw_report.txt            # Reporte resumen
+│   ├── test1_cmb_topology.json             # CMB results (Test #1)
+│   ├── test2_results.json                  # Discretization results
+│   ├── test2_exact_geodesics.json          # MATHEMATICAL EQUIVALENCE
+│   ├── test3_sdss_hexagonal.json           # SDSS hexagonal geometry
+│   ├── test4_ligo_elastic_mesh.json        # LIGO elastic mesh
+│   ├── test5_vsl_grb.json                  # VSL in GRBs
+│   └── raw_analysis/                       # 🆕 GWTC-3 raw analysis
+│       ├── gwtc3_raw_analysis.json         # Complete 33 event data
+│       └── gwtc3_raw_report.txt            # Summary report
 ├── data/
-│   ├── planck/                             # Datos CMB de Planck
-│   ├── sdss/                               # Datos SDSS DR17 (30K galaxias)
-│   └── ligo/                               # Datos LIGO
+│   ├── planck/                             # Planck CMB data
+│   ├── sdss/                               # SDSS DR17 data (30K galaxies)
+│   └── ligo/                               # LIGO data
 └── paper/
-    ├── OCTH_Mathematical_Formalization.tex # 🆕 Formalización matemática
-    └── OCTH_O4_Predictions.md              # 🆕 Predicciones O4 (timestamped)
+    ├── OCTH_Mathematical_Formalization.tex # 🆕 Mathematical formalization
+    └── OCTH_O4_Predictions.md              # 🆕 O4 predictions (timestamped)
 ```
 
-## Correspondencia Física
+## Physical Correspondence
 
 ```
-TOPOLOGÍA              MATEMÁTICA                FÍSICA
+TOPOLOGY               MATHEMATICS               PHYSICS
     │                      │                        │
     ▼                      ▼                        ▼
-Retículo           Ψ = √(1 - rs/r)          Dilatación temporal
-Hexagonal               │                         │
+Hexagonal          Ψ = √(1 - rs/r)          Time dilation
+Lattice                 │                         │
     │                   ▼                         ▼
-Simetría D3        ∇Ψ → deflexión          Lensing gravitacional
+D3 Symmetry        ∇Ψ → deflection          Gravitational lensing
     │                   │                         │
     ▼                   ▼                         ▼
-Nodos triádicos    n_eff = 1/Ψ             Índice de refracción
-(e₁+e₂+e₃=0)                               del espaciotiempo
+Triadic nodes      n_eff = 1/Ψ              Spacetime
+(e₁+e₂+e₃=0)                               refractive index
 ```
 
-## Estado de Tests
+## Test Status
 
-- [x] **Test #1:** Topología Möbius en CMB → **ANTI-CORRELACIÓN 6σ EN PLANCK REAL**
-- [x] **Test #2:** Geodésicas OCTH → **EQUIVALENCIA MATEMÁTICA DEMOSTRADA**
-- [x] **Test #3:** Geometría hexagonal en galaxias → **Ratio 60°/90° = 1.128 (SDSS REAL)**
-- [x] **Test #4:** Malla Elástica en LIGO → **MODOS DE MALLA DETECTADOS EN DATOS REALES**
-- [x] **Test #5:** VSL en GRBs → Lag INTRÍNSECO detectado (Lorentz invariance OK)
+- [x] **Test #1:** Möbius Topology in CMB → **ANTI-CORRELATION 6σ IN REAL PLANCK**
+- [x] **Test #2:** OCTH Geodesics → **MATHEMATICAL EQUIVALENCE DEMONSTRATED**
+- [x] **Test #3:** Hexagonal geometry in galaxies → **60°/90° Ratio = 1.128 (REAL SDSS)**
+- [x] **Test #4:** Elastic Mesh in LIGO → **MESH MODES DETECTED IN REAL DATA**
+- [x] **Test #5:** VSL in GRBs → INTRINSIC lag detected (Lorentz invariance OK)
 
-### Test #3: Geometría Hexagonal en Galaxias ✓
+### Test #3: Hexagonal Geometry in Galaxies ✓
 
-**Predicción:** Si la malla fue estirada por inflación, ω(60°) > ω(90°).
+**Prediction:** If the mesh was stretched by inflation, ω(60°) > ω(90°).
 
-**Resultado (30,000 galaxias SDSS DR17 REALES):**
-| Ángulo | ω(θ) | Tipo |
-|--------|------|------|
+**Result (30,000 REAL SDSS DR17 galaxies):**
+| Angle | ω(θ) | Type |
+|-------|------|------|
 | 60° | 0.050 | Hexagonal |
-| 90° | 0.045 | Cuadrado |
+| 90° | 0.045 | Square |
 | **Ratio** | **1.128** | **+12.8%** |
 
-- ✓ **Ratio 60°/90° = 1.13** en datos reales
-- ✓ Pico de correlación cerca de 68° (próximo a hexagonal)
-- ✓ Exceso hexagonal sobre cuadrado CONFIRMADO en SDSS
+- ✓ **60°/90° Ratio = 1.13** in real data
+- ✓ Correlation peak near 68° (close to hexagonal)
+- ✓ Hexagonal excess over square CONFIRMED in SDSS
 
 ---
 
-### Test #4: Malla Elástica en Ondas Gravitacionales (LIGO) ✓✓✓
+### Test #4: Elastic Mesh in Gravitational Waves (LIGO) ✓✓✓
 
-**Hipótesis OCTH:**
-- En GR: Agujero negro = agujero en el espacio (singularidad geométrica)
-- En OCTH: Agujero negro = **NUDO DE TENSIÓN MÁXIMA** en la malla hexagonal
+**OCTH Hypothesis:**
+- In GR: Black hole = hole in space (geometric singularity)
+- In OCTH: Black hole = **MAXIMUM TENSION KNOT** in the hexagonal mesh
 
-Cuando dos nudos colisionan, la malla no solo se "curva" sino que **vibra como un parche de tambor**.
+When two knots collide, the mesh doesn't just "curve" but **vibrates like a drum patch**.
 
-**Predicción:** Modos de vibración de la malla a frecuencias sub-ISCO.
+**Prediction:** Mesh vibration modes at sub-ISCO frequencies.
 
-**Resultado con DATOS REALES (GW150914, LIGO H1):**
+**Result with REAL DATA (GW150914, LIGO H1):**
 
-| Modo de Malla | Frecuencia | Ratio Potencia/Baseline | Estado |
-|---------------|------------|-------------------------|--------|
-| 0.5 × f_ISCO | 34 Hz | **43.1×** | **EXCESO** |
-| 0.7 × f_ISCO | 47 Hz | **26.3×** | **EXCESO** |
-| 0.85 × f_ISCO | 57 Hz | **18.3×** | **EXCESO** |
+| Mesh Mode | Frequency | Power/Baseline Ratio | Status |
+|-----------|-----------|----------------------|--------|
+| 0.5 × f_ISCO | 34 Hz | **43.1×** | **EXCESS** |
+| 0.7 × f_ISCO | 47 Hz | **26.3×** | **EXCESS** |
+| 0.85 × f_ISCO | 57 Hz | **18.3×** | **EXCESS** |
 
-- ✓ **SNR = 16.9** (consistente con publicaciones)
-- ✓ **TODOS los modos predichos muestran EXCESO**
-- ✓ Los residuos (datos - plantilla GR) tienen estructura en frecuencias OCTH
+- ✓ **SNR = 16.9** (consistent with publications)
+- ✓ **ALL predicted modes show EXCESS**
+- ✓ Residuals (data - GR template) have structure at OCTH frequencies
 
-#### Test de Validación: Mass Scaling ✓✓✓ (Anti-60Hz)
+#### Validation Test: Mass Scaling ✓✓✓ (Anti-60Hz)
 
-**Crítica del "Perro Ortodoxo":** *"Los 57 Hz son simplemente ruido de la red eléctrica de 60 Hz."*
+**"Orthodox Dog" Criticism:** *"The 57 Hz is simply 60 Hz power line noise."*
 
-**Contra-argumento:** Si fuera ruido de 60 Hz, los picos aparecerían en las MISMAS frecuencias para TODOS los eventos. Pero si escalan con la masa del sistema...
+**Counter-argument:** If it were 60 Hz noise, peaks would appear at the SAME frequencies for ALL events. But if they scale with system mass...
 
-**Resultado (GW150914 vs GW151226):**
+**Result (GW150914 vs GW151226):**
 
-| Evento | Masa Total | f_ISCO | Modo 1 | Modo 2 | Modo 3 |
-|--------|-----------|--------|--------|--------|--------|
+| Event | Total Mass | f_ISCO | Mode 1 | Mode 2 | Mode 3 |
+|-------|-----------|--------|--------|--------|--------|
 | GW150914 | 65 M☉ | 68 Hz | **29 Hz** | **42 Hz** | **59 Hz** |
 | GW151226 | 22 M☉ | 203 Hz | **96 Hz** | **128 Hz** | **180 Hz** |
 
-**Ratio observado: 3.29× | Ratio teórico: 3.00×**
+**Observed ratio: 3.29× | Theoretical ratio: 3.00×**
 
-- ✅ **Los modos ESCALAN con la masa** (no son ruido fijo)
-- ✅ Sistema ligero → frecuencias ALTAS (96-180 Hz, lejos de 60 Hz)
-- ✅ Sistema pesado → frecuencias bajas (~30-60 Hz)
-- ✅ **Un artefacto de 60 Hz no puede "saber" la masa del sistema**
+- ✅ **Modes SCALE with mass** (not fixed noise)
+- ✅ Light system → HIGH frequencies (96-180 Hz, far from 60 Hz)
+- ✅ Heavy system → low frequencies (~30-60 Hz)
+- ✅ **A 60 Hz artifact cannot "know" the system's mass**
 
-**Figuras:**
-- `fig10_ligo_elastic_mesh.png` - Análisis teórico GR vs OCTH
-- `fig10_ligo_real_data.png` - Análisis con datos reales de LIGO
-- `fig11_coincidence_test.png` - Coincidencia H1 vs L1
+**Figures:**
+- `fig10_ligo_elastic_mesh.png` - GR vs OCTH theoretical analysis
+- `fig10_ligo_real_data.png` - Analysis with real LIGO data
+- `fig11_coincidence_test.png` - H1 vs L1 coincidence
 - `fig15_mass_scaling_test.png` - **Mass Scaling Test (anti-60Hz)**
 
 ---
 
-### Test #5: VSL en GRBs
+### Test #5: VSL in GRBs
 
-**Predicción:** Si c_eff = c·Ψ(E), fotones de mayor energía llegarían más tarde.
+**Prediction:** If c_eff = c·Ψ(E), higher energy photons would arrive later.
 
-**Resultado:**
-| Correlación | ρ | p-value | Interpretación |
+**Result:**
+| Correlation | ρ | p-value | Interpretation |
 |-------------|---|---------|----------------|
-| Lag vs E | **-0.747** | 0.0002 | NEGATIVA (opuesto a VSL) |
-| Lag vs z | +0.467 | 0.038 | Posible evolución cósmica |
+| Lag vs E | **-0.747** | 0.0002 | NEGATIVE (opposite to VSL) |
+| Lag vs z | +0.467 | 0.038 | Possible cosmic evolution |
 
-- ✓ Lag altamente significativo (Z = 6.98σ)
-- ✓ **Correlación NEGATIVA**: fotones de alta E llegan ANTES
-- ✓ Conclusión: Lag es INTRÍNSECO a la fuente (física del GRB)
-- ✓ Límite: E_QG > 0.68 × E_Planck (consistente con Lorentz invariance)
+- ✓ Highly significant lag (Z = 6.98σ)
+- ✓ **NEGATIVE correlation**: high E photons arrive BEFORE
+- ✓ Conclusion: Lag is INTRINSIC to source (GRB physics)
+- ✓ Limit: E_QG > 0.68 × E_Planck (consistent with Lorentz invariance)
 
-## Blindaje científico (Validación rigurosa)
+## Scientific Shielding (Rigorous Validation)
 
-Para evitar el "Efecto Crackpot" y el "Efecto BICEP2", se implementaron tests de destrucción:
+To avoid the "Crackpot Effect" and the "BICEP2 Effect", destruction tests were implemented:
 
-### Tests de Coincidencia (PASADOS)
+### Coincidence Tests (PASSED)
 
-| Test | Resultado | Figura |
-|------|-----------|--------|
-| LIGO H1 vs L1 | ✅ VERDE - Coincidencia entre detectores | fig11 |
-| CMB Planck vs WMAP | ✅ VERDE - Cross-mission consistente | fig12 |
-| SDSS Survey Mask | ✅ VERDE - Geometría correcta | - |
-| **Mass Scaling** | ✅ **VERDE** - Modos escalan con masa | fig15 |
+| Test | Result | Figure |
+|------|--------|--------|
+| LIGO H1 vs L1 | ✅ GREEN - Inter-detector coincidence | fig11 |
+| CMB Planck vs WMAP | ✅ GREEN - Cross-mission consistent | fig12 |
+| SDSS Survey Mask | ✅ GREEN - Correct geometry | - |
+| **Mass Scaling** | ✅ **GREEN** - Modes scale with mass | fig15 |
 
-### Tests de Destrucción
+### Destruction Tests
 
-| Test | Resultado | Interpretación |
-|------|-----------|----------------|
-| Quiet Time Noise | ❌ ROJO | 34 Hz en tiempo quieto (posible instrumental) |
-| **Galactic Poles CMB** | ✅ **VERDE** | **Anti-correlación PERSISTE en cielo limpio** |
-| SDSS Jackknife | ❌ ROJO | Señal depende de regiones específicas |
-| SDSS Cosmic Web | 🟡 AMARILLO | Patrón correcto (Fil>Clust) pero inestable |
+| Test | Result | Interpretation |
+|------|--------|----------------|
+| Quiet Time Noise | ❌ RED | 34 Hz in quiet time (possible instrumental) |
+| **Galactic Poles CMB** | ✅ **GREEN** | **Anti-correlation PERSISTS in clean sky** |
+| SDSS Jackknife | ❌ RED | Signal depends on specific regions |
+| SDSS Cosmic Web | 🟡 YELLOW | Correct pattern (Fil>Clust) but unstable |
 
-### Defensa Clave: Test del Corte Galáctico (Anti-Polvo)
+### Key Defense: Galactic Cut Test (Anti-Dust)
 
-El test definitivo contra la crítica "la anti-correlación es polvo galáctico":
+The definitive test against the criticism "anti-correlation is galactic dust":
 
 ```
-Sin máscara:        -0.048 (6σ)
-|b| > 20° (66%):    -0.050 (9σ)  ← ¡MÁS FUERTE sin el plano galáctico!
+No mask:            -0.048 (6σ)
+|b| > 20° (66%):    -0.050 (9σ)  ← STRONGER without galactic plane!
 |b| > 25° (58%):    -0.045 (7.6σ)
-IC 95%: [-0.057, -0.038]  ← Excluye cero
+95% CI: [-0.057, -0.038]  ← Excludes zero
 ```
 
-**Conclusión:** La señal es MÁS FUERTE cuando removemos el plano galáctico. El polvo añadía RUIDO, no señal.
+**Conclusion:** The signal is STRONGER when we remove the galactic plane. Dust was adding NOISE, not signal.
 
-### Defensa Clave: Mass Scaling Test
+### Key Defense: Mass Scaling Test
 
-El test definitivo contra la crítica "60 Hz = ruido eléctrico":
+The definitive test against the criticism "60 Hz = electrical noise":
 
 ```
-GW150914 (65 M☉): modos en ~30, 42, 59 Hz
-GW151226 (22 M☉): modos en ~96, 128, 180 Hz
+GW150914 (65 M☉): modes at ~30, 42, 59 Hz
+GW151226 (22 M☉): modes at ~96, 128, 180 Hz
                    ↓
-Ratio observado: 3.29× ≈ Ratio de masas inversas
+Observed ratio: 3.29× ≈ Inverse mass ratio
 ```
 
-**Conclusión:** Los modos NO son ruido fijo de 60 Hz. Escalan con la física del sistema.
+**Conclusion:** The modes are NOT fixed 60 Hz noise. They scale with system physics.
 
 ---
 
-## 🆕 Veredicto honesto (Enero 2026)
+## 🆕 Honest Verdict (January 2026)
 
-Análisis riguroso para aumentar la probabilidad de éxito de ~30% a ~90%:
+Rigorous analysis to increase success probability from ~30% to ~90%:
 
-### 1. Formalización matemática Completa ✅
+### 1. Complete Mathematical Formalization ✅
 
-**Archivo:** `paper/OCTH_Mathematical_Formalization.tex`
+**File:** `paper/OCTH_Mathematical_Formalization.tex`
 
-Métrica hexagonal de Schwarzschild derivada desde primeros principios:
+Hexagonal Schwarzschild metric derived from first principles:
 
 $$ds^2 = -f(r)\mathcal{H}^2 c^2 dt^2 + \frac{dr^2}{f(r)\mathcal{H}^2} + r^2 \mathcal{H}^2 d\Omega^2$$
 
-donde $\mathcal{H}(r,\theta,\phi)$ es la función de modulación hexagonal.
+where $\mathcal{H}(r,\theta,\phi)$ is the hexagonal modulation function.
 
-| Componente | Estado |
-|------------|--------|
-| Función de modulación H(r,θ,φ) | ✅ |
-| Acción Einstein-Hilbert modificada | ✅ |
-| Modos QNM: 1:√3:2:√7 | ✅ |
-| Límite GR (ε→0) | ✅ |
+| Component | Status |
+|-----------|--------|
+| Modulation function H(r,θ,φ) | ✅ |
+| Modified Einstein-Hilbert action | ✅ |
+| QNM modes: 1:√3:2:√7 | ✅ |
+| GR limit (ε→0) | ✅ |
 
-### 2. Raw data blindaje: 33 Eventos GWTC-3 ✅
+### 2. Raw Data Shielding: 33 GWTC-3 Events ✅
 
 **Pipeline:** `code/GWTC3_raw_pipeline.py`
-**Resultados:** `results/raw_analysis/`
+**Results:** `results/raw_analysis/`
 
-Análisis de datos crudos de strain descargados directamente de GWOSC:
+Raw strain data analysis downloaded directly from GWOSC:
 
-| Métrica | Resultado |
-|---------|-----------|
-| Eventos analizados | 33 |
-| Detectores | H1, L1, V1 |
-| **Eventos favorecen OCTH** | **100%** |
-| **Z-score combinado** | **6.69σ** |
-| Δχ² promedio (GR - Hex) | 236.2 ± 202.7 |
+| Metric | Result |
+|--------|--------|
+| Events analyzed | 33 |
+| Detectors | H1, L1, V1 |
+| **Events favoring OCTH** | **100%** |
+| **Combined Z-score** | **6.69σ** |
+| Average Δχ² (GR - Hex) | 236.2 ± 202.7 |
 
-**Top 5 eventos con mayor evidencia hexagonal:**
-| Evento | Δχ² | Masa |
-|--------|-----|------|
+**Top 5 events with strongest hexagonal evidence:**
+| Event | Δχ² | Mass |
+|-------|-----|------|
 | GW191129_134029 | 631.5 | 18 M☉ |
 | GW191204_171526 | 593.0 | 19 M☉ |
 | GW191216_213338 | 539.0 | 21 M☉ |
 | GW191126_115259 | 520.2 | 21 M☉ |
 | GW191105_143521 | 515.4 | 21 M☉ |
 
-### 3. Predicciones O4 (Pre-Release) ✅
+### 3. O4 Predictions (Pre-Release) ✅
 
-**Archivo:** `paper/OCTH_O4_Predictions.md`
+**File:** `paper/OCTH_O4_Predictions.md`
 **Git Hash:** `692b1affb7e22015401e497c75b9151af345cf01`
-**Fecha:** 9 Enero 2026 (ANTES de datos O4)
+**Date:** January 9, 2026 (BEFORE O4 data)
 
-Predicciones falsificables publicadas:
+Published falsifiable predictions:
 
-| Predicción | Valor | Falsificación si... |
+| Prediction | Value | Falsification if... |
 |------------|-------|---------------------|
-| Ratios frecuencia | 1:√3:2:√7 | <60% eventos coinciden |
-| f√3/f₁ universal | 1.732 ± 0.05 | Correlación con masa > 0.3 |
-| Eventos pro-OCTH | >85% | <50% |
-| Clustering CMB | >4σ | Z < 2 |
+| Frequency ratios | 1:√3:2:√7 | <60% events match |
+| Universal f√3/f₁ | 1.732 ± 0.05 | Mass correlation > 0.3 |
+| Pro-OCTH events | >85% | <50% |
+| CMB clustering | >4σ | Z < 2 |
 
 ---
 
-## 🆕 Nuevos tests (Enero 2026)
+## 🆕 New Tests (January 2026)
 
-### Test Europeo: VIRGO vs LIGO ✅
+### European Test: VIRGO vs LIGO ✅
 
-Análisis del evento GW170814 (primer evento triple detector) para eliminar el argumento de ruido de 60Hz:
+Analysis of GW170814 event (first triple detector event) to eliminate the 60Hz noise argument:
 
-| Detector | Red Eléctrica | f₁ observado | Coincide con OCTH |
-|----------|---------------|--------------|-------------------|
-| **VIRGO (Italia)** | 50 Hz | 36.0 Hz | ✓ |
-| **Hanford (USA)** | 60 Hz | 37.0 Hz | ✓ (4/4 modos) |
-| **Livingston (USA)** | 60 Hz | 40.0 Hz | ✓ (3/4 modos) |
+| Detector | Power Grid | f₁ observed | Matches OCTH |
+|----------|------------|-------------|--------------|
+| **VIRGO (Italy)** | 50 Hz | 36.0 Hz | ✓ |
+| **Hanford (USA)** | 60 Hz | 37.0 Hz | ✓ (4/4 modes) |
+| **Livingston (USA)** | 60 Hz | 40.0 Hz | ✓ (3/4 modes) |
 
-**El modo f₁ (~37-40Hz) NO es armónico de ninguna red eléctrica** → Señal astrofísica confirmada.
+**The f₁ mode (~37-40Hz) is NOT a harmonic of any power grid** → Astrophysical signal confirmed.
 
-### Cross-Correlación CMB × LIGO ⭐ (TEST ÚNICO)
+### CMB × LIGO Cross-Correlation ⭐ (UNIQUE TEST)
 
-| Métrica | Observado | Esperado | Z-score | P-value |
-|---------|-----------|----------|---------|---------|
-| Pares cercanos (<30°) | **18** | 8.4 ± 2.2 | **4.31** | **0.0001** |
+| Metric | Observed | Expected | Z-score | P-value |
+|--------|----------|----------|---------|---------|
+| Close pairs (<30°) | **18** | 8.4 ± 2.2 | **4.31** | **0.0001** |
 
-**Hallazgo clave:** GW190814 está a **1.8°** del Polo Galáctico Sur.
+**Key finding:** GW190814 is **1.8°** from the South Galactic Pole.
 
-**Este test es ÚNICO de OCTH**: ningún modelo estándar predice correlación entre direcciones de ondas gravitacionales y anomalías del CMB.
+**This test is UNIQUE to OCTH**: no standard model predicts correlation between gravitational wave directions and CMB anomalies.
 
 ---
 
 ## 📄 Paper
 
-El paper está listo para envío en formato Nature:
+The paper is ready for submission in Nature format:
 
-- **Archivo:** `paper/OCTH_Nature_Article.pdf`
-- **Páginas:** 6
-- **Tests incluidos:** CMB, GWTC-3, Test Europeo, Cross-correlación CMB×LIGO
-- **Significancia combinada:** p < 10⁻⁸
+- **File:** `paper/OCTH_Nature_Article.pdf`
+- **Pages:** 6
+- **Tests included:** CMB, GWTC-3, European Test, CMB×LIGO Cross-correlation
+- **Combined significance:** p < 10⁻⁸
 
 ---
 
-## Dependencias
+## Dependencies
 
 ```bash
 # Core
 pip install numpy scipy matplotlib healpy astropy
 
-# Para raw data pipeline (GWTC-3)
+# For raw data pipeline (GWTC-3)
 pip install gwpy gwosc h5py
 ```
 
-## Ejecución
+## Execution
 
 ```bash
 cd code
 
-# Test #1: CMB Möbius (simulación)
+# Test #1: CMB Möbius (simulation)
 python3 test1_cmb_mobius_topology.py
 
-# Test #1: CMB Möbius (con datos reales de Planck, si disponibles)
+# Test #1: CMB Möbius (with real Planck data, if available)
 python3 test1_cmb_mobius_topology.py --real
 
-# Test #1: Validación con señal inyectada
+# Test #1: Validation with injected signal
 python3 test1_cmb_mobius_topology.py --inject
 
-# Test #2: Geodésicas exactas
+# Test #2: Exact geodesics
 python3 test2_geodesic_exact.py
 
-# Test #3: Geometría hexagonal en SDSS
+# Test #3: Hexagonal geometry in SDSS
 python3 test3_sdss_hexagonal.py
 
-# Test #4: Malla elástica en LIGO
+# Test #4: Elastic mesh in LIGO
 python3 test4_ligo_elastic_mesh.py
 
-# Test #5: VSL en GRBs
+# Test #5: VSL in GRBs
 python3 test5_vsl_grb.py
 
-# 🆕 Raw data pipeline GWTC-3 (descarga ~2GB de datos)
+# 🆕 GWTC-3 raw data pipeline (downloads ~2GB of data)
 python3 GWTC3_raw_pipeline.py
 ```
 
-## Autor
+## Author
 
 **Francisco Molina-Burgos**
 Email: fmolina@avermex.com
-Afiliación: Avermex Research Division, Mérida, Yucatán, México
+Affiliation: Avermex Research Division, Mérida, Yucatán, México
 
 ## Acknowledgments
 
-Asistencia computacional de Claude (Anthropic).
+Computational assistance from Claude (Anthropic).
 
 ---
 
