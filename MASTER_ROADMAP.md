@@ -19,9 +19,8 @@
 5. [Development Roadmap](#5-development-roadmap)
 6. [Technical Stack](#6-technical-stack)
 7. [API Design](#7-api-design)
-8. [Monetization Products](#8-monetization-products)
-9. [Deployment Strategy](#9-deployment-strategy)
-10. [Continuation Protocol](#10-continuation-protocol)
+8. [Deployment Strategy](#8-deployment-strategy)
+9. [Continuation Protocol](#9-continuation-protocol)
 
 ---
 
@@ -36,7 +35,6 @@
 | 13 Dataset Validation | ✅ Complete | Combined >>10σ |
 | VMS Audio Cleaner | ✅ Working | +4.8dB improvement, 0.96 correlation |
 | 3D Visualizations | ✅ Complete | GWTC-3 + Discriminator concept |
-| Monetization Strategy | ✅ Drafted | $17M Year 3 projection |
 
 ### OCTH Scientific Predictions (January 2026)
 
@@ -54,16 +52,14 @@
 
 ### What We're Building (This Roadmap)
 
-1. **ClearVoice Pro** - Commercial audio cleaning product
+1. **VMS Audio Cleaner** - Open-source audio cleaning tool
 2. **OCTH Analyzer** - Scientific analysis platform
 3. **3D Signal Discriminator** - Interactive signal processing tool
-4. **HexaMonitor** - Industrial IoT monitoring
 
 ### Key Metrics
 
 - **Scientific:** 75σ detection, p < 10⁻³⁰⁰
 - **Technical:** Real-time processing < 50ms latency
-- **Business:** $800K Year 1 → $17M Year 3
 
 ---
 
@@ -141,7 +137,6 @@ APPLICATIONS
 Universo-Mobius/
 ├── README.md
 ├── MASTER_ROADMAP.md              # THIS FILE
-├── MONETIZATION_STRATEGY.md
 ├── COMPREHENSIVE_VALIDATION_REPORT.md
 ├── KNOWN_LIMITATIONS.md
 ├── REPRODUCIBILITY.md
@@ -559,7 +554,6 @@ app = FastAPI(
 - [x] GWTC-3 analysis pipeline
 - [x] VMS Audio Cleaner (basic)
 - [x] 3D visualizations (static)
-- [x] Monetization strategy
 - [ ] Refactor code into `src/` structure
 - [ ] Add unit tests
 - [ ] Create `setup.py` / `pyproject.toml`
@@ -639,9 +633,9 @@ app = FastAPI(
   - [ ] Pitch deck
 
 - [ ] **Launch**
-  - [ ] Product Hunt launch
-  - [ ] Pricing tiers active
-  - [ ] Support system
+  - [ ] GitHub release
+  - [ ] Zenodo DOI
+  - [ ] Documentation complete
 
 ---
 
@@ -825,62 +819,7 @@ class HexagonalAnalysis(BaseModel):
 
 ---
 
-## 8. MONETIZATION PRODUCTS
-
-### Product 1: ClearVoice Pro (Audio Cleaning)
-
-**Tiers:**
-
-| Tier | Price | Features |
-|------|-------|----------|
-| Free | $0 | 10 min/day, watermark, web only |
-| Pro | $15/mo | Unlimited, no watermark, CLI + API |
-| Team | $49/mo | 5 seats, priority processing |
-| Enterprise | $500/mo | Unlimited seats, SLA, on-prem |
-
-**Revenue Projection:**
-- Year 1: 10K free → 1K Pro → $180K ARR
-- Year 2: 50K free → 5K Pro → $900K ARR
-- Year 3: 200K free → 20K Pro → $3.6M ARR
-
-### Product 2: OCTH Analyzer (Scientific)
-
-**Tiers:**
-
-| Tier | Price | Features |
-|------|-------|----------|
-| Academic | $0 | Limited, attribution required |
-| Research | $500/yr | Full analysis, no attribution |
-| Institution | $5K/yr | Multi-user, priority support |
-
-**Target:** Universities, research labs, space agencies
-
-### Product 3: HexaMonitor (Industrial IoT)
-
-**Tiers:**
-
-| Tier | Price | Features |
-|------|-------|----------|
-| Starter | $50/sensor/mo | Up to 10 sensors |
-| Professional | $30/sensor/mo | 11-100 sensors |
-| Enterprise | Custom | 100+ sensors, on-prem |
-
-**Revenue Projection:**
-- Year 1: 100 sensors → $60K ARR
-- Year 2: 500 sensors → $180K ARR
-- Year 3: 2000 sensors → $720K ARR
-
-### Combined Revenue
-
-| Year | Audio | Scientific | Industrial | Total |
-|------|-------|------------|------------|-------|
-| 1 | $180K | $50K | $60K | $290K |
-| 2 | $900K | $200K | $180K | $1.28M |
-| 3 | $3.6M | $500K | $720K | $4.82M |
-
----
-
-## 9. DEPLOYMENT STRATEGY
+## 8. DEPLOYMENT STRATEGY
 
 ### Development Environment
 
@@ -1000,7 +939,7 @@ jobs:
 
 ---
 
-## 10. CONTINUATION PROTOCOL
+## 9. CONTINUATION PROTOCOL
 
 ### If Session Ends - How to Continue
 
@@ -1019,7 +958,6 @@ jobs:
 3. **Key files to understand project:**
    - `MASTER_ROADMAP.md` - This roadmap (start here)
    - `COMPREHENSIVE_VALIDATION_REPORT.md` - Scientific results
-   - `MONETIZATION_STRATEGY.md` - Business plan
    - `code/VMS_audio_cleaner.py` - Working audio cleaner
    - `code/OCTH_3D_real_data.py` - 3D visualizations
 
@@ -1041,11 +979,11 @@ jobs:
 
 ### Critical Context
 
-- **User:** Francisco Molina-Burgos (fmolina@avermex.com)
-- **Goal:** Monetize OCTH algorithms, needs money urgently
-- **Primary product:** ClearVoice Pro (audio cleaning)
+- **Author:** Francisco Molina-Burgos (fmolina@avermex.com)
+- **Affiliation:** Avermex Research Division, Mérida, Yucatán, México
 - **Unique value:** Algorithms from gravitational wave detection (75σ)
 - **Tech foundation:** VMS (Vibrational Mode Separator)
+- **License:** AGPL-3.0
 
 ### Commands to Resume Work
 
