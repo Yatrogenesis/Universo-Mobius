@@ -1,0 +1,18 @@
+{
+ "with_fundamental": {
+  "n": 35,
+  "k_p_lt_0p05": 0,
+  "frac": 0.0,
+  "p_binom": 1.0,
+  "fisher": 0.7160191754769082,
+  "median_p": 0.46632375856015906
+ },
+ "without_fundamental": {
+  "n": 35,
+  "k_p_lt_0p05": 0,
+  "frac": 0.0,
+  "p_binom": 1.0,
+  "fisher": 0.7160191754769082,
+  "median_p": 0.46632375856015906
+ }
+}

@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 Francisco Molina-Burgos, Avermex Research Division
+"""LT2 of PREREGISTRO_LIGO_O4B.md: whitened power at the OCTH hexagonal frequencies in O4b strain.
+
+For each selected event and detector: on-source window [tc-0.1, tc+0.4] s, PSD by Welch on
++-64 s excluding +-4 s, statistic S = mean over modes of the mean whitened power in f_n (1 +- 0.05),
+null from 200 off-source windows of the same length in the same 4096-s file(s), > 8 s from tc and
+inside CBC_CAT1 data. Positive control: same machinery in the GR f_220 band (1 +- 0.15).
+Usage: lt2_potencia.py <PESummaryTable.hdf5> <events_GWTC-5.0.json> <strain_dir> <out_dir>
+"""
+import json, os, sys, urllib.request
+import h5py
+import numpy as np
+from scipy.signal import butter, sosfiltfilt, welch
+from scipy.signal.windows import tukey
+from scipy.stats import combine_pvalues
+
+SUMMARY, EVENTS, STRAIN, OUT = sys.argv[1:5]
+os.makedirs(STRAIN, exist_ok=True)
+os.makedirs(OUT, exist_ok=True)
+RATIOS = np.array([1.0, np.sqrt(3), 2.0, np.sqrt(7)])
+F220 = 1.5251 - 1.1568 * (1 - 0.69) ** 0.1292  # Berti, Cardoso & Will 2006 fit, spin fixed 0.69
+TSUN_HZ = 1 / (2 * np.pi * 4.925490947e-6)  # c^3 / (2 pi G Msun) in Hz
+NOFF, SEED = 200, 20261101
+W0, W1 = -0.1, 0.4
+
+
+def load_events():
+    t = h5py.File(SUMMARY, 'r')['summary_info'][:]
+    ev = {}
+    for r in sorted(t, key=lambda r: r['result_label']):
+        ev.setdefault(r['gw_name'].decode(), r)  # alphabetical-first PE result (preregistered)
+    gps = {e['name']: e['gps'] for e in json.load(open(EVENTS))}
+    sel = []
+    for name, r in sorted(ev.items()):
+        if r['mass_2_source_median'] > 3 and r['network_matched_filter_snr_median'] >= 12 and name in gps:
+            sel.append(dict(event=name, gps=gps[name], snr=float(r['network_matched_filter_snr_median']),
+                            M_src=float(r['total_mass_source_median']), z=float(r['redshift_median']),
+                            Mf_src=float(r['final_mass_source_median'])))
+    return sel
+
+
+def fetch(det, start):
+    d = start // 1048576 * 1048576
+    fn = f"{det[0]}-{det}_GWOSC_O4b_4KHZ_R1-{start}-4096.hdf5"
+    path = os.path.join(STRAIN, fn)
+    if not os.path.exists(path):
+        url = f"https://gwosc.org/archive/data/O4b_4KHZ_R1/{d}/{fn}"
+        try:
+            urllib.request.urlretrieve(url, path + '.part')
+        except Exception:
+            return None
+        os.replace(path + '.part', path)
+    return path
+
+
+def load_strain(det, gps):
+    """Strain and 1-Hz CBC_CAT1 validity covering gps +- 2100 s (one or two 4096-s files)."""
+    s0 = int(gps) // 4096 * 4096
+    starts = [s0]
+    if gps - s0 < 80:
+        starts.insert(0, s0 - 4096)
+    if s0 + 4096 - gps < 80:
+        starts.append(s0 + 4096)
+    hs, qs, t0, paths = [], [], None, []
+    for st in starts:
+        p = fetch(det, st)
+        if p is None:
+            return None
+        paths.append(p)
+        with h5py.File(p, 'r') as f:
+            hs.append(f['strain/Strain'][:])
+            dq = f['quality/simple/DQmask'][:]
+            names = [n.decode() if isinstance(n, bytes) else n for n in f['quality/simple/DQShortnames'][:]]
+            bits = (1 << names.index('DATA')) | (1 << names.index('CBC_CAT1'))
+            qs.append((dq & bits) == bits)
+            if t0 is None:
+                t0 = f['meta/GPSstart'][()]
+    return np.concatenate(hs), np.concatenate(qs), float(t0), paths
+
+
+def band_power(seg, fs, psd_f, psd, bands):
+    w = tukey(len(seg), 0.2)
+    X = np.fft.rfft(seg * w)
+    f = np.fft.rfftfreq(len(seg), 1 / fs)
+    P = np.abs(X) ** 2 / np.interp(f, psd_f, psd) / (fs * np.sum(w ** 2) / 2)
+    vals = [P[(f >= a) & (f <= b)].mean() for a, b in bands if np.any((f >= a) & (f <= b))]
+    return float(np.mean(vals)) if vals else np.nan
+
+
+def analyse(e, det, rng):
+    got = load_strain(det, e['gps'])
+    if got is None:
+        return dict(status='no_data')
+    h, ok, t0, paths = got
+    fs = 4096.0
+    tc = e['gps'] - t0
+    n = int(round((W1 - W0) * fs))
+    i_on = int(round((tc + W0) * fs))
+    sec_ok = lambda a, b: ok[int(np.floor(a)):int(np.ceil(b))].all() and np.isfinite(h[int(a * fs):int(b * fs)]).all()
+    if not sec_ok(tc - 64, tc + 64):
+        return dict(status='dq_fail_around_event')
+    # Amendment A2: high-pass (8th-order Butterworth, 15 Hz, zero phase) before cutting windows, so
+    # sub-15 Hz seismic power cannot leak through the window sidelobes into the analysis bands.
+    h = sosfiltfilt(butter(8, 15.0, 'highpass', fs=fs, output='sos'), np.nan_to_num(h))
+    pa = welch(h[int((tc - 64) * fs):int((tc - 4) * fs)], fs, nperseg=int(4 * fs))
+    pb = welch(h[int((tc + 4) * fs):int((tc + 64) * fs)], fs, nperseg=int(4 * fs))
+    psd_f, psd = pa[0], 0.5 * (pa[1] + pb[1])
+    modes = [(f, f * 0.95, f * 1.05) for f in RATIOS * 2200.0 / e['M_src'] if 20 <= f <= 1000]
+    modes_det = [(f, f * 0.95, f * 1.05) for f in RATIOS * 2200.0 / (e['M_src'] * (1 + e['z'])) if 20 <= f <= 1000]
+    f220 = F220 * TSUN_HZ / (e['Mf_src'] * (1 + e['z']))
+    tests = {'ocht_src': [(a, b) for _, a, b in modes], 'ocht_det': [(a, b) for _, a, b in modes_det],
+             'gr_f220': [(0.85 * f220, 1.15 * f220)],
+             'diag_broadband_30_300': [(30.0, 300.0)]}  # secondary diagnostic, not preregistered
+    tot = len(h) / fs
+    starts = []
+    tries = 0
+    while len(starts) < NOFF and tries < 50000:
+        tries += 1
+        s = rng.uniform(1, tot - 2)
+        if abs(s - (tc + W0)) > 8 and sec_ok(s - 4, s + 4):
+            starts.append(s)
+    res = dict(status='ok', files=[os.path.basename(p) for p in paths], n_off=len(starts), f220_hz=f220,
+               modes_src_hz=[m[0] for m in modes], modes_det_hz=[m[0] for m in modes_det])
+    for k, bands in tests.items():
+        if not bands:
+            res[k] = None
+            continue
+        on = band_power(h[i_on:i_on + n], fs, psd_f, psd, bands)
+        off = np.array([band_power(h[int(s * fs):int(s * fs) + n], fs, psd_f, psd, bands) for s in starts])
+        res[k] = dict(S_on=on, S_off_median=float(np.median(off)),
+                      p=float((1 + np.sum(off >= on)) / (1 + len(off))))
+    return res
+
+
+def main():
+    sel = load_events()
+    json.dump(sel, open(os.path.join(OUT, 'seleccion.json'), 'w'), indent=1)
+    for e in sel:
+        out = os.path.join(OUT, e['event'] + '.json')
+        if os.path.exists(out):
+            continue
+        r = dict(e)
+        for j, det in enumerate(('H1', 'L1')):
+            rng = np.random.default_rng([SEED, int(e['event'][2:8] + e['event'][9:15]), j])
+            try:
+                r[det] = analyse(e, det, rng)
+            except Exception as x:  # record, never hide
+                r[det] = dict(status='error', error=repr(x)[:300])
+        json.dump(r, open(out, 'w'), indent=1)
+        for f in os.listdir(STRAIN):  # keep disk bounded
+            os.remove(os.path.join(STRAIN, f))
+        print(e['event'], {d: r[d].get('status') for d in ('H1', 'L1')}, flush=True)
+    print('FIN', flush=True)
+
+
+if __name__ == '__main__':
+    main()

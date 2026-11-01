@@ -1,3 +1,5 @@
+> **CORRECTION NOTICE (2026-11-01).** The statistical claims below (CMB antipodal Z = -6.08, GWTC-3 "100 %", CMB x LIGO Z = 4.31, combined > 10 sigma, Hubble-tension "100 % agreement") do not survive re-analysis with correct null distributions. The January 2026 O4 predictions failed a blind test on GWTC-5.0 (O4b). See [CORRECTION.md](CORRECTION.md). The original text is kept below as a historical record and should not be cited as evidence.
+
 # Möbius Universe - OCTH
 
 ## Cyclic Topo-Holographic Ontology
