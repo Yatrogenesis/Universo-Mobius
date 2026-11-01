@@ -1,0 +1,24 @@
+{
+ "map": "/mnt/hd-db/C_LEGACY_PROJECTS/Universo-Mobius/data/wmap/wmap_ilc_9yr_v5.fits",
+ "nside": 64,
+ "nsims": 2000,
+ "seed": 20261031,
+ "observed": {
+  "corr_full": -0.0918636039516894,
+  "corr_from_pseudoCl_parity": -0.09305595705641355,
+  "repo_style_Z_full": -20.36639096457102,
+  "best_cut": {
+   "cut": 5,
+   "corr": -0.08532937847701705,
+   "repo_style_Z": -18.060825198231562
+  }
+ },
+ "null_LCDM": {
+  "corr_full_mean": 0.03909515894630283,
+  "corr_full_std": 0.051817122975028704,
+  "Z_true_full": -2.527326014628463,
+  "p_one_sided_full": 0.0024987506246876563,
+  "repo_style_bestZ_mean": 1.160975694100424,
+  "repo_style_bestZ_frac_le_observed": 0.01649175412293853
+ }
+}

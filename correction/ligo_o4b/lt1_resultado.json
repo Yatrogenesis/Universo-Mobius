@@ -1,0 +1,772 @@
+{
+ "targets_icrs_deg": {
+  "SGP_region": [
+   192.75,
+   -27.0
+  ],
+  "Cold_Spot": [
+   48.75,
+   -19.0
+  ],
+  "Quadrupole_axis": [
+   165.0,
+   25.0
+  ],
+  "Hemispherical_axis": [
+   87.75674507881348,
+   -15.002607719486234
+  ]
+ },
+ "cap_deg": 30,
+ "f0_isotropic": 0.24954605102539062,
+ "n_events_with_map": 104,
+ "n_well_localized_lt_500deg2": 40,
+ "primary_maxpix": {
+  "k": 8,
+  "n": 40,
+  "fraction": 0.2,
+  "Z_vs_isotropic": -0.7241052008031609,
+  "p_binomial_greater": 0.8163278017726476,
+  "gist_prediction_met_ge_0p60": false,
+  "gist_falsified_Z_lt_2": true
+ },
+ "secondary_prob_gt_half": {
+  "k": 8,
+  "n": 40,
+  "fraction": 0.2,
+  "Z_vs_isotropic": -0.7241052008031609,
+  "p_binomial_greater": 0.8163278017726476,
+  "gist_prediction_met_ge_0p60": false,
+  "gist_falsified_Z_lt_2": true
+ },
+ "events": [
+  {
+   "event": "GW240413_022019",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240413_022019-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 37.41413702792905,
+   "maxpix_min_sep_deg": 19.941588159095357,
+   "prob_in_caps": 0.9989988458610287
+  },
+  {
+   "event": "GW240414_054515",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240414_054515-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 269.57062767126166,
+   "maxpix_min_sep_deg": 100.66914095738623,
+   "prob_in_caps": 1.362853961838963e-25
+  },
+  {
+   "event": "GW240420_175625",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240420_175625-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 27730.26203777695,
+   "maxpix_min_sep_deg": 26.61389501828272,
+   "prob_in_caps": 0.20852422874074888
+  },
+  {
+   "event": "GW240426_031451",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240426_031451-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 3239.6734705151043,
+   "maxpix_min_sep_deg": 35.359167785117606,
+   "prob_in_caps": 0.24049016671075443
+  },
+  {
+   "event": "GW240428_225440",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240428_225440-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 195.81769859833037,
+   "maxpix_min_sep_deg": 49.0206342406335,
+   "prob_in_caps": 0.019709083893315216
+  },
+  {
+   "event": "GW240501_033534",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240501_033534-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1715.726034222928,
+   "maxpix_min_sep_deg": 54.1077522319182,
+   "prob_in_caps": 0.21532790374990718
+  },
+  {
+   "event": "GW240505_133552",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240505_133552-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2083.9661210593276,
+   "maxpix_min_sep_deg": 52.030543382906956,
+   "prob_in_caps": 0.1592604723716621
+  },
+  {
+   "event": "GW240507_041632",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240507_041632-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 678.3590887419257,
+   "maxpix_min_sep_deg": 84.24620013978763,
+   "prob_in_caps": 0.33509909714756714
+  },
+  {
+   "event": "GW240511_031507",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240511_031507-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 117.44865447673766,
+   "maxpix_min_sep_deg": 24.010433673071397,
+   "prob_in_caps": 0.9969239695642458
+  },
+  {
+   "event": "GW240512_024139",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240512_024139-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 193.24736180987117,
+   "maxpix_min_sep_deg": 35.76349232850181,
+   "prob_in_caps": 0.13511241438866134
+  },
+  {
+   "event": "GW240513_183302",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240513_183302-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 33.138985022634664,
+   "maxpix_min_sep_deg": 50.4854549373645,
+   "prob_in_caps": 0.022670422619698136
+  },
+  {
+   "event": "GW240514_121713",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240514_121713-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 188.10668823295276,
+   "maxpix_min_sep_deg": 43.81791377021878,
+   "prob_in_caps": 0.11529483001350298
+  },
+  {
+   "event": "GW240515_005301",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240515_005301-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1725.5877345541594,
+   "maxpix_min_sep_deg": 8.226193115974782,
+   "prob_in_caps": 0.5936890711652891
+  },
+  {
+   "event": "GW240519_012815",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240519_012815-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2250.1462628111385,
+   "maxpix_min_sep_deg": 84.70530674226018,
+   "prob_in_caps": 0.004666826592903384
+  },
+  {
+   "event": "GW240520_213616",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240520_213616-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 352.7656102528186,
+   "maxpix_min_sep_deg": 68.16584445800956,
+   "prob_in_caps": 0.026028362580004075
+  },
+  {
+   "event": "GW240525_031210",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240525_031210-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2011.99669098247,
+   "maxpix_min_sep_deg": 24.392892309825537,
+   "prob_in_caps": 0.601384439298142
+  },
+  {
+   "event": "GW240526_093944",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240526_093944-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 903.2897856585186,
+   "maxpix_min_sep_deg": 27.6436245583327,
+   "prob_in_caps": 0.20192371003248547
+  },
+  {
+   "event": "GW240527_183429",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240527_183429-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1060.6573441356122,
+   "maxpix_min_sep_deg": 72.91749249950557,
+   "prob_in_caps": 2.1608441753542863e-16
+  },
+  {
+   "event": "GW240527_230910",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240527_230910-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 28.299932599464032,
+   "maxpix_min_sep_deg": 29.391739991867787,
+   "prob_in_caps": 0.678683844905227
+  },
+  {
+   "event": "GW240530_012417",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240530_012417-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 642.4792854091485,
+   "maxpix_min_sep_deg": 87.66206858682042,
+   "prob_in_caps": 0.0855497020029145
+  },
+  {
+   "event": "GW240531_040326",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240531_040326-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 931.6159461843954,
+   "maxpix_min_sep_deg": 25.099503904812238,
+   "prob_in_caps": 0.4610573205984835
+  },
+  {
+   "event": "GW240531_075248",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240531_075248-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1678.587290422334,
+   "maxpix_min_sep_deg": 101.66355590753886,
+   "prob_in_caps": 0.18209626370915452
+  },
+  {
+   "event": "GW240601_061200",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240601_061200-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2572.435022572227,
+   "maxpix_min_sep_deg": 90.18078066547699,
+   "prob_in_caps": 0.12054923847567252
+  },
+  {
+   "event": "GW240601_231004",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240601_231004-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 813.4853656209236,
+   "maxpix_min_sep_deg": 84.98758319392941,
+   "prob_in_caps": 0.010663301774949339
+  },
+  {
+   "event": "GW240612_081540",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240612_081540-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2799.8836004244527,
+   "maxpix_min_sep_deg": 22.686407281243255,
+   "prob_in_caps": 0.6068103415974988
+  },
+  {
+   "event": "GW240615_113620",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240615_113620-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 6.373386118322299,
+   "maxpix_min_sep_deg": 74.52413999860904,
+   "prob_in_caps": 0.0
+  },
+  {
+   "event": "GW240615_160735",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240615_160735-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1070.099397644238,
+   "maxpix_min_sep_deg": 34.72252079351892,
+   "prob_in_caps": 0.02694302790691851
+  },
+  {
+   "event": "GW240618_071627",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240618_071627-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 5364.764980189778,
+   "maxpix_min_sep_deg": 15.864461715706314,
+   "prob_in_caps": 0.3914566245345118
+  },
+  {
+   "event": "GW240621_195059",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240621_195059-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 32.443944972694176,
+   "maxpix_min_sep_deg": 64.78518158282456,
+   "prob_in_caps": 5.980792466658511e-60
+  },
+  {
+   "event": "GW240621_200935",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240621_200935-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1554.3718309310814,
+   "maxpix_min_sep_deg": 33.94264896855316,
+   "prob_in_caps": 0.4989862107959878
+  },
+  {
+   "event": "GW240621_214041",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240621_214041-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 3190.1551454476453,
+   "maxpix_min_sep_deg": 45.14820114574492,
+   "prob_in_caps": 0.09219357965885216
+  },
+  {
+   "event": "GW240622_004008",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240622_004008-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 277.4390055951164,
+   "maxpix_min_sep_deg": 40.79632524446905,
+   "prob_in_caps": 0.4064662519107484
+  },
+  {
+   "event": "GW240627_131622",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240627_131622-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 892.1691448594704,
+   "maxpix_min_sep_deg": 60.01835547849827,
+   "prob_in_caps": 0.15348796376752316
+  },
+  {
+   "event": "GW240629_145256",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240629_145256-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 264.3250423886919,
+   "maxpix_min_sep_deg": 40.4617230382766,
+   "prob_in_caps": 0.0881976799982602
+  },
+  {
+   "event": "GW240630_101703",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240630_101703-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 698.7119596382965,
+   "maxpix_min_sep_deg": 97.47638408430569,
+   "prob_in_caps": 0.029560042956677572
+  },
+  {
+   "event": "GW240703_191355",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240703_191355-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 5460.444455743852,
+   "maxpix_min_sep_deg": 66.59848944460838,
+   "prob_in_caps": 0.09896690138265088
+  },
+  {
+   "event": "GW240705_053215",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240705_053215-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 268.3641430562706,
+   "maxpix_min_sep_deg": 100.20483936576917,
+   "prob_in_caps": 0.013332029335190147
+  },
+  {
+   "event": "GW240716_034900",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240716_034900-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 10333.383359839885,
+   "maxpix_min_sep_deg": 7.093594766426586,
+   "prob_in_caps": 0.5146926359217738
+  },
+  {
+   "event": "GW240824_205609",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240824_205609-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2950.956456562463,
+   "maxpix_min_sep_deg": 11.584555387682697,
+   "prob_in_caps": 0.47322247025549147
+  },
+  {
+   "event": "GW240825_055146",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240825_055146-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 511.9691235788118,
+   "maxpix_min_sep_deg": 68.04857859572365,
+   "prob_in_caps": 0.013329541530996063
+  },
+  {
+   "event": "GW240830_211120",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240830_211120-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 456.1560961722692,
+   "maxpix_min_sep_deg": 87.52524528965743,
+   "prob_in_caps": 0.011934071576257236
+  },
+  {
+   "event": "GW240902_143306",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240902_143306-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 914.8300732801722,
+   "maxpix_min_sep_deg": 59.626799951467326,
+   "prob_in_caps": 0.013492810366542981
+  },
+  {
+   "event": "GW240907_153833",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240907_153833-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1632.42613993572,
+   "maxpix_min_sep_deg": 15.502537197660423,
+   "prob_in_caps": 0.5088927029579321
+  },
+  {
+   "event": "GW240908_082628",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240908_082628-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 163.66226081617756,
+   "maxpix_min_sep_deg": 64.41707528402844,
+   "prob_in_caps": 0.002725158756689147
+  },
+  {
+   "event": "GW240908_125134",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240908_125134-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1135.774125382012,
+   "maxpix_min_sep_deg": 79.81153396390968,
+   "prob_in_caps": 0.0009352679780499588
+  },
+  {
+   "event": "GW240910_103535",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240910_103535-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 441.5733690867251,
+   "maxpix_min_sep_deg": 79.83202633652607,
+   "prob_in_caps": 9.637276153510298e-07
+  },
+  {
+   "event": "GW240915_001357",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240915_001357-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 16.22197248634709,
+   "maxpix_min_sep_deg": 41.001577594329774,
+   "prob_in_caps": 0.009506390501687053
+  },
+  {
+   "event": "GW240915_105151",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240915_105151-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 4392.862939035247,
+   "maxpix_min_sep_deg": 27.101810773358014,
+   "prob_in_caps": 0.3022148088611698
+  },
+  {
+   "event": "GW240916_184352",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240916_184352-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1473.7996409908092,
+   "maxpix_min_sep_deg": 33.07043657109539,
+   "prob_in_caps": 0.38627401745268186
+  },
+  {
+   "event": "GW240919_061559",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240919_061559-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 20.916771314247047,
+   "maxpix_min_sep_deg": 55.92919246552506,
+   "prob_in_caps": 1.1412088793254296e-78
+  },
+  {
+   "event": "GW240920_073424",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240920_073424-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 419.384543341455,
+   "maxpix_min_sep_deg": 81.99398426413782,
+   "prob_in_caps": 0.10628889143721304
+  },
+  {
+   "event": "GW240920_124024",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240920_124024-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 161.30174743902114,
+   "maxpix_min_sep_deg": 44.55214576292512,
+   "prob_in_caps": 0.3224989135402289
+  },
+  {
+   "event": "GW240921_201835",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240921_201835-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1831.3387338507666,
+   "maxpix_min_sep_deg": 35.22461582039192,
+   "prob_in_caps": 0.2568576255636551
+  },
+  {
+   "event": "GW240922_142106",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240922_142106-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 195.6078751870276,
+   "maxpix_min_sep_deg": 93.05716336004063,
+   "prob_in_caps": 0.0009000654855235252
+  },
+  {
+   "event": "GW240923_204006",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240923_204006-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 437.69163597762355,
+   "maxpix_min_sep_deg": 66.66289483799659,
+   "prob_in_caps": 0.03470585558037279
+  },
+  {
+   "event": "GW240924_000316",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240924_000316-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 799.4271970636366,
+   "maxpix_min_sep_deg": 66.07219942642352,
+   "prob_in_caps": 0.23935227411175167
+  },
+  {
+   "event": "GW240925_005809",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240925_005809-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 25.86073544306908,
+   "maxpix_min_sep_deg": 100.43415429521495,
+   "prob_in_caps": 5.964198692125603e-218
+  },
+  {
+   "event": "GW240930_035959",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240930_035959-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 368.9220129231336,
+   "maxpix_min_sep_deg": 97.1053683822781,
+   "prob_in_caps": 8.138141227922665e-20
+  },
+  {
+   "event": "GW240930_234614",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW240930_234614-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1036.947298658397,
+   "maxpix_min_sep_deg": 18.098163545194165,
+   "prob_in_caps": 0.5943256969485868
+  },
+  {
+   "event": "GW241002_030559",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241002_030559-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 716.337126187731,
+   "maxpix_min_sep_deg": 46.74350841151648,
+   "prob_in_caps": 0.05813456643083644
+  },
+  {
+   "event": "GW241006_015333",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241006_015333-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 241.13955543973339,
+   "maxpix_min_sep_deg": 80.80145114389353,
+   "prob_in_caps": 0.0006766632230324174
+  },
+  {
+   "event": "GW241007_082943",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241007_082943-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 979.0360371388264,
+   "maxpix_min_sep_deg": 31.4326060682425,
+   "prob_in_caps": 0.5509075300886495
+  },
+  {
+   "event": "GW241009_022835",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241009_022835-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2408.772761756049,
+   "maxpix_min_sep_deg": 29.417507567972322,
+   "prob_in_caps": 0.3235164478063157
+  },
+  {
+   "event": "GW241009_084816",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241009_084816-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 427.3578329709611,
+   "maxpix_min_sep_deg": 24.12194898945806,
+   "prob_in_caps": 0.7680301386753691
+  },
+  {
+   "event": "GW241009_220455",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241009_220455-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 90.17161100737475,
+   "maxpix_min_sep_deg": 88.10737858145166,
+   "prob_in_caps": 0.06386822628090824
+  },
+  {
+   "event": "GW241011_233834",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241011_233834-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 48.90196879675689,
+   "maxpix_min_sep_deg": 81.40792827198086,
+   "prob_in_caps": 4.004934640748639e-06
+  },
+  {
+   "event": "GW241101_220523",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241101_220523-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 8726.975322905713,
+   "maxpix_min_sep_deg": 46.879730199001955,
+   "prob_in_caps": 0.22191201364627217
+  },
+  {
+   "event": "GW241102_124058",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241102_124058-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 23.028119390481386,
+   "maxpix_min_sep_deg": 84.6390128064351,
+   "prob_in_caps": 0.0
+  },
+  {
+   "event": "GW241102_144729",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241102_144729-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 875.8029187778526,
+   "maxpix_min_sep_deg": 66.0208062140156,
+   "prob_in_caps": 0.08913892191658847
+  },
+  {
+   "event": "GW241109_033317",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241109_033317-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 7189.389364878855,
+   "maxpix_min_sep_deg": 54.1889863622049,
+   "prob_in_caps": 0.1361047285819106
+  },
+  {
+   "event": "GW241109_115924",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241109_115924-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 11750.111032956333,
+   "maxpix_min_sep_deg": 51.236272217638145,
+   "prob_in_caps": 0.0631231767165509
+  },
+  {
+   "event": "GW241110_124123",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241110_124123-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 103.44294177227634,
+   "maxpix_min_sep_deg": 12.497079016300187,
+   "prob_in_caps": 1.0
+  },
+  {
+   "event": "GW241111_111552",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241111_111552-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 485.53137375466,
+   "maxpix_min_sep_deg": 59.580514472054176,
+   "prob_in_caps": 0.016411869361710796
+  },
+  {
+   "event": "GW241113_163507",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241113_163507-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 13590.681996904425,
+   "maxpix_min_sep_deg": 75.84613096987894,
+   "prob_in_caps": 0.3761796735452897
+  },
+  {
+   "event": "GW241114_024711",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241114_024711-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 203.4237972580566,
+   "maxpix_min_sep_deg": 106.00999142243803,
+   "prob_in_caps": 0.014477105402758888
+  },
+  {
+   "event": "GW241114_235258",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241114_235258-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 11279.26729799287,
+   "maxpix_min_sep_deg": 24.824944546156974,
+   "prob_in_caps": 0.3421686428415158
+  },
+  {
+   "event": "GW241116_151753",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241116_151753-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 3290.031089227774,
+   "maxpix_min_sep_deg": 58.33338282364087,
+   "prob_in_caps": 0.058176406088870605
+  },
+  {
+   "event": "GW241124_024914",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241124_024914-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 3858.2328870357346,
+   "maxpix_min_sep_deg": 82.46639350747223,
+   "prob_in_caps": 0.30035571537992356
+  },
+  {
+   "event": "GW241125_010116",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241125_010116-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2397.861944368304,
+   "maxpix_min_sep_deg": 29.107489538278127,
+   "prob_in_caps": 0.26892590426837953
+  },
+  {
+   "event": "GW241127_061008",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241127_061008-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 83.48348977209828,
+   "maxpix_min_sep_deg": 4.334287587710802,
+   "prob_in_caps": 0.5912685790319512
+  },
+  {
+   "event": "GW241129_021832",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241129_021832-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 350.9821112567449,
+   "maxpix_min_sep_deg": 47.29359092879014,
+   "prob_in_caps": 0.0005956550057127727
+  },
+  {
+   "event": "GW241130_034908",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241130_034908-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 453.11365670837876,
+   "maxpix_min_sep_deg": 62.40072713664692,
+   "prob_in_caps": 7.595013147814875e-19
+  },
+  {
+   "event": "GW241130_110422",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241130_110422-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1329.4411340144884,
+   "maxpix_min_sep_deg": 67.19957930375674,
+   "prob_in_caps": 0.11298176881734945
+  },
+  {
+   "event": "GW241201_055758",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241201_055758-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 4102.467337792184,
+   "maxpix_min_sep_deg": 55.56167391544144,
+   "prob_in_caps": 0.33714713058138995
+  },
+  {
+   "event": "GW241210_060606",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241210_060606-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 900.1424344889765,
+   "maxpix_min_sep_deg": 73.40832562175812,
+   "prob_in_caps": 3.795845516761844e-18
+  },
+  {
+   "event": "GW241210_120900",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241210_120900-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 3462.925580141274,
+   "maxpix_min_sep_deg": 46.119231305976,
+   "prob_in_caps": 0.33526203282010114
+  },
+  {
+   "event": "GW241225_042553",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241225_042553-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 3837.2505459054555,
+   "maxpix_min_sep_deg": 61.33805627539924,
+   "prob_in_caps": 0.1875314308291929
+  },
+  {
+   "event": "GW241225_082815",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241225_082815-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 963.2992812911169,
+   "maxpix_min_sep_deg": 77.5733994567572,
+   "prob_in_caps": 0.021988509794664744
+  },
+  {
+   "event": "GW241229_155844",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241229_155844-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 3452.854056398741,
+   "maxpix_min_sep_deg": 55.80691143355748,
+   "prob_in_caps": 0.011985949099713608
+  },
+  {
+   "event": "GW241230_084504",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241230_084504-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 12417.34948089921,
+   "maxpix_min_sep_deg": 64.00025384881445,
+   "prob_in_caps": 0.20628629353965736
+  },
+  {
+   "event": "GW241230_233618",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241230_233618-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 449.8613938331855,
+   "maxpix_min_sep_deg": 28.973514609658732,
+   "prob_in_caps": 0.6536460304809288
+  },
+  {
+   "event": "GW241231_054133",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW241231_054133-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 130.98226450576772,
+   "maxpix_min_sep_deg": 66.89719112427841,
+   "prob_in_caps": 8.628921488737357e-05
+  },
+  {
+   "event": "GW250101_011205",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250101_011205-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 532.3219944751827,
+   "maxpix_min_sep_deg": 44.43744949546683,
+   "prob_in_caps": 0.1664658265435504
+  },
+  {
+   "event": "GW250104_015122",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250104_015122-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 1787.6954642997853,
+   "maxpix_min_sep_deg": 60.79934197427003,
+   "prob_in_caps": 0.2401306999938771
+  },
+  {
+   "event": "GW250108_152221",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250108_152221-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 773.1992706507876,
+   "maxpix_min_sep_deg": 59.80526348686387,
+   "prob_in_caps": 6.214467162071956e-09
+  },
+  {
+   "event": "GW250109_010541",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250109_010541-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 517.4245322726844,
+   "maxpix_min_sep_deg": 51.999269314609435,
+   "prob_in_caps": 0.008282234090262327
+  },
+  {
+   "event": "GW250109_074552",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250109_074552-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 7463.838386862907,
+   "maxpix_min_sep_deg": 74.55398912674441,
+   "prob_in_caps": 0.06207551660646162
+  },
+  {
+   "event": "GW250114_082203",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250114_082203-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 41.794200738874814,
+   "maxpix_min_sep_deg": 17.44091719056144,
+   "prob_in_caps": 0.769033986193019
+  },
+  {
+   "event": "GW250116_015318",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250116_015318-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2958.5100993693636,
+   "maxpix_min_sep_deg": 26.973875525946642,
+   "prob_in_caps": 0.4668516205909462
+  },
+  {
+   "event": "GW250118_023225",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250118_023225-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 2356.9463791642593,
+   "maxpix_min_sep_deg": 64.45789373858835,
+   "prob_in_caps": 0.345510305475093
+  },
+  {
+   "event": "GW250118_055802",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250118_055802-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 709.8326004373446,
+   "maxpix_min_sep_deg": 52.11565639218771,
+   "prob_in_caps": 0.10226216408035745
+  },
+  {
+   "event": "GW250118_170523",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250118_170523-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 796.9093161280031,
+   "maxpix_min_sep_deg": 47.752277109676335,
+   "prob_in_caps": 0.0069022418036254795
+  },
+  {
+   "event": "GW250119_025138",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250119_025138-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 587.0859048252112,
+   "maxpix_min_sep_deg": 50.685901262809246,
+   "prob_in_caps": 0.3720364553844147
+  },
+  {
+   "event": "GW250119_190238",
+   "map": "IGWN-GWTC5p0-29ebe06b7_25-GW250119_190238-IMRPhenomXPHM_SpinTaylor_Skymap_PEDataRelease.fits.gz",
+   "area90_deg2": 13.638521734681465,
+   "maxpix_min_sep_deg": 56.5074961727003,
+   "prob_in_caps": 0.0
+  }
+ ]
+}
