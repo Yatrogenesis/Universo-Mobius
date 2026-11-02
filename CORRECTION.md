@@ -27,6 +27,17 @@ The predictions were published on 2026-01-09 (gist 0ddbb1a15441ca2e6c998ae7b1690
 | Signal at the hexagonal frequencies in > 60 % of events | 24/35 events show excess power there, but broadband 30-300 Hz power shows excess in 33/35. The statistic detects the presence of a compact-binary signal, not hexagonal structure | Not discriminating |
 | The ratios sqrt3 : 2 : sqrt7 are special (exploratory specificity test) | Against 500 random ratio combs in the same on-source spectrum: 0/35 events with p < 0.05; median p = 0.47 | No evidence |
 
+## 2b. Post-merger test and confirmatory test on O4a (added 2026-11-01)
+
+The O4b power test above (LT2) was not discriminating, so a dedicated post-merger detector was built and preregistered. It looks at the window [t_c + 0.05, t_c + 0.30] s, where GR leaves no power at the OCTH frequencies. Its sensitivity was checked by injecting synthetic hexagonal signals into real detector noise.
+
+| Test | Detector quality | Result | Verdict |
+|---|---|---|---|
+| O4b post-merger (35 events) | Detection 95.7 % at SNR 12; false alarms 6.2 % (preregistered limit 5 %) | 2/35 events with p < 0.05 (chance level, p = 0.53) | Not informative by the preregistered rule |
+| O4a confirmatory (18 events, GWTC-4.0), detector recalibrated with separate calibration and verification noise sets | Detection 91.9 % at SNR 12; false alarms 4.76 % (16 500 noise windows) | 0/18 events with p < 0.05; combined p = 0.92; loudest event GW230814 (SNR 42) p = 0.46 | Hexagonal post-merger modes excluded |
+
+A hexagonal signal with SNR >= 12 per event would have been detected in more than 90 % of events, and none was found. O4a was published before the January 2026 predictions, so it is not blind to the predictions, but it was never seen by this detector. Scripts, preregistration and results: `correction/ligo_o4b/` (lt4_posfusion.py, lt5_inyeccion.py, lt6_o4a.py and their results).
+
 ## 3. What remains open
 
 - Non-trivial, including non-orientable, spatial topology is a legitimate open question. The relevant framework is that of the COMPACT collaboration (Copi et al., arXiv:2510.05030; Samandar et al., arXiv:2407.09400). Matched-circle searches already exclude a nearest clone closer than about 0.985 of the diameter of the last-scattering surface, for both orientations (Vaudrevange et al. 2012, arXiv:1206.2939). The statistics of this repository do not test that question.

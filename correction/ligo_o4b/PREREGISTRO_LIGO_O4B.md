@@ -70,3 +70,68 @@ Fecha: 2026-11-01. Aprobado por Frank en la misma instrucción que el prerregist
   - p_spec = (1 + #{S_ctrl >= S_OCTH}) / 501, combinado por Fisher entre detectores.
   - Si las razones hexagonales no son especiales, p_spec es uniforme: unos 5 % de eventos con p < 0.05.
   - Variante sin la fundamental: el peine {sqrt3, 2, sqrt7} contra {r2, r3, r4}.
+
+## LT4: detector rehecho, solo posfusión (registrada 2026-11-01, antes de correrla; aprobada por Frank)
+
+- Motivo: LT2 y LT2b usan la ventana [t_c - 0.1, t_c + 0.4] s, que incluye el final del chirp. LT4 aísla el régimen posterior a la fusión. Ahí GR no predice potencia a las frecuencias OCTH (f1 x {1, sqrt3, 2, sqrt7}, unos 20-300 Hz), y OCTH sí predice modos.
+- Muestra: los mismos 35 eventos de LT2 (SNR de red >= 12, BBH), H1 y L1.
+- Ventana posfusión: [t_c + 0.05, t_c + 0.30] s. Resolución de 4 Hz; bandas de +-max(5 %, 4 Hz) para que cada banda tenga al menos un bin.
+- Mismo blanqueo que LT2 (PSD por Welch a +-64 s excluyendo +-4 s, paso-alto de 15 Hz).
+- Estadístico S = media de la potencia blanqueada en las bandas OCTH (masa de la fuente; masa del detector como secundaria).
+- Nulos:
+  - (a) 200 ventanas fuera de la fuente de 0.25 s en el mismo archivo, a > 8 s de t_c (exceso de potencia);
+  - (b) 500 peines aleatorios {1, r2, r3, r4}, r en [1.3, 2.9], en la misma ventana posfusión (especificidad).
+- Control positivo: la misma maquinaria en la ventana [t_c - 0.25, t_c] s, banda ancha de 30 a 300 Hz. Debe dar exceso en la mayoría de los eventos; si no, LT4 no es concluyente.
+- Decisión:
+  - el hexágono queda DESCARTADO en posfusión si la fracción de eventos con p_a < 0.05 es compatible con 5 % (binomial, p > 0.01) y la fracción con p_b < 0.05 también;
+  - queda SOSTENIDO solo si ambas son significativas y >= 60 % (umbral del gist).
+- Semilla 20261103.
+
+## LT5: inyección y recuperación del detector LT4 (registrada 2026-11-01, antes de correrla; pedida por Frank)
+
+- Objetivo: medir si LT4 detectaría un hexágono real. Sin esto, un resultado nulo de LT4 no descarta nada.
+- Señal sintética OCTH: h(t) = A x sum_n exp(-t/tau) cos(2 pi f_n t + phi_n), con f_n = (2200/M_src) x {1, sqrt3, 2, sqrt7}, tau = 0.1 s, fases uniformes y amplitudes iguales por modo. Arranca al inicio de la ventana de análisis.
+- A se fija para que la SNR óptima de la señal en la ventana de 0.25 s, con la PSD del evento, sea rho en {4, 6, 8, 12}.
+- Por evento y detector: 40 ventanas fuera de la fuente (distintas de las del nulo); en cada una se inyecta la señal y se calcula el mismo estadístico de LT4 con los mismos dos nulos.
+- Detección: p_offsource < 0.05 y p_random_comb < 0.05 a la vez.
+- Resultado: tasa de detección contra rho, combinada sobre eventos y detectores.
+- Interpretación: con tasa >= 90 % a cierto rho*, un nulo en LT4 excluye un hexágono posfusión con SNR >= rho* en cada evento. Como referencia se reporta la SNR de red de cada evento (12-77): un hexágono "dominante", con SNR comparable a la del evento, quedaría excluido si rho* < 12.
+- Semilla 20261104.
+
+## Enmienda B1 (2026-11-01 19:0x, antes de ver ningún resultado agregado de LT4 ni de LT5)
+
+- Hallazgo del verificador: en una prueba de un solo evento (GW240621_195059, H1) con un hexágono inyectado a SNR 50, p_offsource = 0.005 pero p_random_comb = 0.10. Los peines de control {1, r2, r3, r4} comparten la fundamental y sus bandas se solapan con las OCTH. El nulo de especificidad de LT4 y LT5 no tiene potencia.
+- Nulo de especificidad corregido (sustituye a (b) de LT4 y LT5):
+  - 300 peines de 4 frecuencias, con razones uniformes en [0.5, 6] x f1, dentro de [20, 1000] Hz;
+  - cada centro de control queda a una distancia >= 1.5 x (suma de semianchos de banda) de toda banda OCTH y de los demás centros del peine;
+  - mismo estadístico en la misma ventana.
+- LT4 se reevalúa con este nulo en la misma pasada que LT5 (ventana [t_c + 0.05, t_c + 0.30] s, mismos nulos fuera de la fuente). La corrida LT4 original (lt4_out, con el nulo viejo) se conserva como registro y no decide.
+- Calibración del verificador: en 20 ventanas de ruido sin inyección por evento y detector se cuenta cuántas pasan ambos criterios (falsas alarmas; esperado del orden de 0.05 x 0.05 si son independientes, a lo sumo 0.05).
+- Criterios de decisión de LT4: los mismos. Además, LT4 solo se considera informativa si LT5 alcanza >= 90 % de detección a algún rho <= 12 y la tasa de falsas alarmas es <= 5 %.
+- Semilla: la de LT5 (20261104).
+
+## Enmienda B2 (2026-11-01, antes de ver resultados agregados de LT4 o LT5)
+
+- Defecto 1 del verificador: el SNR de la inyección se calculaba sobre todo el espectro. Por debajo de 15 Hz la PSD (ya filtrada) es casi cero, y el arranque abrupto de la señal pone energía ahí, así que el SNR salía inflado y la inyección quedaba unas 5 veces más débil de lo nominal. Corrección: el SNR se calcula solo en [20, 1000] Hz.
+- Defecto 2: el nulo de peines (B1) no se puede calibrar. Con f1 bajo, las bandas OCTH llenan su propio rango y no quedan controles disjuntos ahí; fuera de ese rango, la inclinación espectral da falsas alarmas (5/20 en ruido puro en GW240621_195059, H1).
+- Decisión de LT4 a partir de ahora: solo el exceso contra el nulo fuera de la fuente (p_offsource < 0.05) en la ventana posfusión [t_c + 0.05, t_c + 0.30] s. En esa ventana GR no predice potencia a las frecuencias OCTH: el ringdown decae en pocos ms y para t_c + 50 ms han pasado más de 10 tiempos de decaimiento. La prueba de peines se reporta como secundaria y no decide.
+- La detección de LT5 se cuenta igual (p_offsource < 0.05); también se reporta la detección con peines.
+- Criterios de calidad sin cambio: LT4 es informativa solo si LT5 alcanza >= 90 % a algún rho <= 12 y la tasa de falsas alarmas de p_offsource es <= 5 %.
+
+## LT6: prueba confirmatoria posfusión en O4a con el detector recalibrado (registrada 2026-11-01, antes de tocar O4a con este detector; aprobada por Frank)
+
+- Motivo: en O4b, LT4 quedó "no informativa" porque las falsas alarmas del verificador fueron 6.19 % (umbral 5 %). La decisión sobre O4b NO cambia. LT6 es una prueba nueva sobre una muestra que estos detectores no han visto.
+- Muestra: GWTC-4.0 (O4a), con el mismo criterio que LT2: BBH (mass_2_source > 3), SNR de red >= 12 y primer resultado de PE en orden alfabético. Tabla Zenodo 17602505 (md5 c21998eb... verificado). Strain O4a_4KHZ_R1, H1 y L1.
+  - Nota: O4a se publicó antes del gist, así que no es ciega respecto a la predicción. Sí lo es respecto a este detector, que nunca se aplicó a O4a.
+- Recalibración:
+  1. Por unidad evento-detector, 1000 ventanas de ruido de 0.25 s (a > 8 s de t_c, datos válidos a +-4 s), divididas al azar en un conjunto de calibración (500) y uno de verificación (500).
+  2. p_on = (1 + #{S_cal >= S_on}) / 501, en la ventana posfusión [t_c + 0.05, t_c + 0.30] s.
+  3. Falsas alarmas: proporción de las 500 ventanas de verificación con p < 0.05 contra el conjunto de calibración.
+  4. Inyecciones: 30 por SNR en {8, 12}, sobre ventanas de verificación, con la misma regla.
+- Mismo estadístico (media de la potencia blanqueada en las bandas OCTH, masa de la fuente), mismo blanqueo y filtro, SNR de inyección en [20, 1000] Hz.
+- Criterio de calidad (fijo): detección >= 90 % a SNR 12, y falsas alarmas no significativamente mayores que 5 % (binomial de una cola sobre todas las ventanas de verificación, p > 0.01).
+- Decisión (fija):
+  - el hexágono queda DESCARTADO en posfusión si el criterio de calidad se cumple y la fracción de eventos con p_on < 0.05 (Fisher entre detectores) es compatible con 5 % (binomial, p > 0.01);
+  - queda SOSTENIDO si la fracción es significativa (p <= 0.01) y >= 60 %;
+  - cualquier otro caso: exceso sin umbral, que se reporta tal cual.
+- Semilla 20261105.
